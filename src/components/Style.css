@@ -13,6 +13,21 @@
 .dashboardItemRow{
   height:10rem;
 }
+.marginTop{
+  padding-top: 3%;
+}
+.primaryButton{
+  background-color:#007074;
+  color:white;
+  padding: 6px 12px 6px 12px;
+  border: none;
+}
+.secondaryButton{
+  background-color: #5C6767;
+  color:white;
+  padding: 6px 12px 6px 12px;
+  border: none;
+}
 .purpleBackground{
   background-color: #A8A5E1;
 }
