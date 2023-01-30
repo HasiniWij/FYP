@@ -28,6 +28,16 @@
   padding: 6px 12px 6px 12px;
   border: none;
 }
+.supervisorCard{
+  background-color: #F0EFFF;
+  padding: 20px;
+  margin-left: 5%;
+  margin-top: 2%;
+}
+.projectIdeaButton{
+  float:right;
+  margin-top: 5px;
+}
 .purpleBackground{
   background-color: #A8A5E1;
 }
