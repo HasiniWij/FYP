@@ -1,7 +1,34 @@
 .title {
-    padding-top: 3.5%;
+    padding-top: 3.5%; 
+    padding-bottom: 2.5%; 
   }
 .sub-title {
-    padding-top: 2.5%;
     padding-left:2%
+}
+.dashboardItem{
+  width:80%;
+  height:70%;
+  border: none;
+}
+.dashboardItemRow{
+  height:10rem;
+}
+.purpleBackground{
+  background-color: #A8A5E1;
+}
+.pinkBackground{
+  background-color: #FBCFF9;
+}
+.blueBackground{
+  background-color: #96D3D7;
+}
+.greenBackground{
+  background-color: #74DC97;
+}
+.yellowBackground{
+  background-color: #F0EFCE;
+}
+
+.orangeBackground{
+  background-color: #DCB274;
 }
