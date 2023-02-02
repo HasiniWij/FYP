@@ -8,6 +8,7 @@ import StudentDashboard from './components/StudentDashboard';
 import RequestSupervision from './components/RequestSupervision';
 import SupervisorsList from './components/SupervisorsList';
 import SignIn from './components/SignIn';
+import Profile from './components/Profile';
 
 const App = () => {
   return (
@@ -18,8 +19,8 @@ const App = () => {
       <Route path="/requestSupervision" component={RequestSupervision} />
       <Route path="/signIn" component={SignIn} />
       <Route path="/supervisorsList" component={SupervisorsList} />
+      <Route path="/profile" component={Profile} /> 
     </Router>
-  );
+  )
 }
-
-export default App;
+export default App

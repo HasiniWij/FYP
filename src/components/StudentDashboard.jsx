@@ -4,8 +4,17 @@ import './Style.css';
 
 export default function StudentBookMeeting() {
   const history = useHistory();
-  const coursesPage = () => {
+  const bookMeetingPage = () => {
     history.push("/studentBookMeeting")
+  }
+  const requestSupervisionPage = () => {
+    history.push("/requestSupervision")
+  }
+  const supervisorListPage = () => {
+    history.push("/supervisorsList")
+  }
+  const profilePage = () => {
+    history.push("/profile")
   }
   return (
 
@@ -19,16 +28,16 @@ export default function StudentBookMeeting() {
           <button class='dashboardItem purpleBackground'>View proposed project topics</button>
         </div>
         <div class='col-3'>
-          <button class='dashboardItem pinkBackground'>View supervisor list</button>
+          <button class='dashboardItem pinkBackground' onClick={supervisorListPage}>View supervisor list</button>
         </div>
         <div class='col-3'>
-          <button class='dashboardItem blueBackground'>Requests for supervision</button>
+          <button class='dashboardItem blueBackground'  onClick={requestSupervisionPage}>Requests for supervision</button>
         </div>
       </div>
       <div class='row dashboardItemRow'>
         <div class='col-2'> </div>
         <div class='col-3'>
-          <button class='dashboardItem greenBackground'  onClick={coursesPage}>Book meeting timeslots</button>
+          <button class='dashboardItem greenBackground'  onClick={bookMeetingPage}>Book meeting time slots</button>
         </div>
         <div class='col-3'>
           <button class='dashboardItem yellowBackground'>Meeting logs</button>

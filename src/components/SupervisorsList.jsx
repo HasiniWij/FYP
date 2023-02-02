@@ -1,8 +1,13 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import './Style.css';
 
 export default function RequestSupervision() {
-  
+
+  const history = useHistory();
+  const studentDashboard = () => {
+    history.push("/studentDashboard")
+  }
   const supervisors = [
     {
       name:'Jon Doe',
@@ -36,7 +41,7 @@ export default function RequestSupervision() {
       </div>
       <div class='row marginTop'>
         <div class='offset-5 col-2'>
-          <button class='secondaryButton'>Go Back</button>
+          <button class='secondaryButton' onClick={studentDashboard}>Go Back</button>
         </div>
       </div>
     </div>
