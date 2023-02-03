@@ -16,16 +16,25 @@ export default function StudentBookMeeting() {
   const profilePage = () => {
     history.push("/profile")
   }
+  const proposedProjectsPage = () => {
+    history.push("/proposedProjects")
+  }
+  
   return (
 
     <div class="container">
-      <div class="d-flex justify-content-center title">
-        <h1> Student Dashboard</h1>
+      <div class="row">
+        <div class="d-flex justify-content-center title col-10">
+          <h1> Student Dashboard</h1>
+        </div>
+        <div class="col-2 profileIconArea">
+          <button class='profileButton' onClick={profilePage}>H</button>
+        </div>
       </div>
-      <div class='row dashboardItemRow'>
+      <div class='row dashboardItemRow dashboardItemContainer'>
         <div class='col-2'> </div>
         <div class='col-3'>
-          <button class='dashboardItem purpleBackground'>View proposed project topics</button>
+          <button class='dashboardItem purpleBackground' onClick={proposedProjectsPage}>View proposed project topics</button>
         </div>
         <div class='col-3'>
           <button class='dashboardItem pinkBackground' onClick={supervisorListPage}>View supervisor list</button>

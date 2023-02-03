@@ -9,6 +9,7 @@ import RequestSupervision from './components/RequestSupervision';
 import SupervisorsList from './components/SupervisorsList';
 import SignIn from './components/SignIn';
 import Profile from './components/Profile';
+import ProposedProjects from './components/ProposedProjects';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
       <Route path="/signIn" component={SignIn} />
       <Route path="/supervisorsList" component={SupervisorsList} />
       <Route path="/profile" component={Profile} /> 
+      <Route path="/proposedProjects" component={ProposedProjects} /> 
     </Router>
   )
 }
