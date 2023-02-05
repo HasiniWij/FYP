@@ -122,3 +122,12 @@
   margin-left: 5%;
   margin-top: 2%;
 }
+.declineButton{
+  background-color:#621313;
+  color:white;
+  padding: 6px 12px 6px 12px;
+  border: none;
+}
+.respondButton{
+  margin-top: 6%;
+}
