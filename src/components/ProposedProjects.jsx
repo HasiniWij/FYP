@@ -1,8 +1,18 @@
 import React  from 'react';
+import { useHistory } from "react-router-dom";
 import './Style.css';
+import logo from '../resources/logo.png'; 
+import filterIcon from '../resources/filterIcon.png'; 
 
 export default function ProposedProjects() {
-  
+  const history = useHistory();
+  const studentDashboard = () => {
+    history.push("/studentDashboard");
+  }
+  const profilePage = () => {
+    history.push("/profile")
+  }
+
   const projects = [
     {
       description:'Online application to allow a supervisor to schedule project meetings and share relevant project information to their project students (individually or group)',
@@ -44,11 +54,29 @@ export default function ProposedProjects() {
 
   return (
     <div class="container">
-      <div class="d-flex justify-content-center title">
-        <h1> Proposed project topics </h1>
+      <div class='row'>
+        <div class="col-2">
+          <button class='logoButton' onClick={studentDashboard}> <img src={logo}/>  </button>
+        </div>
+        <div class="d-flex justify-content-center title col-8">
+          <h1> Proposed project topics</h1>
+        </div>
+        <div class="col-2 profileIconArea">
+          <button class='profileButton' onClick={profilePage}>H</button>
+        </div>
+      </div>
+      <div class='row'>
+        <div class="offset-10 col-2">
+          <button class='filterIcon'> <img src={filterIcon}/>  </button>
+        </div>
       </div>
       <div class='projectCardContainer'>
             {projectCards}
+      </div>
+      <div class='row largeMarginTop marginBottom'>
+        <div class='offset-5 col-2'>
+          <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
+        </div>
       </div>
     </div>
   );

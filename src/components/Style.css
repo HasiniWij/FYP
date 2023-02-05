@@ -38,6 +38,48 @@
   float:right;
   margin-top: 5px;
 }
+.profileButton{
+  background-color:#007074;
+  color:white;
+  font-size: 1.5rem;
+  padding: 12px 22px 12px 22px;
+  border: none;
+  border-radius: 30px;
+}
+.profileIconArea{
+  margin-top:4%;
+}
+.profileRow{
+  margin-top: 1.2%;
+}
+.skillInput{
+  margin-left: 10px;
+}
+.tag{
+  background-color: #FFDCDC;
+  color:black;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.projectCardContainer{
+  margin-left:5%;
+  display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 6%;
+}
+.projectCards{
+  margin-top: 4%;
+  background-color: #F0EFFF;
+  padding: 15px 10px 15px 25px;
+}
+.skillTagProfileArea{
+  margin-top: 2%;
+}
+.profileNewTagArea{
+  margin-left: 1px;
+  margin-top: 1%;
+}
 .purpleBackground{
   background-color: #A8A5E1;
 }
@@ -56,4 +98,21 @@
 
 .orangeBackground{
   background-color: #DCB274;
+}
+.logoButton{
+  border: none;
+  margin-top: 20%;
+  background-color: white;
+}
+.filterIcon{
+  border: none;
+  width:10px;
+  height:10px;
+  background-color: white;
+}
+.largeMarginTop{
+  margin-top: 5%;
+}
+.marginBottom{
+  margin-bottom: 3%;
 }

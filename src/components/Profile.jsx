@@ -1,6 +1,8 @@
 import React, { useState }  from 'react';
 import './Style.css';
 import { MultiSelect } from "react-multi-select-component";
+import { useHistory } from "react-router-dom";
+import logo from '../resources/logo.png'; 
 
 export default function Profile() {
 
@@ -10,6 +12,11 @@ export default function Profile() {
   const [description, setDescription] = useState('');
   const [projectAreas, setProjectAreas] = useState([]);
   const [projects, setProjects] = useState([]);
+
+  const history = useHistory();
+  const studentDashboard = () => {
+    history.push("/studentDashboard")
+  }
 
   const areas = [
     { label: "Mobile app development", value: "mobile" },
@@ -103,10 +110,15 @@ export default function Profile() {
   
   return (
     <div class="container">
-      <div class="d-flex justify-content-center title">
-        <h1> Profile </h1>
+      <div class="row">
+        <div class="col-2">
+        <button class='logoButton' onClick={studentDashboard}> <img src={logo}/>  </button>
+        </div>
+        <div class="d-flex justify-content-center title col-8">
+          <h1> Profile</h1>
+        </div>
       </div>
-      <div class='row'>
+      <div class='row marginTop'>
         <div class='offset-1 col-5'>
           <h4>What areas are you interested in? </h4>
         </div>
@@ -119,7 +131,7 @@ export default function Profile() {
           />
         </div>     
       </div>
-      <div class='row marginTop'>
+      <div class='row largeMarginTop'>
         <div class='offset-1 col-5'>
           <h4>Potential ideas you want to work on? </h4>
         </div>
@@ -157,6 +169,11 @@ export default function Profile() {
       </div>
       <div class='projectCardContainer'>
         {projectCards}
+      </div>
+      <div class='row marginBottom marginTop'>
+        <div class='offset-5 col-2'>
+          <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
+        </div>
       </div>
     </div>
   );
