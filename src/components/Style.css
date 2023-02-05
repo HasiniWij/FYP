@@ -116,3 +116,9 @@
 .marginBottom{
   margin-bottom: 3%;
 }
+.studentCard{
+  background-color: #A8A5E1;
+  padding: 20px;
+  margin-left: 5%;
+  margin-top: 2%;
+}

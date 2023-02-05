@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png'; 
 
-export default function StudentBookMeeting() {
+export default function StudentDashboard() {
   const history = useHistory();
   const bookMeetingPage = () => {
     history.push("/studentBookMeeting")
