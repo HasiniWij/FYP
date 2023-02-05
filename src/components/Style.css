@@ -131,3 +131,15 @@
 .respondButton{
   margin-top: 6%;
 }
+.newMeetingButton{
+  background-color:#007074;
+  color:white;
+  padding: 5px 22px 16px 22px;
+  border: none;
+  font-size: 18px;
+  margin-top: 5%;
+  margin-left: -82%;
+}
+.largeFontSize{
+  font-size: 2rem;
+}
