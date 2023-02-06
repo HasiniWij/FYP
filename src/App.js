@@ -14,6 +14,10 @@ import ProposedProjects from './components/ProposedProjects';
 import StudentsList from './components/StudentsList';
 import SupervisionRequests from './components/SupervisionRequests';
 import ScheduleMeetings from './components/ScheduleMeetings';
+import AdminDashboard from './components/AdminDashboard';
+import AdminStudentList from './components/AdminStudentList';
+import AdminSupervisorList from './components/AdminSupervisorList';
+import MatchSupervisorsStudents from './components/MatchSupervisorsStudents';
 
 const App = () => {
   return (
@@ -30,6 +34,10 @@ const App = () => {
       <Route path="/studentsList" exact component={StudentsList} />
       <Route path="/supervisionRequests" exact component={SupervisionRequests} />   
       <Route path="/scheduleMeetings" exact component={ScheduleMeetings} />   
+      <Route path="/adminDashboard" exact component={AdminDashboard} /> 
+      <Route path="/adminStudentList" exact component={AdminStudentList} /> 
+      <Route path="/adminSupervisorList" exact component={AdminSupervisorList} /> 
+      <Route path="/matchSUpervisorsStudents" exact component={MatchSupervisorsStudents} />       
     </Router>
   )
 }

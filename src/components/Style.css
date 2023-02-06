@@ -99,6 +99,9 @@
 .orangeBackground{
   background-color: #DCB274;
 }
+.purpleBackground{
+  background-color: #A8A5E1;
+}
 .logoButton{
   border: none;
   margin-top: 20%;
@@ -143,6 +146,9 @@
 .largeFontSize{
   font-size: 2rem;
 }
+.mediumFontSize{
+  font-size: 1.4rem;
+}
 .adminIcon{
   background-color:#F0EFFF;
   border: none;
@@ -157,4 +163,12 @@
 }
 .editIcon{
   margin-left: -11px;
+}
+.matchButton{
+  background-color: #007074;
+  border-radius: 60%;
+  width:47%;
+  height:70%;
+  margin-left: 10%;
+  border: none;
 }
