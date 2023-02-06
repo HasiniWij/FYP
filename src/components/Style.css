@@ -143,3 +143,18 @@
 .largeFontSize{
   font-size: 2rem;
 }
+.adminIcon{
+  background-color:#F0EFFF;
+  border: none;
+  margin-left: 15px;
+  margin-top: -5px;
+  width: 15px;
+  height: 10px;
+}
+.searchBar{
+  margin-top: 4%;
+  width:27%;
+}
+.editIcon{
+  margin-left: -11px;
+}
