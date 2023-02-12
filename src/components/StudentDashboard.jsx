@@ -23,6 +23,9 @@ export default function StudentDashboard() {
   const proposedProjectsPage = () => {
     history.push("/proposedProjects")
   }
+  const logsPage = () => {
+    history.push("/logs")
+  }
   
   return (
 
@@ -56,7 +59,7 @@ export default function StudentDashboard() {
           <button class='dashboardItem greenBackground'  onClick={bookMeetingPage}>Book meeting time slots</button>
         </div>
         <div class='col-3'>
-          <button class='dashboardItem yellowBackground'>Meeting logs</button>
+          <button class='dashboardItem yellowBackground' onClick={logsPage}>Meeting logs</button>
         </div>
         <div class='col-3'>
           <button class='dashboardItem orangeBackground'>Messages</button>

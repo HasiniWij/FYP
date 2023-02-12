@@ -12,6 +12,9 @@ export default function StudentsList() {
   const profilePage = () => {
     history.push("/profile")
   }
+  const logsPage = (name) => {
+    history.push("/logs/"+name);
+  }
   const students = [
     {
       name:'Jon Doe',
@@ -40,9 +43,9 @@ export default function StudentsList() {
   ];
   
   const studentCards = students.map((student) =>
-    <div class='offset-1 col-2 studentCard text-center '>
+    <button class='offset-1 col-2 studentCard text-center' onClick={() => logsPage(student.name)}>
       <h6>{student.name}</h6>
-    </div>
+    </button>
   );
 
   return (
