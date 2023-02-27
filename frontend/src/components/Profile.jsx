@@ -1,6 +1,7 @@
-import React, { useState }  from 'react';
+import React, { useState,useEffect  }  from 'react';
 import './Style.css';
 import { MultiSelect } from "react-multi-select-component";
+import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import logo from '../resources/logo.png'; 
 
@@ -12,55 +13,19 @@ export default function Profile() {
   const [description, setDescription] = useState('');
   const [projectAreas, setProjectAreas] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [areas, setAreas] = useState([]);
 
   const history = useHistory();
   const studentDashboard = () => {
     history.push("/studentDashboard")
   }
 
-  const areas = [
-    { label: "Mobile app development", value: "mobile" },
-    { label: "Web app development", value: "web" },
-    { label: "User Interface", value: "ui" },
-    { label: "Computer vision", value: "computerVision" },
-    { label: "Robotics", value: "robotics" },
-    { label: "Machine learning", value: "ml" },
-    { label: "Game development", value: "game" },
-    { label: "Multi modal human interaction", value: "humanInteraction" },
-    { label: "Artificial intelligence", value: "ai" },
-    { label: "Database", value: "database" },
-    { label: "Maths", value: "maths" },
-    { label: "Intelligent systems", value: "ai" },
-    { label: "Formal methods", value: "formalMethods" },
-    { label: "Logic", value: "logic" },
-    { label: "Automated Reasoning", value: "automatedReasoning" },
-    { label: "Business Analytic", value: "businessAnalytic" },
-    { label: "NLP", value: "nlp" },
-    { label: "Analytics", value: "analytics" },
-    { label: "Programming", value: "programming" },
-    { label: "Sentiment Analysis", value: "sentimentAnalysis" },
-    { label: "Computer Architecture Design", value: "computerArchitecture" },
-    { label: "Processor Design", value: "processorDesign" },
-    { label: "Internet of things", value: "iot" },
-    { label: "Data analysis and processing", value: "dataAnalysis" },
-    { label: "Security", value: "security" },
-    { label: "Malware", value: "malware" },
-    { label: "Forensics", value: "forensics" },
-    { label: "DDoS attacks", value: "ddosAttacks" },
-    { label: "data visualization", value: "dataVisualization" },
-    { label: "Safety Critical software", value: "safetyCritical" },
-    { label: "Virtual Reality", value: "vr" },
-    { label: "Game engine", value: "gameEngine" },
-    { label: "Cloud Computing", value: "cloudComputing" },
-    { label: "Networking", value: "networking" },
-    { label: "Distributed Computing", value: "distributedComputing" },
-    { label: "Deep learning", value: "deepLearning" },
-    { label: "Interactive design", value: "interactiveDesign" },
-    { label: "Neural networks", value: "neuralNetworks" },
-    { label: "Data science", value: "dataScience" },
-    { label: "Image processing", value: "ImageProcessing" },
-    { label: "IDE development", value: "IDE" },
-  ];  
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/project`)
+      .then(res => {
+        setAreas(res.data);
+      })
+  },[]);
   const addTags = () => {
     const newList = tags.concat(newSkill);
     setTags(newList);
