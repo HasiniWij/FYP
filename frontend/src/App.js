@@ -9,6 +9,7 @@ import SupervisorDashboard from './components/SupervisorDashboard';
 import RequestSupervision from './components/RequestSupervision';
 import SupervisorsList from './components/SupervisorsList';
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import Profile from './components/Profile';
 import ProposedProjects from './components/ProposedProjects';
 import StudentsList from './components/StudentsList';
@@ -28,6 +29,7 @@ const App = () => {
       <Route path="/studentDashboard" exact component={StudentDashboard} />
       <Route path="/requestSupervision" component={RequestSupervision} />
       <Route path="/signIn" component={SignIn} />
+      <Route path="/signUp" component={SignUp} />
       <Route path="/supervisorsList" component={SupervisorsList} />
       <Route path="/profile" component={Profile} /> 
       <Route path="/proposedProjects" component={ProposedProjects} /> 

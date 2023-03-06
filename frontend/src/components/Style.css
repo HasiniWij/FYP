@@ -177,3 +177,42 @@
   padding: 20px;
   height:80px;
 }
+.authFormContainer{
+  margin: 0px;
+}
+.authFormTitle{
+  width:60%;
+  margin-top: 10%;
+  text-align: center;
+  
+}
+.authFormLeft{
+  padding-top: 15%;
+  padding-left: 15%;
+  background-color: #F0EFFF;
+  height:100vh;
+}
+.authFormRight{
+  padding-top: 12%;
+}
+.authLogo{
+  padding-left: 24%;
+}
+.authButton{
+  width:50%;
+  display: flex;
+  margin-left: 30%;
+  margin-top: 7%;
+}
+.authLink{
+  padding-left: 1%;
+  text-decoration: none;
+  color:#007074;
+}
+.authNavigate{
+  padding-left: 25%;
+}
+.authError{
+  color: #9C0003;
+  text-align: center;
+}

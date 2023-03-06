@@ -5,24 +5,28 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-export default function SignIn() {
+export default function SignUp() {
 
   const history = useHistory();
 
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const onNameChange = event => {
+    setFullName(event.target.value);
+  };
   const onEmailChange = event => {
     setEmail(event.target.value);
   };
   const onPasswordChange = event => {
     setPassword(event.target.value);
   };
-  const login =()=>{
-    
-    const user = {'email':email,'password':password}
-      axios.post(`http://127.0.0.1:8000/api/login`,user)
+
+  const register =()=>{
+    const user = {'name':fullName,'email':email,'password':password}
+    axios.post(`http://127.0.0.1:8000/api/register`,user)
     .then(res => {
       console.log(res.data.access_token)
       localStorage.setItem('userToken', res.data.access_token)
@@ -37,12 +41,13 @@ export default function SignIn() {
       else if(res.data.user.role === 'admin'){
         history.push("/adminDashboard")
       }
-      
     })
-    .catch(() => {
+    .catch(error => {
       setEmail('');
       setPassword('');
-      setError('Invalid email or password entered');
+      setFullName('');
+      setError(error.response.data.message);
+      console.error(error.response.data.message);
   });
   }
 
@@ -51,9 +56,13 @@ export default function SignIn() {
       <div className='row'>
         <div className='col-6 authFormLeft'>
           <img src={logo} className='authLogo'/>
-          <h1 className='authFormTitle'>Login to FYPHelper</h1>
+          <h1 className='authFormTitle'>Welcome to FYPHelper</h1>
         </div>
         <div className='col-4 offset-2 authFormRight'>
+          <div className='row'>
+            <h5>Full Name</h5>
+            <input type="text" className="form-control" onChange={onNameChange} placeholder="Enter your full name" value={fullName}/>
+          </div>
           <div className='row largeMarginTop'>
             <h5>University Email</h5>
             <input type="email" className="form-control" onChange={onEmailChange} placeholder="Enter your email" value={email}/>
@@ -66,12 +75,12 @@ export default function SignIn() {
             <p>{error}</p>
           </div>
           <div className='row authButton'>
-            <button className='primaryButton' onClick={login}>Login</button>
+            <button className='primaryButton' onClick={register}>Create Account</button>
           </div>
           <div className='row largeMarginTop authNavigate'>
-            <p>Don't have an account? 
-              <Link className='authLink' to={'signUp'}>
-                Sign up
+            <p>Already have an account? 
+              <Link className='authLink' to={'signIn'}>
+                Log in
               </Link>
             </p>
           </div>
