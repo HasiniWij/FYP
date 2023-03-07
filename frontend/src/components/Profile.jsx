@@ -21,7 +21,8 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/project`)
+    const token = localStorage.getItem('userToken');
+    axios.get(`http://127.0.0.1:8000/api/project`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setAreas(res.data);
       })
