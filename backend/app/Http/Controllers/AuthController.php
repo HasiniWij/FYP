@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Student;
+use App\Models\Supervisor;
 use Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,15 +54,29 @@ class AuthController extends Controller
     public function create(array $data)
     {
         $role= 'student';
-        if($data['email']<'s'){
+        if($data['email']<'h'){
             $role= 'supervisor';
         }
-      return User::create([
+      $user =  User::create([
         'name' => $data['name'],
         'email' => $data['email'],
         'password' => Hash::make($data['password']),
         'role' => $role
       ]);
+      if($role=='supervisor'){
+        Supervisor::create([
+            'supervisorId' => $user['id'],
+            'capacity' => 1,
+          ]);
+      }
+      else{
+        Student::create([
+        'studentId' => $user['id'],
+      ]);
+      }
+      
+      return $user;
+
     }
     public function logout()
     {

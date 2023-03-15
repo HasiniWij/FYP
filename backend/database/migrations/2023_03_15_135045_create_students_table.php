@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('supervisors', function (Blueprint $table) {
-            $table->id('supervisorId');
-            $table->smallInteger('capacity')->nullable();
-            $table->foreign('supervisorId')->references('id')->on('users');
+        Schema::create('students', function (Blueprint $table) {
+            $table->id('studentId');
+            $table->smallInteger('supervisorId')->nullable();
+            $table->timestamps();
+            $table->foreign('supervisorId')->references('supervisorId')->on('supervisors');
+            $table->foreign('studentId')->references('id')->on('users');
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supervisors');
+        Schema::dropIfExists('students');
     }
 };
