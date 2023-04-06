@@ -10,6 +10,7 @@ export default function Profile() {
   const [tags, setTags] = useState([]);
   const [newSkill, setNewSkill] = useState('');
   const [userInterests, setUserInterests] = useState([]);
+  const [currentUserInterests, setCurrentUserInterests] = useState([]);
   const [description, setDescription] = useState('');
   const [projectAreas, setProjectAreas] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -22,10 +23,20 @@ export default function Profile() {
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
-    axios.get(`http://127.0.0.1:8000/api/project`,{ headers: {"Authorization" : `Bearer ${token}`}})
+    const userId = localStorage.getItem('userId');
+    axios.get(`http://127.0.0.1:8000/api/areas`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setAreas(res.data);
       })
+      axios.get(`http://127.0.0.1:8000/api/userAreas/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
+      .then(res => {
+        setCurrentUserInterests(res.data);
+        setUserInterests(res.data);
+      })
+      axios.get(`http://127.0.0.1:8000/api/userProjects/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
+      .then(res => {
+        setProjects(res.data)
+      }).catch(e => console.log(e))
   },[]);
   const addTags = () => {
     const newList = tags.concat(newSkill);
@@ -39,16 +50,36 @@ export default function Profile() {
     setDescription(event.target.value);
   }
   const addProject = () => {
+    const userId = localStorage.getItem('userId');
     const newProjectList = projects.concat({
       'description':description,
       'areas':projectAreas,
       'skill':tags
-  });
-    setProjects(newProjectList);
-    setDescription('');
-    setTags([]);
-    setProjectAreas([]);
+    });
+    axios.post(`http://127.0.0.1:8000/api/saveProject`,{
+      'description':description,
+      'areas':projectAreas,
+      'skills':tags,
+      'userId':userId
+    })
+    .then(res => {
+      setProjects(newProjectList);
+      setDescription('');
+      setTags([]);
+      setProjectAreas([]);
+    })
   };
+      
+  const saveInterest = ()=>{
+    const userId = localStorage.getItem('userId');
+    const removedInterests = currentUserInterests.filter(interest=> !userInterests.includes(interest))
+    const newInterests = userInterests.filter(interest=> !currentUserInterests.includes(interest))
+    axios.post(`http://127.0.0.1:8000/api/saveUserAreas`,{
+      'removedInterests':removedInterests,
+      'newInterests':newInterests,
+      'userId':userId
+    })
+  }
 
   const tagCards = tags.map((tag) =>
        <span class="badge tag">{tag}</span>
@@ -66,7 +97,7 @@ export default function Profile() {
       }
       <div class='skillTagProfileArea'>
       {
-        project.skill.map((skill) =>
+        project.skills.map((skill) =>
         <span class="badge tag">{skill}</span>
         )
       }
@@ -88,14 +119,17 @@ export default function Profile() {
         <div class='offset-1 col-5'>
           <h4>What areas are you interested in? </h4>
         </div>
-        <div class='col-5'>
+        <div class='col-3'>
           <MultiSelect
           options={areas}
           value={userInterests}
           onChange={setUserInterests}
           labelledBy="Select"
           />
-        </div>     
+        </div>  
+        <div class='col-2'>
+          <button class='primaryButton' onClick={saveInterest}> Save Interests</button>
+        </div>   
       </div>
       <div class='row largeMarginTop'>
         <div class='offset-1 col-5'>

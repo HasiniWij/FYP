@@ -22,7 +22,10 @@ use App\Http\Controllers\AuthController;
 // });
 
 Route::resource('supervisor', SupervisorController::class);
-Route::resource('project', ProjectController::class)->middleware('auth.role:student,supervisor');
-
+Route::get('userAreas/{id}', [ProjectController::class,'getUserAreas']);
+Route::get('userProjects/{id}', [ProjectController::class,'getUserProjects']);
+Route::get('areas', [ProjectController::class,'getAreas'])->middleware('auth.role:student,supervisor');
 Route::post('register',[AuthController::class,'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::post('saveProject', [ProjectController::class, 'saveProject']);
+Route::post('saveUserAreas', [ProjectController::class, 'saveUserAreas']);
