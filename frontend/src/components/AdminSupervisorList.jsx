@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect  }  from 'react';
 import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png';
@@ -6,35 +6,22 @@ import bin from '../resources/bin.png';
 import disable from '../resources/disable.png';  
 import search from '../resources/search.png'; 
 import edit from '../resources/edit.png'; 
+import axios from 'axios';
 
 export default function AdminSupervisorList() {
 
+  const [supervisors, setSupervisors] = useState([]);
   const history = useHistory();
   const adminDashboard = () => {
     history.push("/adminDashboard")
   }
-  const supervisors = [
-    {
-      name:'Jon Doe',
-      email:'JonD@wesstminster.ac.uk',
-      allocations:'4'
-    },
-    {
-      name:'Jon Doe',
-      email:'JonD@wesstminster.ac.uk',
-      allocations:'4'
-    },
-    {
-      name:'Jon Doe',
-      email:'JonD@wesstminster.ac.uk',
-      allocations:'4'
-    },
-    {
-      name:'Jon Doe',
-      email:'JonD@wesstminster.ac.uk',
-      allocations:'4'
-    }
-  ];
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    axios.get(`http://127.0.0.1:8000/api/supervisors`,{ headers: {"Authorization" : `Bearer ${token}`}})
+      .then(res => {
+        setSupervisors(res.data)
+      })
+  },[]);
   
   const supervisorCard = supervisors.map((supervisor) =>
     <div class='offset-1 col-5 supervisorCard'>
@@ -47,10 +34,11 @@ export default function AdminSupervisorList() {
         <div class='col-3'>
           <button class='adminIcon editIcon'> <img src={edit}/>  </button>
         </div>
-        <div class="col-3">
+        {/* Luxury feature */}
+        {/* <div class="col-3">
         <button class='adminIcon'> <img src={bin}/>  </button>
         <button class='adminIcon'> <img src={disable}/>  </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

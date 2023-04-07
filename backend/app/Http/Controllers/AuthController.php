@@ -53,9 +53,9 @@ class AuthController extends Controller
     }
     public function create(array $data)
     {
-        $role= 'student';
-        if($data['email']<'h'){
-            $role= 'supervisor';
+        $role= 'supervisor';
+        if(strpos( $data['email'], "@my.westminster.ac.uk")){
+            $role= 'student';
         }
       $user =  User::create([
         'name' => $data['name'],
