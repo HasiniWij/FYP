@@ -49,10 +49,20 @@ class AdminController extends Controller{
             array(
                 "name"=>$supervisor->name,
                 "email"=>$supervisor->email,
-                "allocations"=>$supervisorDetails->capacity
+                "capacity"=>$supervisorDetails->capacity,
+                "id"=>$supervisor->id
             )
         );
     }
     print json_encode($supervisors);
+    }
+    public function updateSupervisorCapacity(Request $request){
+        $data = $request->all();
+        $supervisor = Supervisor::find($data['id']);
+        $supervisor->capacity = $data['capacity'];
+        $supervisor->save();
+        return response()->json([
+            'status' => 'success'
+         ]);
     }
 }

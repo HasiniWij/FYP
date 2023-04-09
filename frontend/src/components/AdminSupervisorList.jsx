@@ -11,6 +11,8 @@ import axios from 'axios';
 export default function AdminSupervisorList() {
 
   const [supervisors, setSupervisors] = useState([]);
+  const [newCapacity, setNewCapacity] = useState('');
+  const [editSupervisorId, setEditSupervisorId] = useState('');
   const history = useHistory();
   const adminDashboard = () => {
     history.push("/adminDashboard")
@@ -22,18 +24,57 @@ export default function AdminSupervisorList() {
         setSupervisors(res.data)
       })
   },[]);
-  
+  const  editCapacity = (supervisor)=>{
+    setEditSupervisorId(supervisor.id);
+    setNewCapacity(supervisor.capacity)
+  }
+  const onCapacityChange = event => {
+    setNewCapacity(event.target.value);
+  }
+  const saveCapacity = (supervisor) =>{
+    axios.post(`http://127.0.0.1:8000/api/updateCapacity`,{
+      'id':supervisor.id,
+      'capacity':newCapacity,
+    })
+    .then(res => {
+      for (const supervisor of supervisors){
+        if(supervisor.id==editSupervisorId){
+          supervisor.capacity = newCapacity;
+          setEditSupervisorId("");
+          return;
+        }
+      }
+    }) 
+  }
+  const cancelEdit = ()=>{
+    setEditSupervisorId("");
+  }
+
   const supervisorCard = supervisors.map((supervisor) =>
     <div class='offset-1 col-5 supervisorCard'>
       <h5>{supervisor.name}</h5>
       <h5>{supervisor.email}</h5>
       <div class='row'>
         <div class="col-6">
-          <h5>Number of students: {supervisor.allocations} </h5>
+          <h5>Number of students: {editSupervisorId!==supervisor.id && supervisor.capacity} </h5>
         </div>
-        <div class='col-3'>
-          <button class='adminIcon editIcon'> <img src={edit}/>  </button>
-        </div>
+      {editSupervisorId==supervisor.id?
+        <>
+          <div class='col-2'>
+            <input type="text" class="form-control capacityInput" onChange={onCapacityChange}  value={newCapacity}/>
+          </div>
+          <div class='col-2'>
+            <button class='primaryButton capacityInput' onClick={()=>saveCapacity(supervisor)}>Save</button>
+          </div>
+          <div class='col-1 capacityInput'>
+            <button class='secondaryButton' onClick={cancelEdit}>Cancel</button>
+          </div>
+        </>
+       :
+       <div class='col-2'>
+          <button class='adminIcon editIcon' onClick={()=>editCapacity(supervisor)}> <img src={edit}/>  </button>
+       </div>
+       }
         {/* Luxury feature */}
         {/* <div class="col-3">
         <button class='adminIcon'> <img src={bin}/>  </button>

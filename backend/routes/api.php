@@ -29,6 +29,7 @@ Route::get('areas', [ProjectController::class,'getAreas'])->middleware('auth.rol
 Route::post('register',[AuthController::class,'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('saveProject', [ProjectController::class, 'saveProject']);
+Route::post('updateCapacity', [AdminController::class, 'updateSupervisorCapacity']);
 Route::post('saveUserAreas', [ProjectController::class, 'saveUserAreas']);
 Route::get('students', [AdminController::class,'getStudents']);
 Route::get('supervisors', [AdminController::class,'getSupervisors']);
