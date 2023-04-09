@@ -1,50 +1,44 @@
-import React  from 'react';
+import React, { useState,useEffect  }  from 'react';
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png'; 
 import filterIcon from '../resources/filterIcon.png'; 
 
 export default function ProposedProjects() {
   const history = useHistory();
+
+  const [projects, setProjects] = useState([]);
+  
+  useEffect(() => { 
+    const token = localStorage.getItem('userToken');
+    axios.get(`http://127.0.0.1:8000/api/projects`,{ headers: {"Authorization" : `Bearer ${token}`}})
+      .then(res => {
+        setProjects(res.data);
+      })
+  },[]);
+
   const studentDashboard = () => {
     history.push("/studentDashboard");
   }
   const profilePage = () => {
     history.push("/profile")
   }
-
-  const projects = [
-    {
-      description:'Online application to allow a supervisor to schedule project meetings and share relevant project information to their project students (individually or group)',
-      areas:[{ label: "Web app development", value: "web" }],
-      skill:['HTML','CSS','Javascript','PHP','Database']
-    },
-    {
-      description:'Online application to allow a supervisor to schedule project meetings and share relevant project information to their project students (individually or group)',
-      areas:[{ label: "Web app development", value: "web" },{ label: "User Interface", value: "ui" }],
-      skill:['HTML','CSS','Javascript','PHP','Database']
-    },
-    {
-      description:'Online application to allow a supervisor to schedule project meetings and share relevant project information to their project students (individually or group)',
-      areas:[{ label: "Web app development", value: "web" },{ label: "User Interface", value: "ui" }],
-      skill:['HTML','CSS','Javascript','PHP','Database','annother one','Database','annother one','data sceince']
-    }
-  ]
  
    const projectCards = projects.map((project) =>
     <div class="container grid-child projectCards">
         <p class='projectDescription'>
             {project.description}
         </p> 
-        <span>Areas: </span>
-        {
+        <span>Areas: {project.areas}</span>
+        {/* {
            project.areas.map((skill) =>
            <span class="">{skill.label},</span>
            )
-        }
+        } */}
         <div class='skillTagProfileArea'>
         {
-          project.skill.map((skill) =>
+          project.skills.map((skill) =>
           <span class="badge tag">{skill}</span>
           )
         }

@@ -133,4 +133,34 @@ class ProjectController extends Controller
          'status' => 'success'
       ]);
    }
+   public function getProjects() {
+      
+      $result = Project::all();
+      $projects=array();
+ 
+      foreach ($result as $project) {
+         $areaResult = ProjectArea::where('projectId', $project['id'])->get();
+         $skillResult = Skill::where('projectId', $project['id'])->get();
+         $areas='';
+         $skills=[];
+         foreach ($areaResult as $interest) {
+            $interests = Area::where('id', $interest->areaId)->first();
+            $areas = $areas.$interests->area.',';
+        }
+        $areas = rtrim($areas, ",");
+         foreach ($skillResult as $skill) {
+            array_push($skills,
+               $skill['skill']
+            );
+         }
+         array_push($projects,
+            array(
+               'description'=>$project['description'],
+               'areas'=>$areas,
+               'skills'=>$skills
+            )
+         );
+     }
+      print json_encode($projects);
+   }
 }

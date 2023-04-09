@@ -1,11 +1,23 @@
-import React from 'react';
+import React,{useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png'; 
 
 export default function StudentsList() {
 
   const history = useHistory();
+
+  const [students, setStudents] = useState([]);
+  
+  useEffect(() => { 
+    const token = localStorage.getItem('userToken');
+    axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
+      .then(res => {
+        setStudents(res.data);
+      })
+  },[]);
+  
   const supervisorDashboard = () => {
     history.push("/supervisorDashboard")
   }
@@ -15,32 +27,6 @@ export default function StudentsList() {
   const logsPage = (name) => {
     history.push("/logs/"+name);
   }
-  const students = [
-    {
-      name:'Jon Doe',
-      interests:'Data science, Web development'
-    },
-    {
-      name:'Lavinia Handerson',
-      interests:'Database, IOT'
-    },
-    {
-      name:'Ben Ten',
-      interests:'Data science, Web development'
-    },
-    {
-      name:'Jon Doe',
-      interests:'Data science, Web development'
-    },
-    {
-      name:'Lavinia Handerson',
-      interests:'Database, IOT'
-    },
-    {
-      name:'Ben Ten',
-      interests:'Data science, Web development'
-    }
-  ];
   
   const studentCards = students.map((student) =>
     <button class='offset-1 col-2 studentCard text-center' onClick={() => logsPage(student.name)}>

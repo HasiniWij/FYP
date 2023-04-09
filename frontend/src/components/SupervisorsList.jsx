@@ -15,8 +15,9 @@ export default function SupervisorsList() {
   }
   const [supervisors, setSupervisors] = useState([]);
   
-  useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/supervisor`)
+  useEffect(() => { 
+    const token = localStorage.getItem('userToken');
+    axios.get(`http://127.0.0.1:8000/api/supervisors`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setSupervisors(res.data);
       })

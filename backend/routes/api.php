@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupervisorController;
@@ -31,5 +32,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('saveProject', [ProjectController::class, 'saveProject']);
 Route::post('updateCapacity', [AdminController::class, 'updateSupervisorCapacity']);
 Route::post('saveUserAreas', [ProjectController::class, 'saveUserAreas']);
-Route::get('students', [AdminController::class,'getStudents']);
-Route::get('supervisors', [AdminController::class,'getSupervisors']);
+Route::get('students', [UserController::class,'getStudents']);
+Route::get('supervisors', [UserController::class,'getSupervisors']);
+Route::get('projects', [ProjectController::class,'getProjects']);

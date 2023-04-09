@@ -54,7 +54,7 @@ export default function Profile() {
     const newProjectList = projects.concat({
       'description':description,
       'areas':projectAreas,
-      'skill':tags
+      'skills':tags
     });
     axios.post(`http://127.0.0.1:8000/api/saveProject`,{
       'description':description,

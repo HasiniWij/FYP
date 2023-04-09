@@ -25,37 +25,7 @@ class AdminController extends Controller{
         $data = $process->getOutput();
         print json_encode($data);
     }
-    public function getStudents() {
-        $result = User::where('role', 'student')->get();
-        $students=array();
 
-        foreach ($result as $student) {
-        array_push($students,
-            array(
-                "name"=>$student->name,
-                "universityId"=>strtok($student->email, '@')
-            )
-        );
-        }
-        print json_encode($students);
-   }
-
-   public function getSupervisors() {
-    $result = User::where('role', 'supervisor')->get();
-    $supervisors=array();
-    foreach ($result as $supervisor) {
-        $supervisorDetails = Supervisor::where('supervisorId', $supervisor->id)->first();
-        array_push($supervisors,
-            array(
-                "name"=>$supervisor->name,
-                "email"=>$supervisor->email,
-                "capacity"=>$supervisorDetails->capacity,
-                "id"=>$supervisor->id
-            )
-        );
-    }
-    print json_encode($supervisors);
-    }
     public function updateSupervisorCapacity(Request $request){
         $data = $request->all();
         $supervisor = Supervisor::find($data['id']);
