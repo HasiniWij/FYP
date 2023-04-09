@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png'; 
+import useLoader from "../hooks/useLoader";
 
 export default function SupervisorsList() {
-
+  const [loader, showLoader, hideLoader] = useLoader(); 
   const history = useHistory();
   const studentDashboard = () => {
     history.push("/studentDashboard")
@@ -14,12 +15,14 @@ export default function SupervisorsList() {
     history.push("/profile")
   }
   const [supervisors, setSupervisors] = useState([]);
-  
+
   useEffect(() => { 
+    showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/supervisors`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setSupervisors(res.data);
+        hideLoader();
       })
   },[]);
   
@@ -47,6 +50,7 @@ export default function SupervisorsList() {
       <div className='row'>
         {supervisorCards}
       </div>
+      {loader}
       <div className='row marginTop'>
         <div className='offset-5 col-2'>
           <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>

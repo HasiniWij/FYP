@@ -1,5 +1,6 @@
 import React, { useState,useEffect  }  from 'react';
 import { useHistory } from "react-router-dom";
+import useLoader from "../hooks/useLoader";
 import './Style.css';
 import logo from '../resources/logo.png';
 import bin from '../resources/bin.png'; 
@@ -10,16 +11,18 @@ import axios from 'axios';
 export default function AdminStudentList() {
 
   const [students, setStudents] = useState([]);
-
+  const [loader, showLoader, hideLoader] = useLoader(); 
   const history = useHistory();
   const adminDashboard = () => {
     history.push("/adminDashboard")
   }
 
   useEffect(() => {
+    showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
+        hideLoader();
         setStudents(res.data)
       })
   },[]);
@@ -63,6 +66,7 @@ export default function AdminStudentList() {
       <div className='row'>
         {studentCards}
       </div>
+      {loader}
       <div className='row largeMarginTop'>
         <div className='offset-5 col-2'>
           <button className='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
