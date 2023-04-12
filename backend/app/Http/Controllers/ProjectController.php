@@ -135,7 +135,7 @@ class ProjectController extends Controller
    }
    public function getProjects() {
       
-      $result = Project::all();
+      $result = Project::select('projects.*')->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')->get();
       $projects=array();
  
       foreach ($result as $project) {
