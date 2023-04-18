@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SupervisionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SupervisorController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AuthController;
 
 /*
@@ -23,15 +22,16 @@ use App\Http\Controllers\AuthController;
 //     return $request->user();
 // });
 
-Route::resource('supervisor', SupervisorController::class);
-Route::get('userAreas/{id}', [ProjectController::class,'getUserAreas']);
-Route::get('userProjects/{id}', [ProjectController::class,'getUserProjects']);
-Route::get('areas', [ProjectController::class,'getAreas'])->middleware('auth.role:student,supervisor');
 Route::post('register',[AuthController::class,'register']);
 Route::post('login', [AuthController::class, 'login']);
-Route::post('saveProject', [ProjectController::class, 'saveProject']);
+Route::get('userAreas/{id}', [UserController::class,'getUserAreas']);
+Route::get('userProjects/{id}', [UserController::class,'getUserProjects']);
+Route::get('areas', [UserController::class,'getAreas']);
+Route::post('saveProject', [UserController::class, 'saveProject']);
+Route::post('saveUserAreas', [UserController::class, 'saveUserAreas']);
+Route::get('projects', [UserController::class,'getProjects']);
+Route::get('supervisors', [SupervisionController::class,'getSupervisors'])->middleware('auth.role:student,admin');
+Route::get('students', [AdminController::class,'getStudents']);
 Route::post('updateCapacity', [AdminController::class, 'updateSupervisorCapacity']);
-Route::post('saveUserAreas', [ProjectController::class, 'saveUserAreas']);
-Route::get('students', [UserController::class,'getStudents']);
-Route::get('supervisors', [UserController::class,'getSupervisors']);
-Route::get('projects', [ProjectController::class,'getProjects']);
+Route::get('adminStatistics', [AdminController::class,'getAdminStatistics']);
+Route::get('match', [AdminController::class,'match']);
