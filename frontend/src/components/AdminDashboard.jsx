@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState,useEffect  }  from 'react';
 import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png'; 
 
 export default function AdminDashboard() {
   const history = useHistory();
+  const [authorized,setAuthorized]=useState(false)
   const homePage = () => {
     history.push("/adminDashboard")
   }
@@ -17,8 +18,15 @@ export default function AdminDashboard() {
   const matchSupervisorsStudentsPage = () => {
     history.push("/matchSupervisorsStudents")
   }
-  
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    if(role=='admin') setAuthorized(true)
+  },[]);
+
   return (
+    <div>
+    {authorized?
     <div class="container">
       <div class="row">
         <div class="col-2">
@@ -42,5 +50,11 @@ export default function AdminDashboard() {
         </div>
       </div>
     </div>
+     : 
+     <h1 className='unauthorized'>
+       401 authorization required
+     </h1>
+     }
+     </div>
   );
 }

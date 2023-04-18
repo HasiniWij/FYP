@@ -2,7 +2,7 @@ import React, { useState,useEffect  }  from 'react';
 import './Style.css';
 import { MultiSelect } from "react-multi-select-component";
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import { useHistory,Redirect } from "react-router-dom";
 import logo from '../resources/logo.png'; 
 
 export default function Profile() {
@@ -15,6 +15,7 @@ export default function Profile() {
   const [projectAreas, setProjectAreas] = useState([]);
   const [projects, setProjects] = useState([]);
   const [areas, setAreas] = useState([]);
+  const [authorized,setAuthorized]=useState(false);
 
   const history = useHistory();
   const studentDashboard = () => {
@@ -24,6 +25,8 @@ export default function Profile() {
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
+    const role = localStorage.getItem('role');
+    if(role=='student'|| role=='supervisor') setAuthorized(true)
     axios.get(`http://127.0.0.1:8000/api/areas`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setAreas(res.data);
@@ -106,6 +109,8 @@ export default function Profile() {
 );
   
   return (
+    <div>
+    {authorized?
     <div class="container">
       <div class="row">
         <div class="col-2">
@@ -176,5 +181,11 @@ export default function Profile() {
         </div>
       </div>
     </div>
+     : 
+     <h1 className='unauthorized'>
+       401 authorization required
+     </h1>
+     }
+     </div>
   );
 }

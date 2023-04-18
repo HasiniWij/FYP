@@ -219,3 +219,7 @@
 .capacityInput{
   margin-left:-20px
 }
+.unauthorized{
+  text-align: center;
+  padding: 20px;
+}

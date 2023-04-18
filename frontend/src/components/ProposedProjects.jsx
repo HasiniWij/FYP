@@ -9,9 +9,12 @@ export default function ProposedProjects() {
   const history = useHistory();
 
   const [projects, setProjects] = useState([]);
+  const [authorized,setAuthorized]=useState(false);
   
   useEffect(() => { 
     const token = localStorage.getItem('userToken');
+    const role = localStorage.getItem('role');
+    if(role=='student') setAuthorized(true)
     axios.get(`http://127.0.0.1:8000/api/projects`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setProjects(res.data);
@@ -47,6 +50,8 @@ export default function ProposedProjects() {
   );
 
   return (
+    <div>
+    {authorized?
     <div class="container">
       <div class='row'>
         <div class="col-2">
@@ -72,6 +77,11 @@ export default function ProposedProjects() {
           <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
         </div>
       </div>
+    </div> : 
+    <h1 className='unauthorized'>
+      401 authorization required
+    </h1>
+    }
     </div>
   );
 }

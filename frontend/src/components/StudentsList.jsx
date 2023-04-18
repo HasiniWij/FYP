@@ -9,9 +9,12 @@ export default function StudentsList() {
   const history = useHistory();
 
   const [students, setStudents] = useState([]);
-  
+  const [authorized,setAuthorized]=useState(false);
+
   useEffect(() => { 
     const token = localStorage.getItem('userToken');
+    const role = localStorage.getItem('role');
+    if(role=='supervisor') setAuthorized(true)
     axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setStudents(res.data);
@@ -35,6 +38,8 @@ export default function StudentsList() {
   );
 
   return (
+    <div>
+    {authorized?
     <div class="container">
       <div class="row marginTop">
         <div class="col-2">
@@ -55,6 +60,11 @@ export default function StudentsList() {
           <button class='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
         </div>
       </div>
+    </div>: 
+    <h1 className='unauthorized'>
+      401 authorization required
+    </h1>
+    }
     </div>
   );
 }

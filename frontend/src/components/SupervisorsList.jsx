@@ -15,8 +15,11 @@ export default function SupervisorsList() {
     history.push("/profile")
   }
   const [supervisors, setSupervisors] = useState([]);
+  const [authorized,setAuthorized]=useState(false);
 
   useEffect(() => { 
+    const role = localStorage.getItem('role');
+    if(role=='student') setAuthorized(true);
     showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/supervisors`,{ headers: {"Authorization" : `Bearer ${token}`}})
@@ -35,6 +38,8 @@ export default function SupervisorsList() {
   );
 
   return (
+    <div>
+    {authorized?
     <div className="container">
       <div className="row">
         <div className="col-2">
@@ -56,6 +61,11 @@ export default function SupervisorsList() {
           <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
         </div>
       </div>
+      </div>: 
+    <h1 className='unauthorized'>
+      401 authorization required
+    </h1>
+    }
     </div>
   );
 }

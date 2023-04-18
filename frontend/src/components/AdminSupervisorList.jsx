@@ -13,11 +13,14 @@ export default function AdminSupervisorList() {
   const [supervisors, setSupervisors] = useState([]);
   const [newCapacity, setNewCapacity] = useState('');
   const [editSupervisorId, setEditSupervisorId] = useState('');
+  const [authorized,setAuthorized]=useState(false)
   const history = useHistory();
   const adminDashboard = () => {
     history.push("/adminDashboard")
   }
   useEffect(() => {
+    const role = localStorage.getItem('role');
+    if(role=='admin') setAuthorized(true)
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/supervisors`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
@@ -85,6 +88,8 @@ export default function AdminSupervisorList() {
   );
 
   return (
+    <div>
+    {authorized?
     <div class="container">
       <div class="row marginTop">
         <div class="col-3">
@@ -112,6 +117,12 @@ export default function AdminSupervisorList() {
           <button class='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
         </div>
       </div>
+    </div>
+    : 
+    <h1 className='unauthorized'>
+      401 authorization required
+    </h1>
+    }
     </div>
   );
 }

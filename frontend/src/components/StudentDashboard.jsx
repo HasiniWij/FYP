@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState,useEffect  }  from 'react';
 import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png'; 
 
 export default function StudentDashboard() {
   const history = useHistory();
+  const [authorized,setAuthorized]=useState(false);
+
+  useEffect(() => { 
+    const role = localStorage.getItem('role');
+    if(role=='student') setAuthorized(true)
+  },[]);
+
   const bookMeetingPage = () => {
     history.push("/studentBookMeeting")
   }
@@ -28,7 +35,8 @@ export default function StudentDashboard() {
   }
   
   return (
-
+<div>
+    {authorized?
     <div class="container">
       <div class="row">
         <div class="col-2">
@@ -66,6 +74,11 @@ export default function StudentDashboard() {
         </div>
       </div>
       
+    </div>: 
+    <h1 className='unauthorized'>
+      401 authorization required
+    </h1>
+    }
     </div>
   );
 }

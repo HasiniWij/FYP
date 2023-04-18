@@ -12,12 +12,15 @@ export default function AdminStudentList() {
 
   const [students, setStudents] = useState([]);
   const [loader, showLoader, hideLoader] = useLoader(); 
+  const [authorized,setAuthorized]=useState(false)
   const history = useHistory();
   const adminDashboard = () => {
     history.push("/adminDashboard")
   }
 
   useEffect(() => {
+    const role = localStorage.getItem('role');
+    if(role=='admin') setAuthorized(true)
     showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
@@ -44,6 +47,8 @@ export default function AdminStudentList() {
   );
 
   return (
+  <div>
+    {authorized?
     <div className="container">
       <div className="row marginTop">
         <div className="col-3">
@@ -72,6 +77,12 @@ export default function AdminStudentList() {
           <button className='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
         </div>
       </div>
+    </div>
+    : 
+    <h1 className='unauthorized'>
+      401 authorization required
+    </h1>
+    }
     </div>
   );
 }
