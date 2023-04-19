@@ -73,7 +73,7 @@ class AdminController extends Controller{
                 array_push($supervisorCapacities, array(
                     'key'=>$key,
                     'capacity'=>$supervisor['capacity'],
-                    'numOfStudents'=>0
+                    'numOfStudents'=>$supervisor['numOfStudents']
                     )
                 );
             }
@@ -101,6 +101,14 @@ class AdminController extends Controller{
                 $student->save();
             }
         }
+
+        foreach($supervisorCapacities as $supervisor){
+            $count = Student::where('supervisorId',$supervisor['key'] )->count();
+            $updateSupervisor = Supervisor::where('supervisorId',$supervisor['key'] )->first();
+            $updateSupervisor->numOfStudents = $count;
+            $updateSupervisor->save();
+        }
+
         return response()->json([
             'status' => 'success'
          ]);
@@ -123,7 +131,82 @@ class AdminController extends Controller{
          ]);
     }
 
+    public function matchWithInterests(){
+        $supervisorAreas=array();
+        $students = Student::where('supervisorId',null)->get();
+        $supervisors = Supervisor::join('user_areas', 'user_areas.userId', '=', 'supervisors.supervisorId')->groupBy('supervisorId')->get();
+        foreach ($supervisors as $supervisor){
+            $result = Area::select('area')->join('user_areas', 'user_areas.areaId', '=', 'areas.id')->where('user_areas.userId','=',$supervisor->supervisorId)->get();
+            $areas=array();
+            foreach($result as $area){
+                array_push($areas,
+                    $area->area
+            );
+            }
+            $supervisorAreas[$supervisor->supervisorId]=$areas;
+        }
+        
+        $scores=array();
+        foreach($students as $student){
+            $studentAreaResult = Area::select('area')->join('user_areas', 'user_areas.areaId', '=', 'areas.id')->where('user_areas.userId','=',$student->studentId)->get();
+            $studentAreas=array();
+            foreach($studentAreaResult as $studentArea){
+                array_push($studentAreas,
+                    $studentArea->area
+            );
+            }
+            foreach($supervisors as $supervisor){
+
+                $score=$this->getJaccardCoefficient($studentAreas,$supervisorAreas[$supervisor->supervisorId]);
+                array_push($scores,
+                    array(
+                        'supervisorId'=>$supervisor->supervisorId,
+                        'studentId'=>$student->studentId,
+                        'score'=>$score
+                    )
+                );
+            }
+        }
+       usort($scores, function($a, $b){
+            return $a['score'] < $b['score'];
+        });
+        
+        $matchedStudents=array();
+        $fullSupervisors=array();
+        foreach($scores as $score){
+            if(!in_array($score['studentId'],$matchedStudents) && !in_array($score['supervisorId'],$fullSupervisors) ){
+                array_push($matchedStudents,$score['studentId']);
+                foreach ( $supervisors as $supervisor ) {
+                    if ( $score['supervisorId'] == $supervisor->supervisorId ) {
+                        $supervisor->numOfStudents++;
+                        if($supervisor->numOfStudents==$supervisor->capacity){
+                            array_push($fullSupervisors,$score['supervisorId']);
+                        }
+                    }
+                }
+
+                $student = Student::where('studentId',$score['studentId'])->first();
+                $student->supervisorId = $score['supervisorId'];             
+                $student->save();
+            }
+        }
+        foreach($supervisors as $supervisor){
+            $count = Student::where('supervisorId',$supervisor->supervisorId )->count();
+            $updateSupervisor = Supervisor::where('supervisorId',$supervisor->supervisorId )->first();
+            $updateSupervisor->numOfStudents = $count;
+            $updateSupervisor->save();
+        }
+    }
+
+    private function getJaccardCoefficient($studentAreas, $supervisorAreas){
+        $arr_intersection = array_intersect( $studentAreas, $supervisorAreas);
+        $arr_union = array_merge( $studentAreas, $supervisorAreas);
+        $coefficient = sizeOf($arr_intersection)/sizeOf($arr_union);
+        return $coefficient;
+    }
+
     public function match(){
         $this->matchWithProjects();
+        $this->matchWithInterests();
     }
 }
