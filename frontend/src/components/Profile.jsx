@@ -2,7 +2,7 @@ import React, { useState,useEffect  }  from 'react';
 import './Style.css';
 import { MultiSelect } from "react-multi-select-component";
 import axios from 'axios';
-import { useHistory,Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import logo from '../resources/logo.png'; 
 
 export default function Profile() {
@@ -53,6 +53,7 @@ export default function Profile() {
     setDescription(event.target.value);
   }
   const addProject = () => {
+    const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
     const newProjectList = projects.concat({
       'description':description,
@@ -64,7 +65,7 @@ export default function Profile() {
       'areas':projectAreas,
       'skills':tags,
       'userId':userId
-    })
+    },{ headers: {"Authorization" : `Bearer ${token}`}})
     .then(res => {
       setProjects(newProjectList);
       setDescription('');
@@ -75,13 +76,14 @@ export default function Profile() {
       
   const saveInterest = ()=>{
     const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('userToken');
     const removedInterests = currentUserInterests.filter(interest=> !userInterests.includes(interest))
     const newInterests = userInterests.filter(interest=> !currentUserInterests.includes(interest))
     axios.post(`http://127.0.0.1:8000/api/saveUserAreas`,{
       'removedInterests':removedInterests,
       'newInterests':newInterests,
       'userId':userId
-    })
+    },{ headers: {"Authorization" : `Bearer ${token}`}})
   }
 
   const tagCards = tags.map((tag) =>

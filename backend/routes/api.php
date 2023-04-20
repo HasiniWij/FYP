@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\SupervisionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -35,3 +36,5 @@ Route::get('students', [AdminController::class,'getStudents']);
 Route::post('updateCapacity', [AdminController::class, 'updateSupervisorCapacity']);
 Route::get('adminStatistics', [AdminController::class,'getAdminStatistics']);
 Route::get('match', [AdminController::class,'match']);
+Route::post('saveMeeting', [MeetingController::class,'saveMeetingSeries']);
+Route::get('meetingSeries/{id}', [MeetingController::class,'getMeetingSeries']);

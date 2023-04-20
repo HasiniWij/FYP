@@ -1,28 +1,34 @@
-import React from 'react';
+import React, { useState,useEffect  }  from 'react';
 import { useHistory } from "react-router-dom";
 import './Style.css';
+import axios from 'axios';
 import logo from '../resources/logo.png'; 
 
 export default function ScheduleMeetings() {
 
   const history = useHistory();
+  const [meetings, setMeetings] = useState([]);
+  const [authorized,setAuthorized]=useState(false);
   const supervisorDashboard = () => {
     history.push("/supervisorDashboard")
   }
   const profilePage = () => {
     history.push("/profile")
   }
-  const meetings = [
-    {
-      title:'1st Code implementation  ',
-    },
-    {
-      title:'1st Code implementation  ',
-    },
-    {
-      title:'1st Code implementation  ',
-    },
-  ];
+  const createMeetingPage = () => {
+    history.push("/createMeeting")
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    const userId = localStorage.getItem('userId');
+    const role = localStorage.getItem('role');
+    if(role=='student'|| role=='supervisor') setAuthorized(true)
+    axios.get(`http://127.0.0.1:8000/api/meetingSeries/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
+      .then(res => {
+        setMeetings(res.data);
+      })
+  },[]);
   
   const meetingCard = meetings.map((meeting) =>
     <div class='offset-1 col-5 studentCard text-center '>
@@ -46,7 +52,7 @@ export default function ScheduleMeetings() {
       <div class='row marginTop'>
         {meetingCard}
         <div class='offset-1 col-5 text-center '>
-          <button class='newMeetingButton'>
+          <button class='newMeetingButton' onClick={createMeetingPage}>
             <span class='largeFontSize'>+</span>
             <span>  New Meeting</span>
           </button>

@@ -20,6 +20,7 @@ import AdminStudentList from './components/AdminStudentList';
 import AdminSupervisorList from './components/AdminSupervisorList';
 import MatchSupervisorsStudents from './components/MatchSupervisorsStudents';
 import Logs from './components/Logs';
+import CreateMeeting from './components/CreateMeeting';
 
 const App = () => {
   return (
@@ -40,7 +41,8 @@ const App = () => {
       <Route path="/adminDashboard" exact component={AdminDashboard} /> 
       <Route path="/adminStudentList" exact component={AdminStudentList} /> 
       <Route path="/adminSupervisorList" exact component={AdminSupervisorList} /> 
-      <Route path="/matchSupervisorsStudents" exact component={MatchSupervisorsStudents} />       
+      <Route path="/matchSupervisorsStudents" exact component={MatchSupervisorsStudents} /> 
+      <Route path="/createMeeting" exact component={CreateMeeting} />       
       <Route path="/logs/:name?" component={Logs} />       
     </Router>
   )
