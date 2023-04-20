@@ -198,6 +198,28 @@ class AdminController extends Controller{
         }
     }
 
+    private function matchRemaining(){
+        $students = Student::where('supervisorId',null)->get();
+        $supervisors = Supervisor::whereRaw('capacity != numOfStudents')->get();
+        foreach($students as $student){
+            
+            $min = $supervisors->firstWhere('numOfStudents', $supervisors->min('numOfStudents'));
+            $min->numOfStudents++;
+            if($min->capacity==$min->numOfStudents){
+                $id=$min->supervisorId;
+                $key = $supervisors->search(function($i) use($id) {
+                    return $i->supervisorId === $id;
+                });
+                $supervisors->forget($key);
+            }
+            $student = Student::where('studentId',$student->studentId)->first();
+            $student->supervisorId = $min->supervisorId;             
+            $student->save();
+
+        }       
+        print(json_encode($supervisors));
+    }
+
     private function getJaccardCoefficient($studentAreas, $supervisorAreas){
         $arr_intersection = array_intersect( $studentAreas, $supervisorAreas);
         $arr_union = array_merge( $studentAreas, $supervisorAreas);
@@ -208,5 +230,6 @@ class AdminController extends Controller{
     public function match(){
         $this->matchWithProjects();
         $this->matchWithInterests();
+        $this->matchRemaining();
     }
 }
