@@ -37,4 +37,7 @@ Route::post('updateCapacity', [AdminController::class, 'updateSupervisorCapacity
 Route::get('adminStatistics', [AdminController::class,'getAdminStatistics']);
 Route::get('match', [AdminController::class,'match']);
 Route::post('saveMeeting', [MeetingController::class,'saveMeetingSeries']);
+Route::get('bookedMeetingSeries/{id}', [MeetingController::class,'getMeetingWithBookedSlots']);
+Route::get('meetings/{id}', [MeetingController::class,'getMeetingTimeSlots']);
 Route::get('meetingSeries/{id}', [MeetingController::class,'getMeetingSeries']);
+Route::post('bookMeeting', [MeetingController::class,'bookMeeting']);

@@ -21,12 +21,13 @@ import AdminSupervisorList from './components/AdminSupervisorList';
 import MatchSupervisorsStudents from './components/MatchSupervisorsStudents';
 import Logs from './components/Logs';
 import CreateMeeting from './components/CreateMeeting';
+import StudentMeeting from './components/StudentMeeting';
 
 const App = () => {
   return (
     <Router>
       <Route path="/" exact component={StudentBookMeeting} />
-      <Route path="/studentBookMeeting" exact component={StudentBookMeeting} />
+      <Route path="/studentBookMeeting/:meetingId" exact component={StudentBookMeeting} />
       <Route path="/studentDashboard" exact component={StudentDashboard} />
       <Route path="/requestSupervision" component={RequestSupervision} />
       <Route path="/signIn" component={SignIn} />
@@ -43,7 +44,8 @@ const App = () => {
       <Route path="/adminSupervisorList" exact component={AdminSupervisorList} /> 
       <Route path="/matchSupervisorsStudents" exact component={MatchSupervisorsStudents} /> 
       <Route path="/createMeeting" exact component={CreateMeeting} />       
-      <Route path="/logs/:name?" component={Logs} />       
+      <Route path="/logs/:name?" component={Logs} />      
+      <Route path="/studentMeeting" component={StudentMeeting} />       
     </Router>
   )
 }

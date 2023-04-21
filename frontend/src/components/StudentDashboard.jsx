@@ -13,7 +13,7 @@ export default function StudentDashboard() {
   },[]);
 
   const bookMeetingPage = () => {
-    history.push("/studentBookMeeting")
+    history.push("/studentMeeting")
   }
   const requestSupervisionPage = () => {
     history.push("/requestSupervision")

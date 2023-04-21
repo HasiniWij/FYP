@@ -23,7 +23,7 @@ export default function ScheduleMeetings() {
     const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
     const role = localStorage.getItem('role');
-    if(role=='student'|| role=='supervisor') setAuthorized(true)
+    if(role=='supervisor') setAuthorized(true)
     axios.get(`http://127.0.0.1:8000/api/meetingSeries/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setMeetings(res.data);
