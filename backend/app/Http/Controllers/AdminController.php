@@ -70,9 +70,10 @@ class AdminController extends Controller{
             if($user['role']==='supervisor'){
                 array_push($supervisorProjects, $value);
                 $supervisor = Supervisor::where('supervisorId', $key)->first();
+                // when requets are accepted itt shuld be a count of requets
                 array_push($supervisorCapacities, array(
                     'key'=>$key,
-                    'capacity'=>$supervisor['capacity'],
+                    'capacity'=>0,
                     'numOfStudents'=>$supervisor['numOfStudents']
                     )
                 );
@@ -98,12 +99,13 @@ class AdminController extends Controller{
                 } 
                 $student = Student::where('studentId',$students[$score->index[1]])->first();
                 $student->supervisorId = $supervisorCapacities[$score->index[0]]['key'];             
+                $student->matchedUsing = 'projects';      
                 $student->save();
             }
         }
-
+// add matched using requests too
         foreach($supervisorCapacities as $supervisor){
-            $count = Student::where('supervisorId',$supervisor['key'] )->count();
+            $count = Student::where('supervisorId',$supervisor['key'] )->where('matchedUsing','projects' )->count();
             $updateSupervisor = Supervisor::where('supervisorId',$supervisor['key'] )->first();
             $updateSupervisor->numOfStudents = $count;
             $updateSupervisor->save();
@@ -133,7 +135,7 @@ class AdminController extends Controller{
 
     public function matchWithInterests(){
         $supervisorAreas=array();
-        $students = Student::where('supervisorId',null)->get();
+        $students = Student::join('user_areas', 'user_areas.userId', '=', 'students.studentId')->groupBy('studentId')->where('matchedUsing','')->orWhere('matchedUsing', 'interests')->get();
         $supervisors = Supervisor::join('user_areas', 'user_areas.userId', '=', 'supervisors.supervisorId')->groupBy('supervisorId')->get();
         foreach ($supervisors as $supervisor){
             $result = Area::select('area')->join('user_areas', 'user_areas.areaId', '=', 'areas.id')->where('user_areas.userId','=',$supervisor->supervisorId)->get();
@@ -186,23 +188,19 @@ class AdminController extends Controller{
                 }
 
                 $student = Student::where('studentId',$score['studentId'])->first();
-                $student->supervisorId = $score['supervisorId'];             
+                $student->supervisorId = $score['supervisorId'];        
+                $student->matchedUsing = 'interests';      
                 $student->save();
             }
         }
-        foreach($supervisors as $supervisor){
-            $count = Student::where('supervisorId',$supervisor->supervisorId )->count();
-            $updateSupervisor = Supervisor::where('supervisorId',$supervisor->supervisorId )->first();
-            $updateSupervisor->numOfStudents = $count;
-            $updateSupervisor->save();
-        }
+        $this->updateNumberOfStudents($supervisors);
+
     }
 
     private function matchRemaining(){
         $students = Student::where('supervisorId',null)->get();
         $supervisors = Supervisor::whereRaw('capacity != numOfStudents')->get();
         foreach($students as $student){
-            
             $min = $supervisors->firstWhere('numOfStudents', $supervisors->min('numOfStudents'));
             $min->numOfStudents++;
             if($min->capacity==$min->numOfStudents){
@@ -214,9 +212,11 @@ class AdminController extends Controller{
             }
             $student = Student::where('studentId',$student->studentId)->first();
             $student->supervisorId = $min->supervisorId;             
+            $student->matchedUsing = 'random'; 
             $student->save();
 
         }       
+        $this->updateNumberOfStudents($supervisors);
         print(json_encode($supervisors));
     }
 
@@ -225,6 +225,15 @@ class AdminController extends Controller{
         $arr_union = array_merge( $studentAreas, $supervisorAreas);
         $coefficient = sizeOf($arr_intersection)/sizeOf($arr_union);
         return $coefficient;
+    }
+
+    private function updateNumberOfStudents($supervisors){
+        foreach($supervisors as $supervisor){
+            $count = Student::where('supervisorId',$supervisor->supervisorId )->count();
+            $updateSupervisor = Supervisor::where('supervisorId',$supervisor->supervisorId )->first();
+            $updateSupervisor->numOfStudents = $count;
+            $updateSupervisor->save();
+        }
     }
 
     public function match(){
