@@ -54,6 +54,9 @@ export default function CreateMeeting() {
         history.push("/scheduleMeetings")
     })
   }
+  const validateInput = (evt) => {
+    (evt.key === 'e' || evt.key === '-' || evt.key === '.') && evt.preventDefault()
+  }
    
   return (
     <div>
@@ -80,7 +83,7 @@ export default function CreateMeeting() {
           <h4>Duration </h4>
         </div>
         <div className='col-1'>
-            <input type="text" className="form-control skillInput" onChange={onDurationChange} value={duration}/> 
+            <input type="number" onKeyDown={(event) => validateInput(event)} className="form-control skillInput" onChange={onDurationChange} value={duration}/> 
         </div>  
         <div className='col-3'>
             minutes

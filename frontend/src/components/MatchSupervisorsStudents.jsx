@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png';
+import useLoader from "../hooks/useLoader";
 import bin from '../resources/bin.png'; 
 import disable from '../resources/disable.png';  
 import search from '../resources/search.png'; 
@@ -11,6 +12,7 @@ import edit from '../resources/edit.png';
 export default function MatchSupervisorsStudents() {
 
   const history = useHistory();
+  const [loader, showLoader, hideLoader] = useLoader(); 
   const [studentCount, setStudentCount] = useState([]);
   const [totalCapacity, setTotalCapacity] = useState([]);
   const [authorized,setAuthorized]=useState(false)
@@ -26,18 +28,22 @@ export default function MatchSupervisorsStudents() {
   useEffect(() => { 
     const role = localStorage.getItem('role');
     if(role=='admin') setAuthorized(true)
+    showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/adminStatistics`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
+        hideLoader();
         setStudentCount(res.data.studentCount);
         setTotalCapacity(res.data.totalCapacity)
       })   
   },[]);
 
   const match = () =>{
+    showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/match`,{ headers: {"Authorization" : `Bearer ${token}`}})
     .then(res => {
+      hideLoader();
      console.log(res.data)
     }) 
   }
@@ -64,6 +70,7 @@ export default function MatchSupervisorsStudents() {
           <button class='dashboardItem purpleBackground' onClick={studentsPage}> Students</button>
         </div>
       </div>
+      {loader}
       <div class='row marginTop'>
         <p class='mediumFontSize'>Number of students that can be accommodated by supervisors : {totalCapacity}</p>
         <p class='mediumFontSize'>Number of students  : {studentCount}</p>

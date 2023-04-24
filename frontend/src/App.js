@@ -26,7 +26,7 @@ import StudentMeeting from './components/StudentMeeting';
 const App = () => {
   return (
     <Router>
-      <Route path="/" exact component={StudentBookMeeting} />
+      <Route path="/" exact component={SignIn} />
       <Route path="/studentBookMeeting/:meetingId" exact component={StudentBookMeeting} />
       <Route path="/studentDashboard" exact component={StudentDashboard} />
       <Route path="/requestSupervision" component={RequestSupervision} />

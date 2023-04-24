@@ -9,65 +9,81 @@ use Illuminate\Http\Request;
 
 class MeetingController extends Controller
 {
-    public function saveMeetingSeries(Request $request)    
+    public function saveMeetingSeries(Request $request)
     {
         $data = $request->all();
-        $series=MeetingSeries::create([
-            'title'=>$data['title'],
-            'durationInMinutes'=>(int)$data['duration'],
-            'supervisorId'=>$data['userId']
-          ]);
-          foreach($data['dates'] as $dateTime){
+        $series = MeetingSeries::create([
+            'title' => $data['title'],
+            'durationInMinutes' => (int) $data['duration'],
+            'supervisorId' => $data['userId']
+        ]);
+        foreach ($data['dates'] as $dateTime) {
             Meeting::create([
-                'dateTime'=>$dateTime,
-                'meetingSeriesId'=>$series['id'],
-              ]);
-          }
+                'dateTime' => $dateTime,
+                'meetingSeriesId' => $series['id'],
+            ]);
+        }
         return response()->json([
             'status' => 'success'
-        ]); 
+        ]);
     }
-    
-    public function getMeetingSeries(string $supervisorId)    
+
+    public function getMeetingSeries(string $supervisorId)
     {
         $result = MeetingSeries::where('supervisorId', $supervisorId)->get();
         return (json_encode($result));
     }
-    public function getMeetingTimeSlots(string $meetingSeriesId){
-        $meetings = Meeting::where('meetingSeriesId',$meetingSeriesId)->where('studentId',0)->get();
+    public function getMeetingTimeSlots(string $meetingSeriesId)
+    {
+        $meetings = Meeting::where('meetingSeriesId', $meetingSeriesId)
+            ->where('studentId', 0)->get();
         $series = MeetingSeries::where('id', $meetingSeriesId)->first();
-        return(json_encode(array(
-            'meetings'=>$meetings,
-            'title'=>$series->title,
-            'duration'=>$series->durationInMinutes
-        )));
+        return (
+            json_encode(
+                array(
+                    'meetings' => $meetings,
+                    'title' => $series->title,
+                    'duration' => $series->durationInMinutes
+                )
+            )
+        );
     }
 
-    public function bookMeeting (Request $request){
+    public function bookMeeting(Request $request)
+    {
         $data = $request->all();
-        $updateMeeting = Meeting::where('id',$data['meetingId'] )->first();
+        $updateMeeting = Meeting::where('id', $data['meetingId'])->first();
         $updateMeeting->studentId = $data['userId'];
         $updateMeeting->save();
-          return response()->json([
+        return response()->json([
             'status' => 'success'
-         ]);    
+        ]);
     }
-    public function getMeetingWithBookedSlots(string $studentId){
-        $student=Student::where('studentId',$studentId)->first();
+    public function getMeetingWithBookedSlots(string $studentId)
+    {
+        $student = Student::where('studentId', $studentId)->first();
         $meetingSeries = MeetingSeries::where('supervisorId', $student->supervisorId)->get();
-        $bookedMeeting=array();
-        foreach($meetingSeries as $series){
-            $meetings = Meeting::where('meetingSeriesId',$series->id)->where('studentId',$studentId)->first();
-            if($meetings){
-               array_push($bookedMeeting,array(
-                'seriesId'=>$series->id,
-                'dateTime'=>$meetings->dateTime
-               ));
+        $bookedMeeting = array();
+        foreach ($meetingSeries as $series) {
+            $meetings = Meeting::where('meetingSeriesId', $series->id)
+                ->where('studentId', $studentId)->first();
+            if ($meetings) {
+                array_push(
+                    $bookedMeeting,
+                    array(
+                        'seriesId' => $series->id,
+                        'dateTime' => $meetings->dateTime
+                    )
+                );
             }
-        }        
-        return(json_encode(array(
-            "meetingSeries"=>$meetingSeries,
-            "bookedMeeting"=>$bookedMeeting
-        )));
+        }
+        return (
+            json_encode(
+                array(
+                    "meetingSeries" => $meetingSeries,
+                    "bookedMeeting" => $bookedMeeting
+                )
+            )
+        );
     }
 }

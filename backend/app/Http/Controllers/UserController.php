@@ -17,7 +17,7 @@ class UserController extends Controller
        $this->middleware('auth.role:student,supervisor');
    }
     public function getAreas() {
-        $result = DB::table('areas')->get();
+        $result = Area::all();
         $areas=array();
 
         foreach ($result as $area) {

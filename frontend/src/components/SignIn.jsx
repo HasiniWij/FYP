@@ -28,6 +28,7 @@ export default function SignIn() {
       localStorage.setItem('userToken', res.data.access_token)
       localStorage.setItem('userId', res.data.user.id)
       localStorage.setItem('role', res.data.user.role)
+      localStorage.setItem('isLoggedIn', true)
       if(res.data.user.role === 'supervisor'){
         history.push("/supervisorDashboard")
       }

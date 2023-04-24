@@ -21,7 +21,8 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const role = localStorage.getItem('role');
-    if(role=='admin') setAuthorized(true)
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if(role=='admin' && isLoggedIn) setAuthorized(true)
   },[]);
 
   return (

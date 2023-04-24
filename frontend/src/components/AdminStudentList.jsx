@@ -20,14 +20,21 @@ export default function AdminStudentList() {
 
   useEffect(() => {
     const role = localStorage.getItem('role');
-    if(role=='admin') setAuthorized(true)
-    showLoader();
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
     const token = localStorage.getItem('userToken');
+    if(role=='admin' && isLoggedIn) setAuthorized(true)
+    showLoader();    
     axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         hideLoader();
         setStudents(res.data)
       })
+      .catch((error) => {
+        if(error.response.status == 401){
+          setAuthorized(false);
+          localStorage.setItem('isLoggedIn', false);
+        }
+    });
   },[]);
   
   const studentCards = students.map((student) =>
@@ -83,6 +90,6 @@ export default function AdminStudentList() {
       401 authorization required
     </h1>
     }
-    </div>
+  </div>
   );
 }
