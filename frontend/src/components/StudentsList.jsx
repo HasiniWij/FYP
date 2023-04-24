@@ -1,5 +1,6 @@
 import React,{useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
+import useLoader from "../hooks/useLoader";
 import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png'; 
@@ -7,6 +8,7 @@ import logo from '../resources/logo.png';
 export default function StudentsList() {
 
   const history = useHistory();
+  const [loader, showLoader, hideLoader] = useLoader(); 
 
   const [students, setStudents] = useState([]);
   const [authorized,setAuthorized]=useState(false);
@@ -14,9 +16,12 @@ export default function StudentsList() {
   useEffect(() => { 
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('role');
+    const userId = localStorage.getItem('userId');
     if(role=='supervisor') setAuthorized(true)
-    axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
+    showLoader();
+    axios.get(`http://127.0.0.1:8000/api/supervisorStudents/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
+        hideLoader()
         setStudents(res.data);
       })
   },[]);
@@ -55,6 +60,7 @@ export default function StudentsList() {
       <div class='row marginTop'>
         {studentCards}
       </div>
+      {loader}
       <div class='row largeMarginTop'>
         <div class='offset-5 col-2'>
           <button class='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>

@@ -4,7 +4,6 @@ import './Style.css';
 import { useHistory, useParams } from "react-router-dom";
 import logo from '../resources/logo.png';
 import axios from 'axios';
-import { forEach } from 'lodash';
 
 export default function StudentBookMeeting() {
   const [authorized, setAuthorized] = useState(false);
@@ -55,13 +54,14 @@ export default function StudentBookMeeting() {
   }
 
   const bookMeeting = () => {
+    const token = localStorage.getItem('userToken');
     const selectedMeeting = meetings.filter((element) => new Date(selectedTime).getTime() == new Date(element.dateTime).getTime());
     const userId = localStorage.getItem('userId');
 
     axios.post(`http://127.0.0.1:8000/api/bookMeeting`, {
       'meetingId': selectedMeeting[0].id,
       'userId': userId
-    })
+    },{ headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         studentDashboard();
       })

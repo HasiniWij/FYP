@@ -6,7 +6,6 @@ use App\Models\Area;
 use App\Models\Supervisor;
 use App\Models\UserArea;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Http\Request;
 
 class SupervisionController extends Controller
 { 
@@ -33,5 +32,20 @@ class SupervisionController extends Controller
             );
         }
         print json_encode($supervisors);
+        }
+        public function getStudents($supervisorId)
+        {
+            $result = User::join('students', 'users.id', '=', 'students.studentId')->where('supervisorId', $supervisorId)->get();
+            $students = array();    
+            foreach ($result as $student) {
+                array_push(
+                    $students,
+                    array(
+                        "name" => $student->name,
+                        "universityId" => strtok($student->email, '@')
+                    )
+                );
+            }
+            print json_encode($students);
         }
 }
