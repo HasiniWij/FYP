@@ -137,10 +137,17 @@ class UserController extends Controller
          'status' => 'success'
       ]);
    }
-   public function getProjects() {
+   public function getProjects($supervisorId=null) {
+      if($supervisorId){
+         $result = Project::select('projects.*')
+         ->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')
+         ->where('supervisorId',$supervisorId)->get();
       
-      $result = Project::select('projects.*')->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')->get();
-      $projects=array();
+      }
+      else{
+         $result = Project::select('projects.*')->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')->get();   
+      }
+     $projects=array();
  
       foreach ($result as $project) {
          $areaResult = ProjectArea::where('projectId', $project['id'])->get();

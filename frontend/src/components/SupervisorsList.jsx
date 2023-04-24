@@ -17,6 +17,10 @@ export default function SupervisorsList() {
   const [supervisors, setSupervisors] = useState([]);
   const [authorized, setAuthorized] = useState(false);
 
+  const projectIdeas = (supervisorId) =>{
+    history.push("/proposedProjects/"+supervisorId)
+  }
+
   useEffect(() => {
     const role = localStorage.getItem('role');
     if (role == 'student') setAuthorized(true);
@@ -41,7 +45,7 @@ export default function SupervisorsList() {
     <div key={supervisor.name} className='offset-1 col-5 supervisorCard'>
       <h6>Name: {supervisor.name}</h6>
       <h6>Interested areas: {supervisor.interests} </h6>
-      <button className='primaryButton projectIdeaButton'>Go to project ideas</button>
+      <button className='primaryButton projectIdeaButton' onClick={()=>projectIdeas(supervisor.id)}>Go to project ideas</button>
     </div>
   );
 

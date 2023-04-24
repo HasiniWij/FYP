@@ -30,7 +30,7 @@ Route::get('userProjects/{id}', [UserController::class, 'getUserProjects']);
 Route::get('areas', [UserController::class, 'getAreas']);
 Route::post('saveProject', [UserController::class, 'saveProject']);
 Route::post('saveUserAreas', [UserController::class, 'saveUserAreas']);
-Route::get('projects', [UserController::class, 'getProjects']);
+Route::get('projects/{id?}', [UserController::class, 'getProjects']);
 Route::get('supervisors', [SupervisionController::class, 'getSupervisors'])->middleware('auth.role:student,admin');
 Route::get('students', [AdminController::class, 'getStudents']);
 Route::post('updateCapacity', [AdminController::class, 'updateSupervisorCapacity']);

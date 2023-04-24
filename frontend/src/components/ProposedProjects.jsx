@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
 import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png';
@@ -12,6 +12,7 @@ export default function ProposedProjects() {
 
   const [projects, setProjects] = useState([]);
   const [authorized, setAuthorized] = useState(false);
+  let { id } = useParams();
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -19,7 +20,7 @@ export default function ProposedProjects() {
     const role = localStorage.getItem('role');
     if(role=='student' && isLoggedIn) setAuthorized(true)
     showLoader();
-    axios.get(`http://127.0.0.1:8000/api/projects`,
+    axios.get((`http://127.0.0.1:8000/api/projects/`+(id? id : '')),
       { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         hideLoader();
