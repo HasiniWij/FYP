@@ -31,22 +31,21 @@ class MeetingController extends Controller
     public function getMeetingSeries(string $supervisorId)
     {
         $result = MeetingSeries::where('supervisorId', $supervisorId)->get();
-        return (json_encode($result));
+        return response()->json([
+            'meetingSeries' => $result
+        ]);
     }
     public function getMeetingTimeSlots(string $meetingSeriesId)
     {
         $meetings = Meeting::where('meetingSeriesId', $meetingSeriesId)
             ->where('studentId', 0)->get();
         $series = MeetingSeries::where('id', $meetingSeriesId)->first();
-        return (
-            json_encode(
-                array(
-                    'meetings' => $meetings,
-                    'title' => $series->title,
-                    'duration' => $series->durationInMinutes
-                )
-            )
-        );
+        
+        return response()->json([
+            'meetings' => $meetings,
+            'title' => $series->title,
+            'duration' => $series->durationInMinutes
+        ]);
     }
 
     public function bookMeeting(Request $request)
@@ -77,13 +76,9 @@ class MeetingController extends Controller
                 );
             }
         }
-        return (
-            json_encode(
-                array(
-                    "meetingSeries" => $meetingSeries,
-                    "bookedMeeting" => $bookedMeeting
-                )
-            )
-        );
+        return response()->json([
+            "meetingSeries" => $meetingSeries,
+            "bookedMeeting" => $bookedMeeting
+        ]);
     }
 }

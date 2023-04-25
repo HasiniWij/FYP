@@ -47,7 +47,9 @@ class AdminController extends Controller
                 )
             );
         }
-        print json_encode($students);
+        return response()->json([
+            'students' => $students
+        ]);
     }
 
     public function matchWithProjects()
