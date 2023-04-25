@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png';
 import useLoader from "../hooks/useLoader";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import bin from '../resources/bin.png'; 
 import disable from '../resources/disable.png';  
 import search from '../resources/search.png'; 
@@ -16,6 +18,12 @@ export default function MatchSupervisorsStudents() {
   const [studentCount, setStudentCount] = useState([]);
   const [totalCapacity, setTotalCapacity] = useState([]);
   const [authorized,setAuthorized]=useState(false)
+  
+  const notify = () => toast.success('Successfully assigned supervisors to students', {
+    position: "top-center",
+    theme: "colored",
+    });
+
   const adminDashboard = () => {
     history.push("/adminDashboard")
   }
@@ -52,6 +60,7 @@ export default function MatchSupervisorsStudents() {
     axios.get(`http://127.0.0.1:8000/api/match`,{ headers: {"Authorization" : `Bearer ${token}`}})
     .then(res => {
       hideLoader();
+      notify();
     }) 
   }
   return (
@@ -87,6 +96,15 @@ export default function MatchSupervisorsStudents() {
           <button class='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
         </div>
       </div>
+      <ToastContainer
+      position="top-center"
+      autoClose={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      theme="colored" />
     </div>
     : 
     <h1 className='unauthorized'>
