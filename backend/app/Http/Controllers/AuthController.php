@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Rules\WestminsterValidation;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
@@ -14,7 +15,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => ['required', 'email','unique:users', new WestminsterValidation],
             'password' => 'required|min:6',
         ]);
 
