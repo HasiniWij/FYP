@@ -12,6 +12,7 @@ export default function CreateMeeting() {
   const [title, setTitle] = useState('');
   const [duration, setDuration] = useState(0);
   const[dates,setDates]= useState([]);
+  const[buttonDisabled,setButtonDisabled]= useState(true);
   const [authorized,setAuthorized]=useState(false);
 
   const history = useHistory();
@@ -20,8 +21,6 @@ export default function CreateMeeting() {
   }
 
   useEffect(() => {
-    
-    const userId = localStorage.getItem('userId');
     const role = localStorage.getItem('role');
     if(role=='student'|| role=='supervisor') setAuthorized(true)
   },[]);
@@ -29,12 +28,19 @@ export default function CreateMeeting() {
   const addDates = () => {
     const newList = dates.concat(date);
     setDates(newList);
+    if(duration && title) setButtonDisabled(false)
   }
   const onTitleChange = event => {
     setTitle(event.target.value);
+    if(duration && event.target.value && dates.length > 0 ) {
+      setButtonDisabled(false)
+    }
   };
   const onDurationChange = event =>{
     setDuration(event.target.value);
+    if(event.target.value && title && dates.length > 0) {
+      setButtonDisabled(false)
+    }
   }
  
   const dateCards = dates.map((date) =>
@@ -115,7 +121,7 @@ export default function CreateMeeting() {
           <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
         </div>
         <div className='col-2'>
-          <button className='primaryButton' onClick={createMeeting}>Create meeting</button>
+          <button className='primaryButton' onClick={createMeeting} disabled={buttonDisabled}>Create meeting</button>
         </div>
       </div>
     </div>

@@ -230,3 +230,7 @@
   margin-bottom: 10px;
   padding: 10px;
 }
+.primaryButton[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

@@ -48,12 +48,12 @@ export default function SupervisorDashboard() {
           <button class='dashboardItem orangeBackground' onClick={studentsPage}>Students</button>
         </div>
         <div class='col-3'>
-          <button class='dashboardItem pinkBackground' onClick={supervisionRequestsPage}>Requests for supervision</button>
+        <button class='dashboardItem blueBackground'  onClick={scheduleMeetingsPage}>Schedule meetings</button>
         </div>
       </div>
       <div class='row dashboardItemRow'>
         <div class='offset-3 col-3'>
-          <button class='dashboardItem blueBackground'  onClick={scheduleMeetingsPage}>Schedule meetings</button>
+          <button class='dashboardItem pinkBackground' onClick={supervisionRequestsPage}>Requests for supervision</button>
         </div>
         <div class='col-3'>
           <button class='dashboardItem greenBackground'>Messages</button>
