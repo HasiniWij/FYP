@@ -29,7 +29,7 @@ export default function SupervisorsList() {
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/supervisors`, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
-        setSupervisors(res.data);
+        setSupervisors(res.data.supervisors);
         hideLoader();
       })
       .catch((error) => {

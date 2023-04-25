@@ -27,7 +27,7 @@ export default function AdminStudentList() {
     axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         hideLoader();
-        setStudents(res.data)
+        setStudents(res.data.students)
       })
       .catch((error) => {
         if(error.response.status == 401){

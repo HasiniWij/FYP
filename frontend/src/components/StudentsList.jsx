@@ -23,7 +23,7 @@ export default function StudentsList() {
     axios.get(`http://127.0.0.1:8000/api/supervisorStudents/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         hideLoader()
-        setStudents(res.data);
+        setStudents(res.data.students);
       })
       .catch((error) => {
         if (error.response.status == 401) {

@@ -24,7 +24,7 @@ export default function ProposedProjects() {
       { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         hideLoader();
-        setProjects(res.data);
+        setProjects(res.data.projects);
       })
       .catch((error) => {
         if(error.response.status == 401){
