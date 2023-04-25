@@ -31,7 +31,10 @@ class SupervisionController extends Controller
                 )
             );
         }
-        print json_encode($supervisors);
+        return response()->json([
+            'supervisors' => $supervisors
+         ]);
+        
         }
         public function getStudents($supervisorId)
         {
@@ -46,6 +49,8 @@ class SupervisionController extends Controller
                     )
                 );
             }
-            print json_encode($students);
+            return response()->json([
+                'students' => $students
+             ]);
         }
 }

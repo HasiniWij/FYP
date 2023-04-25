@@ -35,7 +35,7 @@ export default function Profile() {
 
     axios.get(`http://127.0.0.1:8000/api/areas`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
-        setAreas(res.data);
+        setAreas(res.data.areas);
       })
       .catch((error) => {
         if (error.response.status == 401) {
@@ -47,13 +47,13 @@ export default function Profile() {
       
       axios.get(`http://127.0.0.1:8000/api/userAreas/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
-        setCurrentUserInterests(res.data);
-        setUserInterests(res.data);
+        setCurrentUserInterests(res.data.userAreas);
+        setUserInterests(res.data.userAreas);
       })
       axios.get(`http://127.0.0.1:8000/api/userProjects/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         hideLoader();
-        setProjects(res.data)
+        setProjects(res.data.projects)
       }).catch(e => console.log(e))
   },[]);
   const addTags = () => {

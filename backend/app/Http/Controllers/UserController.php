@@ -28,7 +28,9 @@ class UserController extends Controller
               )
            );
        }
-        print json_encode($areas);
+       return response()->json([
+         'areas' => $areas
+      ]);
      }
    public function saveProject(Request $request) {
 
@@ -94,7 +96,9 @@ class UserController extends Controller
             )
          );
      }
-      print json_encode($projects);
+     return response()->json([
+      'projects' => $projects
+   ]);
    }
    public function getUserAreas(string $id) {
           
@@ -109,7 +113,9 @@ class UserController extends Controller
             )
          );
      }
-      print json_encode($userAreas);
+     return response()->json([
+      'userAreas' => $userAreas
+   ]);
      }
 
      public function saveUserAreas(Request $request) {
@@ -172,6 +178,8 @@ class UserController extends Controller
             )
          );
      }
-      print json_encode($projects);
+     return response()->json([
+      'projects' => $projects
+   ]);
    }
 }
