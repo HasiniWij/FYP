@@ -4,8 +4,11 @@ import { MultiSelect } from "react-multi-select-component";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import logo from '../resources/logo.png'; 
+import useLoader from "../hooks/useLoader";
 
 export default function Profile() {
+
+  const [loader, showLoader, hideLoader] = useLoader(); 
 
   const [tags, setTags] = useState([]);
   const [newSkill, setNewSkill] = useState('');
@@ -26,11 +29,22 @@ export default function Profile() {
     const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
     const role = localStorage.getItem('role');
-    if(role=='student'|| role=='supervisor') setAuthorized(true)
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    showLoader();
+    if((role=='student'|| role=='supervisor' ) && isLoggedIn ) setAuthorized(true);
+
     axios.get(`http://127.0.0.1:8000/api/areas`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setAreas(res.data);
       })
+      .catch((error) => {
+        if (error.response.status == 401) {
+          hideLoader();
+          setAuthorized(false);
+          localStorage.setItem('isLoggedIn', false);
+        }
+      })
+      
       axios.get(`http://127.0.0.1:8000/api/userAreas/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setCurrentUserInterests(res.data);
@@ -38,6 +52,7 @@ export default function Profile() {
       })
       axios.get(`http://127.0.0.1:8000/api/userProjects/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
+        hideLoader();
         setProjects(res.data)
       }).catch(e => console.log(e))
   },[]);

@@ -23,7 +23,8 @@ export default function SupervisorsList() {
 
   useEffect(() => {
     const role = localStorage.getItem('role');
-    if (role == 'student') setAuthorized(true);
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (role == 'student' && isLoggedIn) setAuthorized(true);
     showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/supervisors`, { headers: { "Authorization": `Bearer ${token}` } })
@@ -33,7 +34,6 @@ export default function SupervisorsList() {
       })
       .catch((error) => {
         if (error.response.status == 401) {
-          hideLoader();
           hideLoader();
           setAuthorized(false);
           localStorage.setItem('isLoggedIn', false);

@@ -17,12 +17,20 @@ export default function StudentsList() {
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('role');
     const userId = localStorage.getItem('userId');
-    if(role=='supervisor') setAuthorized(true)
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (role == 'supervisor' && isLoggedIn) setAuthorized(true);
     showLoader();
     axios.get(`http://127.0.0.1:8000/api/supervisorStudents/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         hideLoader()
         setStudents(res.data);
+      })
+      .catch((error) => {
+        if (error.response.status == 401) {
+          hideLoader();
+          setAuthorized(false);
+          localStorage.setItem('isLoggedIn', false);
+        }
       })
   },[]);
   

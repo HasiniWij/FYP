@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import logo from '../resources/logo.png'; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useLoader from "../hooks/useLoader";
 
 export default function CreateMeeting() {
   
@@ -12,6 +13,7 @@ export default function CreateMeeting() {
   const [title, setTitle] = useState('');
   const [duration, setDuration] = useState(0);
   const[dates,setDates]= useState([]);
+  const [loader, showLoader, hideLoader] = useLoader();
   const[buttonDisabled,setButtonDisabled]= useState(true);
   const [authorized,setAuthorized]=useState(false);
 
@@ -22,7 +24,8 @@ export default function CreateMeeting() {
 
   useEffect(() => {
     const role = localStorage.getItem('role');
-    if(role=='student'|| role=='supervisor') setAuthorized(true)
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if(role=='supervisor' && isLoggedIn) setAuthorized(true)
   },[]);
 
   const addDates = () => {
@@ -57,7 +60,15 @@ export default function CreateMeeting() {
     }
     axios.post(`http://127.0.0.1:8000/api/saveMeeting`,meeting,{ headers: {"Authorization" : `Bearer ${token}`}})
     .then(res => {
+        hideLoader();
         history.push("/scheduleMeetings")
+    })
+    .catch((error) => {
+      if (error.response.status == 401) {
+        hideLoader();
+        setAuthorized(false);
+        localStorage.setItem('isLoggedIn', false);
+      }
     })
   }
   const validateInput = (evt) => {
@@ -116,6 +127,7 @@ export default function CreateMeeting() {
             {dateCards}
           </div>
       </div>
+      {loader}
       <div className='row marginBottom largeMarginTop'>
         <div className='offset-4 col-2'>
           <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>

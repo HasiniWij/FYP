@@ -22,13 +22,21 @@ export default function AdminSupervisorList() {
   }
   useEffect(() => {
     const role = localStorage.getItem('role');
-    if (role == 'admin') setAuthorized(true)
-    showLoader();
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
     const token = localStorage.getItem('userToken');
+    if(role=='admin' && isLoggedIn) setAuthorized(true)
+    showLoader();
     axios.get(`http://127.0.0.1:8000/api/supervisors`, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         setSupervisors(res.data)
         hideLoader();
+      })
+      .catch((error) => {
+        if (error.response.status == 401) {
+          hideLoader();
+          setAuthorized(false);
+          localStorage.setItem('isLoggedIn', false);
+        }
       })
   }, []);
   const editCapacity = (supervisor) => {

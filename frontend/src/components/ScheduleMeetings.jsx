@@ -3,11 +3,13 @@ import { useHistory } from "react-router-dom";
 import './Style.css';
 import axios from 'axios';
 import logo from '../resources/logo.png'; 
+import useLoader from "../hooks/useLoader";
 
 export default function ScheduleMeetings() {
 
   const history = useHistory();
   const [meetings, setMeetings] = useState([]);
+  const [loader, showLoader, hideLoader] = useLoader(); 
   const [authorized,setAuthorized]=useState(false);
   const supervisorDashboard = () => {
     history.push("/supervisorDashboard")
@@ -23,10 +25,19 @@ export default function ScheduleMeetings() {
     const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
     const role = localStorage.getItem('role');
-    if(role=='supervisor') setAuthorized(true)
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if(role=='supervisor' && isLoggedIn ) setAuthorized(true)
+    showLoader();
     axios.get(`http://127.0.0.1:8000/api/meetingSeries/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setMeetings(res.data);
+      })
+      .catch((error) => {
+        if (error.response.status == 401) {
+          hideLoader();
+          setAuthorized(false);
+          localStorage.setItem('isLoggedIn', false);
+        }
       })
   },[]);
   
@@ -37,6 +48,8 @@ export default function ScheduleMeetings() {
   );
 
   return (
+    <div>
+    {authorized?
     <div class="container">
       <div class="row marginTop">
         <div class="col-2">
@@ -58,11 +71,18 @@ export default function ScheduleMeetings() {
           </button>
         </div>
       </div>
+      {loader}
       <div class='row largeMarginTop'>
         <div class='offset-5 col-2'>
           <button class='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
         </div>
       </div>
     </div>
+     :
+     <h1 className='unauthorized'>
+       401 authorization required
+     </h1>
+   }
+ </div>
   );
 }

@@ -27,7 +27,8 @@ export default function MatchSupervisorsStudents() {
   }
   useEffect(() => { 
     const role = localStorage.getItem('role');
-    if(role=='admin') setAuthorized(true)
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if(role=='admin' && isLoggedIn) setAuthorized(true)
     showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/adminStatistics`,{ headers: {"Authorization" : `Bearer ${token}`}})
@@ -36,6 +37,13 @@ export default function MatchSupervisorsStudents() {
         setStudentCount(res.data.studentCount);
         setTotalCapacity(res.data.totalCapacity)
       })   
+      .catch((error) => {
+        if (error.response.status == 401) {
+          hideLoader();
+          setAuthorized(false);
+          localStorage.setItem('isLoggedIn', false);
+        }
+      })
   },[]);
 
   const match = () =>{
@@ -44,7 +52,6 @@ export default function MatchSupervisorsStudents() {
     axios.get(`http://127.0.0.1:8000/api/match`,{ headers: {"Authorization" : `Bearer ${token}`}})
     .then(res => {
       hideLoader();
-     console.log(res.data)
     }) 
   }
   return (
