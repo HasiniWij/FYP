@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Jest Snapshot testing suite Matches DOM Snapshot 1`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
+
+exports[`Jest Snapshot testing suite Matches DOM Snapshot 2`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
+
+exports[`Jest Snapshot testing suite Matches DOM Snapshot 3`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
+
+exports[`Jest Snapshot testing suite Snapshot testing AdminDashboard 1`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
+
+exports[`Jest Snapshot testing suite Snapshot testing AdminStudentList 1`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
+
+exports[`Jest Snapshot testing suite Snapshot testing StudentDashboard 1`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
+
+exports[`Jest Snapshot testing suite Snapshot testing SupervisorDashboard 1`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
+
+exports[`Jest Snapshot testing suite test 1`] = `
+<div>
+  <h1
+    className="unauthorized"
+  >
+    401 authorization required
+  </h1>
+</div>
+`;
