@@ -69,6 +69,9 @@ export default function StudentsList() {
         {studentCards}
       </div>
       {loader}
+      {
+            !students.length && <h2 className='noProjects'>No students assigned yet</h2>
+          }
       <div class='row largeMarginTop'>
         <div class='offset-5 col-2'>
           <button class='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>

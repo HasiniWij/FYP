@@ -43,16 +43,11 @@ export default function ProposedProjects() {
   }
 
   const projectCards = projects.map((project) =>
-    <div class="container grid-child projectCards">
+    <div class=" projectCards">
       <p class='projectDescription'>
         {project.description}
       </p>
-      <span>Areas: {project.areas}</span>
-      {/* {
-           project.areas.map((skill) =>
-           <span class="">{skill.label},</span>
-           )
-        } */}
+      {project.areas.length ?<span>Areas: {project.areas}</span>:''}
       <div class='skillTagProfileArea'>
         {
           project.skills.map((skill) =>
@@ -78,10 +73,13 @@ export default function ProposedProjects() {
               <button class='profileButton' onClick={profilePage}>H</button>
             </div>
           </div>
-          <div class='row projectCardContainer'>
+          <div class='row projectCardContainer marginTop'>
             {projectCards}
           </div>
           {loader}
+          {
+            !projects.length && <h2 className='noProjects'>No projects added yet</h2>
+          }
           <div class='row largeMarginTop marginBottom'>
             <div class='offset-5 col-2'>
               <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>

@@ -22,7 +22,13 @@ export default function Profile() {
 
   const history = useHistory();
   const studentDashboard = () => {
-    history.push("/studentDashboard")
+    const role = localStorage.getItem('role');
+    if(role==='supervisor'){
+      history.push("/supervisorDashboard")
+    }
+    else{
+      history.push("/studentDashboard")
+    }
   }
 
   useEffect(() => {
@@ -109,7 +115,7 @@ export default function Profile() {
       <p class='projectDescription'>
           {project.description}
       </p> 
-      <span>Areas: </span>
+      { project.areas.length?<span>Areas: </span>:''}
       {
          project.areas.map((skill) =>
          <span class="">{skill.label},</span>
@@ -150,7 +156,7 @@ export default function Profile() {
           />
         </div>  
         <div class='col-2'>
-          <button class='primaryButton' onClick={saveInterest}> Save Interests</button>
+          <button class='primaryButton' disabled={JSON.stringify(currentUserInterests)==JSON.stringify(userInterests)} onClick={saveInterest}> Save Interests</button>
         </div>   
       </div>
       <div class='row largeMarginTop'>
@@ -175,7 +181,7 @@ export default function Profile() {
             <input type="text" class="form-control skillInput" onChange={onSkillChange} placeholder="Add required technical skills" value={newSkill}/>
           </div>
           <div class='col-3'>
-            <button class='primaryButton' onClick={addTags}> Add</button>
+            <button class='primaryButton' onClick={addTags} disabled={newSkill===''}> Add</button>
           </div>
         </div> 
         <div class='row profileNewTagArea'>
@@ -185,7 +191,7 @@ export default function Profile() {
         </div>
         <div class='row profileRow'>
           <div class='offset-8 col-3'>
-            <button class='primaryButton' onClick={addProject}> Save idea</button>
+            <button class='primaryButton' disabled={description==''} onClick={addProject}> Save idea</button>
           </div>
         </div>  
       </div>

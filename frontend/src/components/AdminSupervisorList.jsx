@@ -14,7 +14,9 @@ export default function AdminSupervisorList() {
   const [supervisors, setSupervisors] = useState([]);
   const [newCapacity, setNewCapacity] = useState('');
   const [editSupervisorId, setEditSupervisorId] = useState('');
-  const [authorized, setAuthorized] = useState(false)
+  const [authorized, setAuthorized] = useState(false);
+  const [searchWord,setSearchWord]=useState('');
+  const [allSupervisors, setAllSupervisors] = useState([]);
   const history = useHistory();
   const [loader, showLoader, hideLoader] = useLoader();
   const adminDashboard = () => {
@@ -29,6 +31,7 @@ export default function AdminSupervisorList() {
     axios.get(`http://127.0.0.1:8000/api/supervisors`, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         setSupervisors(res.data.supervisors)
+        setAllSupervisors(res.data.supervisors);
         hideLoader();
       })
       .catch((error) => {
@@ -70,6 +73,13 @@ export default function AdminSupervisorList() {
     (evt.key === 'e' || evt.key === '-' || evt.key === '.') && evt.preventDefault()
   }
 
+  const searchWordChange = event =>{
+    setSearchWord(event.target.value.trim());
+  }
+  const onSearch = () =>{
+    const filteredStudents = allSupervisors.filter(supervisor => supervisor.email.includes(searchWord));
+    setSupervisors(filteredStudents);
+  }
   const supervisorCard = supervisors.map((supervisor) =>
     <div class='offset-1 col-5 supervisorCard'>
       <h5>{supervisor.name}</h5>
@@ -86,7 +96,7 @@ export default function AdminSupervisorList() {
             </div>
             <div class='col-2'>
               <button class='primaryButton capacityInput'
-                onClick={() => saveCapacity(supervisor)}>Save</button>
+                onClick={() => saveCapacity(supervisor)} disabled={newCapacity===''}>Save</button>
             </div>
             <div class='col-1 capacityInput'>
               <button class='secondaryButton' onClick={cancelEdit}>Cancel</button>
@@ -119,9 +129,9 @@ export default function AdminSupervisorList() {
             </div>
             <div class='col-4 searchBar'>
               <div class="input-group">
-                <input type="search" class="form-control" placeholder="Search for supervisor by ID" />
+                <input type="search" class="form-control" onChange={searchWordChange} value={searchWord} placeholder="Search supervisor by email" />
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button">
+                  <button class="btn btn-outline-secondary" onClick={onSearch} type="button">
                     <img src={search} />
                   </button>
                 </div>
@@ -132,7 +142,7 @@ export default function AdminSupervisorList() {
             {supervisorCard}
           </div>
           {loader}
-          <div class='row largeMarginTop'>
+          <div class='row largeMarginTop marginBottom'>
             <div class='offset-5 col-2'>
               <button class='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
             </div>

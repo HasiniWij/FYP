@@ -31,6 +31,7 @@ export default function ScheduleMeetings() {
     axios.get(`http://127.0.0.1:8000/api/meetingSeries/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         setMeetings(res.data.meetingSeries);
+        hideLoader();
       })
       .catch((error) => {
         if (error.response.status == 401) {

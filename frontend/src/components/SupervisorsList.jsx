@@ -68,7 +68,7 @@ export default function SupervisorsList() {
             {supervisorCards}
           </div>
           {loader}
-          <div className='row marginTop'>
+          <div className='row marginTop marginBottom'>
             <div className='offset-5 col-2'>
               <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
             </div>

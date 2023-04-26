@@ -80,7 +80,7 @@ export default function MatchSupervisorsStudents() {
           <button class='dashboardItem purpleBackground' onClick={supervisorPage}> Supervisors</button>
         </div>
         <div class='col-3'>
-            <button class='matchButton' onClick={match}> Match</button>
+            <button class='matchButton' disabled={studentCount>totalCapacity} onClick={match}> Match</button>
         </div>
         <div class='col-3'>
           <button class='dashboardItem purpleBackground' onClick={studentsPage}> Students</button>

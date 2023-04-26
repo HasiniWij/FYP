@@ -63,10 +63,9 @@
   padding: 10px;
 }
 .projectCardContainer{
-  margin-left:5%;
   display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-gap: 6%;
+	grid-gap: 40px;
 }
 .projectCards{
   margin-top: 4%;
@@ -171,6 +170,7 @@
   height:70%;
   margin-left: 10%;
   border: none;
+  color: white;
 }
 .disabledLogs{
   background-color: #D9D9D9;
@@ -231,6 +231,16 @@
   padding: 10px;
 }
 .primaryButton[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.noProjects{
+  margin-left: 37% ;
+  margin-top: 5% ;
+  margin-bottom: 9% ;
+  color: #5C6767;
+}
+.matchButton[disabled] {
   opacity: 0.4;
   cursor: not-allowed;
 }

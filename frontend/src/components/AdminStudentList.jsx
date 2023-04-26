@@ -11,8 +11,10 @@ import axios from 'axios';
 export default function AdminStudentList() {
 
   const [students, setStudents] = useState([]);
+  const [allStudents, setAllStudents] = useState([]);
   const [loader, showLoader, hideLoader] = useLoader(); 
-  const [authorized,setAuthorized]=useState(false)
+  const [authorized,setAuthorized]=useState(false);
+  const [searchWord,setSearchWord]=useState('')
   const history = useHistory();
   const adminDashboard = () => {
     history.push("/adminDashboard")
@@ -28,6 +30,7 @@ export default function AdminStudentList() {
       .then(res => {
         hideLoader();
         setStudents(res.data.students)
+        setAllStudents(res.data.students)
       })
       .catch((error) => {
         if(error.response.status == 401){
@@ -53,6 +56,13 @@ export default function AdminStudentList() {
     </div>
   );
 
+  const searchWordChange = event =>{
+    setSearchWord(event.target.value.trim());
+  }
+  const onSearch = () =>{
+    const filteredStudents = allStudents.filter(student => student.universityId.includes(searchWord));
+    setStudents(filteredStudents);
+  }
   return (
   <div>
     {authorized?
@@ -66,9 +76,9 @@ export default function AdminStudentList() {
         </div>
         <div className='col-4 searchBar'>
           <div className="input-group">
-            <input type="search" className="form-control" placeholder="Search for student by ID"/>
+            <input type="search" className="form-control" onChange={searchWordChange} value={searchWord} placeholder="Search for student by ID"/>
             <div className="input-group-append">
-              <button className="btn btn-outline-secondary" type="button">
+              <button className="btn btn-outline-secondary" onClick={onSearch}type="button">
                 <img src={search}/>
               </button>
             </div>
@@ -79,7 +89,7 @@ export default function AdminStudentList() {
         {studentCards}
       </div>
       {loader}
-      <div className='row largeMarginTop'>
+      <div className='row largeMarginTop marginBottom'>
         <div className='offset-5 col-2'>
           <button className='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
         </div>

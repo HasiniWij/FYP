@@ -100,7 +100,7 @@ export default function StudentBookMeeting() {
           </div>
           <div class='row marginBottom'>
             <div class='offset-5 col-1'>
-              <button class='primaryButton' onClick={bookMeeting}>Book</button>
+              <button class='primaryButton' disabled={selectedTime==''} onClick={bookMeeting}>Book</button>
             </div>
             <div class='col-1'>
               <button class='secondaryButton' onClick={studentDashboard}>Cancel</button>
