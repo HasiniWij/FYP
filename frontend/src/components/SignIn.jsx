@@ -4,10 +4,12 @@ import './Style.css';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import useLoader from "../hooks/useLoader";
 
 export default function SignIn() {
 
   const history = useHistory();
+  const [loader, showLoader, hideLoader] = useLoader(); 
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,10 +22,11 @@ export default function SignIn() {
     setPassword(event.target.value);
   };
   const login =()=>{
-    
+    showLoader();
     const user = {'email':email,'password':password}
       axios.post(`http://127.0.0.1:8000/api/login`,user)
     .then(res => {
+      hideLoader();
       console.log(res.data.access_token)
       localStorage.setItem('userToken', res.data.access_token)
       localStorage.setItem('userId', res.data.user.id)
@@ -41,6 +44,7 @@ export default function SignIn() {
       
     })
     .catch(() => {
+      hideLoader();
       setEmail('');
       setPassword('');
       setError('Invalid email or password entered');
@@ -66,6 +70,7 @@ export default function SignIn() {
           <div className='row marginTop authError'>
             <p>{error}</p>
           </div>
+          {loader}
           <div className='row authButton'>
             <button className='primaryButton' onClick={login}>Login</button>
           </div>

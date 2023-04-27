@@ -15,6 +15,7 @@ export default function Profile() {
   const [userInterests, setUserInterests] = useState([]);
   const [currentUserInterests, setCurrentUserInterests] = useState([]);
   const [description, setDescription] = useState('');
+  const [supervisorDetails, setSupervisorDetails] = useState('');
   const [projectAreas, setProjectAreas] = useState([]);
   const [projects, setProjects] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -60,6 +61,11 @@ export default function Profile() {
       .then(res => {
         hideLoader();
         setProjects(res.data.projects)
+      }).catch(e => console.log(e))
+      axios.get(`http://127.0.0.1:8000/api/assignedSupervisor/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
+      .then(res => {
+        hideLoader();
+        setSupervisorDetails(res.data.details)
       }).catch(e => console.log(e))
   },[]);
   const addTags = () => {
@@ -142,6 +148,14 @@ export default function Profile() {
         <div class="d-flex justify-content-center title col-8">
           <h1> Profile</h1>
         </div>
+      </div>      
+      <div class='row largeMarginTop'>
+        <div class='offset-1 col-5'>
+          <h4>Assigned supervisor:</h4>
+        </div>
+        <div class='col-6'>
+        <h4>{supervisorDetails?supervisorDetails : ' - ' }</h4>
+        </div>     
       </div>
       <div class='row marginTop'>
         <div class='offset-1 col-5'>
@@ -198,6 +212,7 @@ export default function Profile() {
       <div class='projectCardContainer'>
         {projectCards}
       </div>
+      {loader}
       <div class='row marginBottom marginTop'>
         <div class='offset-5 col-2'>
           <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>

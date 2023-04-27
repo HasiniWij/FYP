@@ -6,7 +6,9 @@ use App\Models\Area;
 use App\Models\Project;
 use App\Models\ProjectArea;
 use App\Models\Skill;
+use App\Models\Student;
 use App\Models\UserArea;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -181,5 +183,17 @@ class UserController extends Controller
      return response()->json([
       'projects' => $projects
    ]);
+   }
+   public function getSupervisor($studentId) {
+     $details='';
+     $result = Student::where('studentId',$studentId)->first();
+     if($result->supervisorId){
+      $user = User::where('id',$result->supervisorId)->first();
+      $details = $user->name. ' ('.$user->email. ')';
+     }
+     return response()->json([
+      'details' => $details
+   ]);
+     
    }
 }

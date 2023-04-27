@@ -9,7 +9,7 @@ export default function StudentBookMeeting() {
   const [authorized, setAuthorized] = useState(false);
   const [loader, showLoader, hideLoader] = useLoader(); 
   const [meetings, setMeetings] = useState([]);
-  const [bookedMeetings, setBookedMeetings] = useState('');
+  const [bookedMeetings, setBookedMeetings] = useState([]);
   const history = useHistory();
 
   const profilePage = () => {
@@ -83,6 +83,9 @@ export default function StudentBookMeeting() {
         {meetingCard}
       </div>
       {loader}
+      {
+            !bookedMeetings.length && !meetings.length &&<h2 className='noSupervisor'>No meetings scheduled yet !</h2>
+          }
       <div class='row largeMarginTop'>
         <div class='offset-5 col-2'>
           <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
