@@ -25,6 +25,7 @@ use App\Http\Controllers\AuthController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('logout', [AuthController::class, 'logout']);
 Route::get('userAreas/{id}', [UserController::class, 'getUserAreas']);
 Route::get('userProjects/{id}', [UserController::class, 'getUserProjects']);
 Route::get('areas', [UserController::class, 'getAreas']);

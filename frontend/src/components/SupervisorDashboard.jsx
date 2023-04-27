@@ -2,8 +2,12 @@ import React,{useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png'; 
+import axios from 'axios';
+import logoutIcon from '../resources/logout.png';
+import useLoader from "../hooks/useLoader";
 
 export default function SupervisorDashboard() {
+  const [loader, showLoader, hideLoader] = useLoader();
   const history = useHistory();
   const [authorized,setAuthorized]=useState(false);
 
@@ -28,6 +32,16 @@ export default function SupervisorDashboard() {
   const scheduleMeetingsPage = () => {
     history.push("/scheduleMeetings")
   }
+  const logout = () =>{
+    showLoader();
+    const token = localStorage.getItem('userToken');
+    axios.get(`http://127.0.0.1:8000/api/logout/`, { headers: { "Authorization": `Bearer ${token}` } })
+    .then(res => {
+      hideLoader();
+      localStorage.clear();
+      history.push('/signIn');
+    })
+  }
   
   return (
     <div>
@@ -37,11 +51,14 @@ export default function SupervisorDashboard() {
         <div class="col-2">
         <button class='logoButton' onClick={homePage}> <img src={logo} alt='logo'/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div class="d-flex justify-content-center title col-7">
           <h1> Supervisor Dashboard</h1>
         </div>
-        <div class="col-2 profileIconArea">
+        <div class="col-1 profileIconArea">
           <button class='profileButton' onClick={profilePage}>H</button>
+        </div>
+        <div class="col-1 profileIconArea">
+              <button class='profileButton' onClick={logout} ><img src={logoutIcon} /></button>
         </div>
       </div>
       <div class='row dashboardItemRow largeMarginTop'>
@@ -60,6 +77,7 @@ export default function SupervisorDashboard() {
           <button class='dashboardItem greenBackground'>Messages</button>
         </div>
       </div>
+      {loader}
       </div>: 
     <h1 className='unauthorized'>
       401 authorization required
