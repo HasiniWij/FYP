@@ -5,6 +5,7 @@ import logo from '../resources/logo.png';
 import axios from 'axios';
 import logoutIcon from '../resources/logout.png';
 import useLoader from "../hooks/useLoader";
+import profile from '../resources/profile.png';
 
 export default function SupervisorDashboard() {
   const [loader, showLoader, hideLoader] = useLoader();
@@ -55,10 +56,12 @@ export default function SupervisorDashboard() {
           <h1> Supervisor Dashboard</h1>
         </div>
         <div class="col-1 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>H</button>
+          <button class='profileButton' onClick={profilePage}>
+            <img className='profileIcon' src={profile} />
+          </button>
         </div>
-        <div class="col-1 profileIconArea">
-              <button class='profileButton' onClick={logout} ><img src={logoutIcon} /></button>
+        <div className='col-1 profileIconArea'>
+              <button class='logoutIcon' onClick={logout} ><img src={logoutIcon} /></button>
         </div>
       </div>
       <div class='row dashboardItemRow largeMarginTop'>

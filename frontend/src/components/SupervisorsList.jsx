@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png';
 import useLoader from "../hooks/useLoader";
+import profile from '../resources/profile.png';
 
 export default function SupervisorsList() {
   const [loader, showLoader, hideLoader] = useLoader();
@@ -61,7 +62,9 @@ export default function SupervisorsList() {
               <h1> Supervisors List</h1>
             </div>
             <div className="col-2 profileIconArea">
-              <button className='profileButton' onClick={profilePage}>H</button>
+              <button className='profileButton' onClick={profilePage}>
+              <img className='profileIcon' src={profile} />
+              </button>
             </div>
           </div>
           <div className='row'>

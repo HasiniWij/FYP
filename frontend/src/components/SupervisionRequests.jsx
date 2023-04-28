@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import './Style.css';
 import logo from '../resources/logo.png'; 
+import profile from '../resources/profile.png';
 
 export default function SupervisionRequests() {
 
@@ -55,7 +56,9 @@ export default function SupervisionRequests() {
           <h1> Requests for supervisions </h1>
         </div>
         <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>H</button>
+          <button class='profileButton' onClick={profilePage}>
+            <img className='profileIcon' src={profile} />
+          </button>
         </div>
       </div>
       <div class='row marginTop'>

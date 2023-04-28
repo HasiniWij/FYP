@@ -3,6 +3,7 @@ import './Style.css';
 import { useHistory } from "react-router-dom";
 import useLoader from "../hooks/useLoader";
 import logo from '../resources/logo.png';
+import profile from '../resources/profile.png';
 import axios from 'axios';
 
 export default function StudentBookMeeting() {
@@ -76,7 +77,9 @@ export default function StudentBookMeeting() {
           <h1> Supervisor meetings</h1>
         </div>
         <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>H</button>
+          <button class='profileButton' onClick={profilePage}>
+          <img className='profileIcon' src={profile} />
+          </button>
         </div>
       </div>
       <div class='row marginTop'>

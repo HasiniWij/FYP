@@ -2,6 +2,7 @@ import React, { useState }  from 'react';
 import './Style.css';
 import { useHistory,useParams } from "react-router-dom";
 import logo from '../resources/logo.png'; 
+import profile from '../resources/profile.png';
 
 export default function Logs() {
 
@@ -70,7 +71,9 @@ export default function Logs() {
           
         </div>
         <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>H</button>
+          <button class='profileButton' onClick={profilePage}>
+          <img className='profileIcon' src={profile} />
+          </button>
         </div>
       </div>      
       <div class='projectCardContainer'>

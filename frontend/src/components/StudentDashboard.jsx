@@ -59,14 +59,14 @@ export default function StudentDashboard() {
             <div class="col-2">
               <button class='logoButton' onClick={homePage}> <img src={logo} />  </button>
             </div>
-            <div class="d-flex justify-content-center title col-6">
+            <div class="d-flex justify-content-center title col-7">
               <h1> Student Dashboard</h1>
             </div>
             <div class="col-1 profileIconArea">
-              <button class='profileButton' onClick={profilePage}><img src={profile} /></button>
+              <button class='profileButton' onClick={profilePage}><img className='profileIcon' src={profile} /></button>
             </div>
             <div class="col-1 profileIconArea">
-              <button class='profileButton' onClick={logout} ><img src={logoutIcon} /></button>
+              <button class='logoutIcon' onClick={logout} ><img src={logoutIcon} /></button>
             </div>
           </div>
           <div class='row dashboardItemRow largeMarginTop'>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScheduleMeeting } from 'react-schedule-meeting';
 import './Style.css';
 import { useHistory, useParams } from "react-router-dom";
+import profile from '../resources/profile.png';
 import logo from '../resources/logo.png';
 import axios from 'axios';
 
@@ -84,7 +85,9 @@ export default function StudentBookMeeting() {
               <h1> Book meeting timeslots</h1>
             </div>
             <div class="col-2 profileIconArea">
-              <button class='profileButton' onClick={profilePage}>H</button>
+              <button class='profileButton' onClick={profilePage}>
+                <img className='profileIcon' src={profile} />
+              </button>
             </div>
           </div>
           <div class='bookMeeting largeMarginTop '>

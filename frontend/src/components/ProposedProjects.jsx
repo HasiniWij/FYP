@@ -3,7 +3,7 @@ import { useHistory,useParams } from "react-router-dom";
 import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png';
-import filterIcon from '../resources/filterIcon.png';
+import profile from '../resources/profile.png';
 import useLoader from "../hooks/useLoader";
 
 export default function ProposedProjects() {
@@ -70,7 +70,7 @@ export default function ProposedProjects() {
               <h1> Proposed project topics</h1>
             </div>
             <div class="col-2 profileIconArea">
-              <button class='profileButton' onClick={profilePage}>H</button>
+              <button class='profileButton' onClick={profilePage}><img className='profileIcon' src={profile} /></button>
             </div>
           </div>
           <div class='row projectCardContainer marginTop'>
