@@ -4,6 +4,7 @@ import { MultiSelect } from "react-multi-select-component";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import logo from '../resources/logo.png'; 
+import remove from '../resources/bin.png'; 
 import useLoader from "../hooks/useLoader";
 
 export default function Profile() {
@@ -82,11 +83,6 @@ export default function Profile() {
   const addProject = () => {
     const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
-    const newProjectList = projects.concat({
-      'description':description,
-      'areas':projectAreas,
-      'skills':tags
-    });
     axios.post(`http://127.0.0.1:8000/api/saveProject`,{
       'description':description,
       'areas':projectAreas,
@@ -94,6 +90,12 @@ export default function Profile() {
       'userId':userId
     },{ headers: {"Authorization" : `Bearer ${token}`}})
     .then(res => {
+      const newProjectList = projects.concat({
+        'description':description,
+        'areas':projectAreas,
+        'skills':tags,
+        'id':res.data.projectId
+      });
       setProjects(newProjectList);
       setDescription('');
       setTags([]);
@@ -116,6 +118,21 @@ export default function Profile() {
   const tagCards = tags.map((tag) =>
        <span class="badge tag">{tag}</span>
   );
+
+  const deleteProject = (id) =>{
+    showLoader();
+    console.log(id);
+    const token = localStorage.getItem('userToken');
+    axios.get(`http://127.0.0.1:8000/api/deleteProject/`+id, { headers: { "Authorization": `Bearer ${token}` } })
+    .then(res => {
+      hideLoader();
+      const currentProjects = projects.filter(project=> project.id!=id)
+      setProjects(currentProjects);
+    })
+    .catch((error) => {
+        hideLoader();
+      })
+  }
   const projectCards = projects.map((project) =>
   <div class="container grid-child projectCards">
       <p class='projectDescription'>
@@ -134,6 +151,8 @@ export default function Profile() {
         )
       }
       </div>
+      
+    <button className='float' onClick={()=>deleteProject(project.id)}><img src={remove}/></button>
   </div>
 );
   

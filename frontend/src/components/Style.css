@@ -39,10 +39,21 @@
   margin-top: 5px;
 }
 .profileButton{
+  background-color :#ffffff;
+  margin-top: -5px;
+  border: none;
+  margin-left: 10%;
+}
+.profileIcon{
+  background-color :#ffffff;
+  width: 80px;
+}
+.logoutIcon{
   background-color :#F0EFFF;
   padding: 0px;
   border: none;
   margin-left: 20%;
+  margin-top: 10px;
 }
 .profileIconArea{
   margin-top:4%;
@@ -69,6 +80,7 @@
   margin-top: 4%;
   background-color: #F0EFFF;
   padding: 15px 10px 15px 25px;
+  position: relative;
 }
 .skillTagProfileArea{
   margin-top: 2%;
@@ -250,4 +262,11 @@
 }
 .logout{
   width: 100px;
+}
+.float{
+  border: none;
+  position:absolute; 
+  bottom:0;
+  right:0;
+  margin: 20px;
 }

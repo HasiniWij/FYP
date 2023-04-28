@@ -66,7 +66,8 @@ class UserController extends Controller
       }
 
       return response()->json([
-         'status' => 'success'
+         'status' => 'success',
+         'projectId'=>$project['id']
       ]); 
    }
    public function getUserProjects(string $id) {
@@ -92,6 +93,7 @@ class UserController extends Controller
          }
          array_push($projects,
             array(
+               'id'=>$project['id'],
                'description'=>$project['description'],
                'areas'=>$areas,
                'skills'=>$skills
@@ -119,6 +121,15 @@ class UserController extends Controller
       'userAreas' => $userAreas
    ]);
      }
+     public function deleteProject($projectId) {
+      ProjectArea::where('projectId', $projectId)->delete();
+      Skill::where('projectId', $projectId)->delete();
+      Project::destroy($projectId);
+
+      return response()->json([
+         'status' => 'success'
+      ]); 
+   }
 
      public function saveUserAreas(Request $request) {
       
