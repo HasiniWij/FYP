@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Meeting;
 use App\Models\MeetingSeries;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MeetingController extends Controller
@@ -79,6 +80,31 @@ class MeetingController extends Controller
         return response()->json([
             "meetingSeries" => $meetingSeries,
             "bookedMeeting" => $bookedMeeting
+        ]);
+    }
+    public function getMeetingInformation($seriesId){
+        $meetings = Meeting::where('meetingSeriesId', $seriesId)->get();
+        $series = MeetingSeries::where('id', $seriesId)->first();
+        $timeslots=array();
+        foreach($meetings as $meeting){
+            if($meeting->studentId){
+                $student = User::where('id',$meeting->studentId)->first();
+                array_push($timeslots,array(
+                    'time'=>$meeting->dateTime,
+                    'studentName' =>$student->name
+                ));
+
+            }
+            else{
+                array_push($timeslots,array(
+                    'time'=>$meeting->dateTime
+                )); 
+            }
+        }
+        return response()->json([
+            "timeslots" => $timeslots,
+            "title" => $series->title,
+            'duration'=>$series->durationInMinutes
         ]);
     }
 }

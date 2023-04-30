@@ -32,7 +32,7 @@ Route::get('areas', [UserController::class, 'getAreas']);
 Route::post('saveProject', [UserController::class, 'saveProject']);
 Route::post('saveUserAreas', [UserController::class, 'saveUserAreas']);
 Route::get('projects/{id?}', [UserController::class, 'getProjects']);
-Route::get('assignedSupervisor/{id}', [UserController::class, 'getSupervisor']);
+Route::get('assignedSupervisor/{id}', [SupervisionController::class, 'getSupervisor']);
 Route::get('deleteProject/{id}', [UserController::class, 'deleteProject']);
 Route::get('supervisors', [SupervisionController::class, 'getSupervisors'])->middleware('auth.role:student,admin');
 Route::get('supervisorStudents/{id}', [SupervisionController::class, 'getStudents'])->middleware('auth.role:supervisor');
@@ -45,3 +45,4 @@ Route::get('bookedMeetingSeries/{id}', [MeetingController::class, 'getMeetingWit
 Route::get('meetings/{id}', [MeetingController::class, 'getMeetingTimeSlots'])->middleware('auth.role:student');
 Route::get('meetingSeries/{id}', [MeetingController::class, 'getMeetingSeries'])->middleware('auth.role:supervisor');
 Route::post('bookMeeting', [MeetingController::class, 'bookMeeting'])->middleware('auth.role:student');
+Route::get('meetingInformation/{id}', [MeetingController::class, 'getMeetingInformation'])->middleware('auth.role:supervisor');

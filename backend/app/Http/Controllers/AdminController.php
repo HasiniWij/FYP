@@ -161,7 +161,9 @@ class AdminController extends Controller
 
         $scores = array();
         foreach ($students as $student) {
-            $studentAreaResult = Area::select('area')->join('user_areas', 'user_areas.areaId', '=', 'areas.id')->where('user_areas.userId', '=', $student->studentId)->get();
+            $studentAreaResult = Area::select('area')
+                ->join('user_areas', 'user_areas.areaId', '=', 'areas.id')
+                ->where('user_areas.userId', '=', $student->studentId)->get();
             $studentAreas = array();
             foreach ($studentAreaResult as $studentArea) {
                 array_push(
@@ -171,7 +173,10 @@ class AdminController extends Controller
             }
             foreach ($supervisors as $supervisor) {
 
-                $score = $this->getJaccardCoefficient($studentAreas, $supervisorAreas[$supervisor->supervisorId]);
+                $score = $this->getJaccardCoefficient(
+                    $studentAreas,
+                    $supervisorAreas[$supervisor->supervisorId]
+                );
                 array_push(
                     $scores,
                     array(
@@ -186,6 +191,11 @@ class AdminController extends Controller
             return $a['score'] < $b['score'];
         });
 
+        $this->assignStudentsWithInterests($scores,$supervisors);
+        $this->updateNumberOfStudents($supervisors);
+
+    }
+    private function assignStudentsWithInterests($scores,$supervisors){
         $matchedStudents = array();
         $fullSupervisors = array();
         foreach ($scores as $score) {
@@ -206,10 +216,7 @@ class AdminController extends Controller
                 $student->save();
             }
         }
-        $this->updateNumberOfStudents($supervisors);
-
     }
-
     private function matchRemaining()
     {
         $students = Student::where('supervisorId', null)->get();

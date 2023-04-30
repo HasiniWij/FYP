@@ -22,6 +22,7 @@ import MatchSupervisorsStudents from './components/MatchSupervisorsStudents';
 import Logs from './components/Logs';
 import CreateMeeting from './components/CreateMeeting';
 import StudentMeeting from './components/StudentMeeting';
+import MeetingInformation from './components/MeetingInformation';
 
 const App = () => {
   return (
@@ -45,7 +46,8 @@ const App = () => {
       <Route path="/matchSupervisorsStudents" exact component={MatchSupervisorsStudents} /> 
       <Route path="/createMeeting" exact component={CreateMeeting} />       
       <Route path="/logs/:name?" component={Logs} />      
-      <Route path="/studentMeeting" component={StudentMeeting} />       
+      <Route path="/studentMeeting" component={StudentMeeting} /> 
+      <Route path="/meetingInformation/:meetingId" component={MeetingInformation} />       
     </Router>
   )
 }

@@ -21,6 +21,10 @@ export default function ScheduleMeetings() {
   const createMeetingPage = () => {
     history.push("/createMeeting")
   }
+  const meetingInformationPage = (meetingId) =>{
+    history.push("/meetingInformation/"+meetingId)
+    
+  }
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
@@ -44,9 +48,9 @@ export default function ScheduleMeetings() {
   },[]);
   
   const meetingCard = meetings.map((meeting) =>
-    <div class='offset-1 col-5 studentCard text-center '>
+    <button class='offset-1 col-5 studentCard text-center ' onClick={()=>meetingInformationPage(meeting.id)}>
       <h6>{meeting.title}</h6>
-    </div>
+    </button>
   );
 
   return (

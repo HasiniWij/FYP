@@ -15,7 +15,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => ['required', 'email','unique:users', new WestminsterValidation],
+            'email' => ['required', 'email', 'unique:users', new WestminsterValidation],
             'password' => 'required|min:6',
         ]);
 

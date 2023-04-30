@@ -195,16 +195,4 @@ class UserController extends Controller
       'projects' => $projects
    ]);
    }
-   public function getSupervisor($studentId) {
-     $details='';
-     $result = Student::where('studentId',$studentId)->first();
-     if($result->supervisorId){
-      $user = User::where('id',$result->supervisorId)->first();
-      $details = $user->name. ' ('.$user->email. ')';
-     }
-     return response()->json([
-      'details' => $details
-   ]);
-     
-   }
 }
