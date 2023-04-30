@@ -85,13 +85,13 @@ export default function StudentDashboard() {
           <div className='row dashboardItemRow'>
             <div className='col-2'> </div>
             <div className='col-3'>
-              <button className='dashboardItem blueBackground' onClick={requestSupervisionPage}>Request for a supervisor</button>
+              <button className='dashboardItem blueBackground todoFeatures' onClick={requestSupervisionPage}>Request for a supervisor</button>
             </div>
             <div className='col-3'>
-              <button className='dashboardItem yellowBackground' onClick={logsPage}>Meeting logs</button>
+              <button className='dashboardItem yellowBackground todoFeatures' onClick={logsPage}>Meeting logs</button>
             </div>
             <div className='col-3'>
-              <button className='dashboardItem orangeBackground'>Messages</button>
+              <button className='dashboardItem orangeBackground todoFeatures'>Messages</button>
             </div>
           </div>
           {loader}

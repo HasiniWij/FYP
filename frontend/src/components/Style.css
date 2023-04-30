@@ -338,3 +338,7 @@
 .marginLeft {
   margin-left: 10px;
 }
+
+.todoFeatures {
+  opacity: .3;
+}

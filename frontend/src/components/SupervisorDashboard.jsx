@@ -50,7 +50,9 @@ export default function SupervisorDashboard() {
         <div className="container">
           <div className="row">
             <div className="col-2">
-              <button className='logoButton' onClick={homePage}> <img src={logo} alt='logo' />  </button>
+              <button className='logoButton' onClick={homePage}>
+                <img src={logo} alt='logo' />
+              </button>
             </div>
             <div className="d-flex justify-content-center title col-7">
               <h1> Supervisor Dashboard</h1>
@@ -61,23 +63,28 @@ export default function SupervisorDashboard() {
               </button>
             </div>
             <div className='col-1 profileIconArea'>
-              <button className='logoutIcon' onClick={logout} ><img src={logoutIcon} /></button>
+              <button className='logoutIcon' onClick={logout} >
+                <img src={logoutIcon} />
+              </button>
             </div>
           </div>
           <div className='row dashboardItemRow largeMarginTop'>
             <div className='offset-3 col-3'>
-              <button className='dashboardItem orangeBackground' onClick={studentsPage}>Students</button>
+              <button className='dashboardItem orangeBackground'
+                onClick={studentsPage}>Students</button>
             </div>
             <div className='col-3'>
-              <button className='dashboardItem blueBackground' onClick={scheduleMeetingsPage}>Schedule meetings</button>
+              <button className='dashboardItem blueBackground'
+                onClick={scheduleMeetingsPage}>Schedule meetings</button>
             </div>
           </div>
           <div className='row dashboardItemRow'>
             <div className='offset-3 col-3'>
-              <button className='dashboardItem pinkBackground' onClick={supervisionRequestsPage}>Requests for supervision</button>
+              <button className='dashboardItem pinkBackground todoFeatures'
+                onClick={supervisionRequestsPage}>Requests for supervision</button>
             </div>
             <div className='col-3'>
-              <button className='dashboardItem greenBackground'>Messages</button>
+              <button className='dashboardItem greenBackground todoFeatures'>Messages</button>
             </div>
           </div>
           {loader}
