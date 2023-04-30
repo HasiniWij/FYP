@@ -33,10 +33,11 @@ export default function Profile() {
     }
   }
 
+  const role = localStorage.getItem('role');
+
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
-    const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     showLoader();
     if((role=='student'|| role=='supervisor' )  && isLoggedIn==='true' ) setAuthorized(true);
@@ -62,12 +63,14 @@ export default function Profile() {
       .then(res => {
         hideLoader();
         setProjects(res.data.projects)
-      }).catch(e => console.log(e))
-      axios.get(`http://127.0.0.1:8000/api/assignedSupervisor/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
+      })
+      if(role=='student'){
+        axios.get(`http://127.0.0.1:8000/api/assignedSupervisor/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {
         hideLoader();
         setSupervisorDetails(res.data.details)
-      }).catch(e => console.log(e))
+      });
+      }
   },[]);
   const addTags = () => {
     const newList = tags.concat(newSkill);
@@ -126,7 +129,6 @@ export default function Profile() {
 
   const deleteProject = (id) =>{
     showLoader();
-    console.log(id);
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/deleteProject/`+id, { headers: { "Authorization": `Bearer ${token}` } })
     .then(res => {
@@ -173,7 +175,7 @@ export default function Profile() {
           <h1> Profile</h1>
         </div>
       </div>      
-      <div className='row largeMarginTop'>
+      {role=='student'&& <div className='row largeMarginTop'>
         <div className='offset-1 col-5'>
           <h4>Assigned supervisor:</h4>
         </div>
@@ -181,6 +183,7 @@ export default function Profile() {
         <h4>{supervisorDetails?supervisorDetails : ' - ' }</h4>
         </div>     
       </div>
+      }
       <div className='row marginTop'>
         <div className='offset-1 col-5'>
           <h4>What areas are you interested in? </h4>

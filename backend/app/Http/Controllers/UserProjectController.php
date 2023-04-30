@@ -9,7 +9,7 @@ use App\Models\Skill;
 use App\Models\UserArea;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserProjectController extends Controller
 {
    public function __construct()
    {

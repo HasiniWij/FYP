@@ -28,7 +28,6 @@ export default function SignUp() {
     const user = { 'name': fullName, 'email': email, 'password': password }
     axios.post(`http://127.0.0.1:8000/api/register`, user)
       .then(res => {
-        console.log(res.data.access_token)
         localStorage.setItem('userToken', res.data.access_token)
         localStorage.setItem('userId', res.data.user.id)
         localStorage.setItem('role', res.data.user.role)

@@ -27,7 +27,6 @@ export default function SignIn() {
       axios.post(`http://127.0.0.1:8000/api/login`,user)
     .then(res => {
       hideLoader();
-      console.log(res.data.access_token)
       localStorage.setItem('userToken', res.data.access_token)
       localStorage.setItem('userId', res.data.user.id)
       localStorage.setItem('role', res.data.user.role)
