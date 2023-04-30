@@ -54,44 +54,44 @@ export default function StudentDashboard() {
   return (
     <div>
       {authorized ?
-        <div class="container">
-          <div class="row">
-            <div class="col-2">
-              <button class='logoButton' onClick={homePage}> <img src={logo} />  </button>
+        <div className="container">
+          <div className="row">
+            <div className="col-2">
+              <button className='logoButton' onClick={homePage}> <img src={logo} />  </button>
             </div>
-            <div class="d-flex justify-content-center title col-7">
+            <div className="d-flex justify-content-center title col-7">
               <h1> Student Dashboard</h1>
             </div>
-            <div class="col-1 profileIconArea">
-              <button class='profileButton' onClick={profilePage}><img className='profileIcon' src={profile} /></button>
+            <div className="col-1 profileIconArea">
+              <button className='profileButton' onClick={profilePage}><img className='profileIcon' src={profile} /></button>
             </div>
-            <div class="col-1 profileIconArea">
-              <button class='logoutIcon' onClick={logout} ><img src={logoutIcon} /></button>
+            <div className="col-1 profileIconArea">
+              <button className='logoutIcon' onClick={logout} ><img src={logoutIcon} /></button>
             </div>
           </div>
-          <div class='row dashboardItemRow largeMarginTop'>
-            <div class='col-2'> </div>
-            <div class='col-3'>
-              <button class='dashboardItem purpleBackground' onClick={proposedProjectsPage}>View proposed project topics</button>
+          <div className='row dashboardItemRow largeMarginTop'>
+            <div className='col-2'> </div>
+            <div className='col-3'>
+              <button className='dashboardItem purpleBackground' onClick={proposedProjectsPage}>View proposed project topics</button>
             </div>
-            <div class='col-3'>
-              <button class='dashboardItem pinkBackground' onClick={supervisorListPage}>View supervisor list</button>
+            <div className='col-3'>
+              <button className='dashboardItem pinkBackground' onClick={supervisorListPage}>View supervisor list</button>
             </div>
-            <div class='col-3'>
-              <button class='dashboardItem greenBackground' onClick={bookMeetingPage}>Book meeting time slots</button>
+            <div className='col-3'>
+              <button className='dashboardItem greenBackground' onClick={bookMeetingPage}>Book meeting time slots</button>
 
             </div>
           </div>
-          <div class='row dashboardItemRow'>
-            <div class='col-2'> </div>
-            <div class='col-3'>
-              <button class='dashboardItem blueBackground' onClick={requestSupervisionPage}>Request for a supervisor</button>
+          <div className='row dashboardItemRow'>
+            <div className='col-2'> </div>
+            <div className='col-3'>
+              <button className='dashboardItem blueBackground' onClick={requestSupervisionPage}>Request for a supervisor</button>
             </div>
-            <div class='col-3'>
-              <button class='dashboardItem yellowBackground' onClick={logsPage}>Meeting logs</button>
+            <div className='col-3'>
+              <button className='dashboardItem yellowBackground' onClick={logsPage}>Meeting logs</button>
             </div>
-            <div class='col-3'>
-              <button class='dashboardItem orangeBackground'>Messages</button>
+            <div className='col-3'>
+              <button className='dashboardItem orangeBackground'>Messages</button>
             </div>
           </div>
           {loader}

@@ -69,34 +69,34 @@ export default function MatchSupervisorsStudents() {
             spinner
             text='Trying to find the best matches so it might take some  time ...'
             >
-    <div class="container matchContainer">
-      <div class="row marginTop">
-        <div class="col-2">
-        <button class='logoButton' onClick={adminDashboard}> <img src={logo}/>  </button>
+    <div className="container matchContainer">
+      <div className="row marginTop">
+        <div className="col-2">
+        <button className='logoButton' onClick={adminDashboard}> <img src={logo}/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
           <h1> Match supervisors with students</h1>
         </div>
       </div>
-      <div class='row largeMarginTop dashboardItemRow'>
-        <div class='offset-2 col-3'>
-          <button class='dashboardItem purpleBackground' onClick={supervisorPage}> Supervisors</button>
+      <div className='row largeMarginTop dashboardItemRow'>
+        <div className='offset-2 col-3'>
+          <button className='dashboardItem purpleBackground' onClick={supervisorPage}> Supervisors</button>
         </div>
-        <div class='col-3'>
-            <button class='matchButton' disabled={studentCount>totalCapacity} onClick={match}> Match</button>
+        <div className='col-3'>
+            <button className='matchButton' disabled={studentCount>totalCapacity} onClick={match}> Match</button>
         </div>
-        <div class='col-3'>
-          <button class='dashboardItem purpleBackground' onClick={studentsPage}> Students</button>
+        <div className='col-3'>
+          <button className='dashboardItem purpleBackground' onClick={studentsPage}> Students</button>
         </div>
       </div>
       {loader}
-      <div class='row marginTop'>
-        <p class='mediumFontSize'>Number of students that can be accommodated by supervisors : {totalCapacity}</p>
-        <p class='mediumFontSize'>Number of students  : {studentCount}</p>
+      <div className='row marginTop'>
+        <p className='mediumFontSize'>Number of students that can be accommodated by supervisors : {totalCapacity}</p>
+        <p className='mediumFontSize'>Number of students  : {studentCount}</p>
       </div>
-      <div class='row largeMarginTop'>
-        <div class='offset-5 col-2'>
-          <button class='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
+      <div className='row largeMarginTop'>
+        <div className='offset-5 col-2'>
+          <button className='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
         </div>
       </div>
       <ToastContainer

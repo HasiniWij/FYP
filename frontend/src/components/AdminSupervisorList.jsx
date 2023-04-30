@@ -81,36 +81,36 @@ export default function AdminSupervisorList() {
     setSupervisors(filteredStudents);
   }
   const supervisorCard = supervisors.map((supervisor) =>
-    <div class='offset-1 col-5 supervisorCard'>
+    <div className='offset-1 col-5 supervisorCard'>
       <h5>{supervisor.name}</h5>
       <h5>{supervisor.email}</h5>
-      <div class='row'>
-        <div class="col-6">
+      <div className='row'>
+        <div className="col-6">
           <h5>Number of students: {editSupervisorId !== supervisor.id && supervisor.capacity} </h5>
         </div>
         {editSupervisorId == supervisor.id ?
           <>
-            <div class='col-2'>
+            <div className='col-2'>
               <input type="number" onKeyDown={(event) => validateInput(event)}
-                class="form-control capacityInput" onChange={onCapacityChange} value={newCapacity} />
+                className="form-control capacityInput" onChange={onCapacityChange} value={newCapacity} />
             </div>
-            <div class='col-2'>
-              <button class='primaryButton capacityInput'
+            <div className='col-2'>
+              <button className='primaryButton capacityInput'
                 onClick={() => saveCapacity(supervisor)} disabled={newCapacity===''}>Save</button>
             </div>
-            <div class='col-1 capacityInput'>
-              <button class='secondaryButton' onClick={cancelEdit}>Cancel</button>
+            <div className='col-1 capacityInput'>
+              <button className='secondaryButton' onClick={cancelEdit}>Cancel</button>
             </div>
           </>
           :
-          <div class='col-2'>
-            <button class='adminIcon editIcon' onClick={() => editCapacity(supervisor)}> <img src={edit} />  </button>
+          <div className='col-2'>
+            <button className='adminIcon editIcon' onClick={() => editCapacity(supervisor)}> <img src={edit} />  </button>
           </div>
         }
         {/* Luxury feature */}
-        {/* <div class="col-3">
-        <button class='adminIcon'> <img src={bin}/>  </button>
-        <button class='adminIcon'> <img src={disable}/>  </button>
+        {/* <div className="col-3">
+        <button className='adminIcon'> <img src={bin}/>  </button>
+        <button className='adminIcon'> <img src={disable}/>  </button>
         </div> */}
       </div>
     </div>
@@ -119,32 +119,32 @@ export default function AdminSupervisorList() {
   return (
     <div>
       {authorized ?
-        <div class="container">
-          <div class="row marginTop">
-            <div class="col-3">
-              <button class='logoButton' onClick={adminDashboard}> <img src={logo} />  </button>
+        <div className="container">
+          <div className="row marginTop">
+            <div className="col-3">
+              <button className='logoButton' onClick={adminDashboard}> <img src={logo} />  </button>
             </div>
-            <div class="d-flex justify-content-center title col-5">
+            <div className="d-flex justify-content-center title col-5">
               <h1> Supervisors List</h1>
             </div>
-            <div class='col-4 searchBar'>
-              <div class="input-group">
-                <input type="search" class="form-control" onChange={searchWordChange} value={searchWord} placeholder="Search supervisor by email" />
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" onClick={onSearch} type="button">
+            <div className='col-4 searchBar'>
+              <div className="input-group">
+                <input type="search" className="form-control" onChange={searchWordChange} value={searchWord} placeholder="Search supervisor by email" />
+                <div className="input-group-append">
+                  <button className="btn btn-outline-secondary" onClick={onSearch} type="button">
                     <img src={search} />
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div class='row marginTop'>
+          <div className='row marginTop'>
             {supervisorCard}
           </div>
           {loader}
-          <div class='row largeMarginTop marginBottom'>
-            <div class='offset-5 col-2'>
-              <button class='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
+          <div className='row largeMarginTop marginBottom'>
+            <div className='offset-5 col-2'>
+              <button className='secondaryButton' onClick={adminDashboard}>Back to dashboard</button>
             </div>
           </div>
         </div>

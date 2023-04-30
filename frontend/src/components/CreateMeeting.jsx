@@ -87,8 +87,8 @@ export default function CreateMeeting() {
           <h1> Create meeting series</h1>
         </div>
       </div>
-      <div class='row '>
-        <span class='meetingMessage'>Add your available time slots so each of your students have one to book. </span>
+      <div className='row '>
+        <span className='meetingMessage'>Add your available time slots so each of your students have one to book. </span>
       </div>
       <div className='row marginTop'>
         <div className='offset-1 col-3'>

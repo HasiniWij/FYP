@@ -121,7 +121,7 @@ export default function Profile() {
   }
 
   const tagCards = tags.map((tag) =>
-       <span class="badge tag">{tag}</span>
+       <span className="badge tag">{tag}</span>
   );
 
   const deleteProject = (id) =>{
@@ -139,8 +139,8 @@ export default function Profile() {
       })
   }
   const projectCards = projects.map((project) =>
-  <div class="container grid-child projectCards">
-      <p class='projectDescription'>
+  <div className="container grid-child projectCards">
+      <p className='projectDescription'>
           {project.description}
       </p> 
       { project.areas.length?<span>Areas: </span>:''}
@@ -149,10 +149,10 @@ export default function Profile() {
          <span>{skill.label}{index+1==project.areas.length?'':', '}</span>
          )
       }
-      <div class='skillTagProfileArea'>
+      <div className='skillTagProfileArea'>
       {
         project.skills.map((skill) =>
-        <span class="badge tag">{skill}</span>
+        <span className="badge tag">{skill}</span>
         )
       }
       </div>
@@ -164,28 +164,28 @@ export default function Profile() {
   return (
     <div>
     {authorized?
-    <div class="container">
-      <div class="row">
-        <div class="col-2">
-        <button class='logoButton' onClick={studentDashboard}> <img src={logo}/>  </button>
+    <div className="container">
+      <div className="row">
+        <div className="col-2">
+        <button className='logoButton' onClick={studentDashboard}> <img src={logo}/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
           <h1> Profile</h1>
         </div>
       </div>      
-      <div class='row largeMarginTop'>
-        <div class='offset-1 col-5'>
+      <div className='row largeMarginTop'>
+        <div className='offset-1 col-5'>
           <h4>Assigned supervisor:</h4>
         </div>
-        <div class='col-6'>
+        <div className='col-6'>
         <h4>{supervisorDetails?supervisorDetails : ' - ' }</h4>
         </div>     
       </div>
-      <div class='row marginTop'>
-        <div class='offset-1 col-5'>
+      <div className='row marginTop'>
+        <div className='offset-1 col-5'>
           <h4>What areas are you interested in? </h4>
         </div>
-        <div class='col-3'>
+        <div className='col-3'>
           <MultiSelect
           options={areas}
           value={userInterests}
@@ -194,20 +194,20 @@ export default function Profile() {
           valueRenderer ={userInterestPlaceholder}
           />
         </div>  
-        <div class='col-2'>
-          <button class='primaryButton' disabled={JSON.stringify(currentUserInterests)==JSON.stringify(userInterests)} onClick={saveInterest}> Save Interests</button>
+        <div className='col-2'>
+          <button className='primaryButton' disabled={JSON.stringify(currentUserInterests)==JSON.stringify(userInterests)} onClick={saveInterest}> Save Interests</button>
         </div>   
       </div>
-      <div class='row largeMarginTop'>
-        <div class='offset-1 col-5'>
+      <div className='row largeMarginTop'>
+        <div className='offset-1 col-5'>
           <h4>Potential ideas you want to work on? </h4>
         </div>
-        <div class='col-5'>
-          <textarea class="form-control" value={description} rows="3" onChange={onDescriptionChange}></textarea>
+        <div className='col-5'>
+          <textarea className="form-control" value={description} rows="3" onChange={onDescriptionChange}></textarea>
         </div>     
       </div>
-      <div class='row profileRow'>
-        <div class='offset-6 col-5'>
+      <div className='row profileRow'>
+        <div className='offset-6 col-5'>
           <MultiSelect
             options={areas}
             value={projectAreas}
@@ -216,32 +216,32 @@ export default function Profile() {
             valueRenderer ={projectPlaceholder}
             />
         </div>  
-        <div class='row profileRow'>
-          <div class='offset-6 col-3'>
-            <input type="text" class="form-control skillInput" onChange={onSkillChange} placeholder="Add required technical skills" value={newSkill}/>
+        <div className='row profileRow'>
+          <div className='offset-6 col-3'>
+            <input type="text" className="form-control skillInput" onChange={onSkillChange} placeholder="Add required technical skills" value={newSkill}/>
           </div>
-          <div class='col-3'>
-            <button class='primaryButton' onClick={addTags} disabled={newSkill===''}> Add</button>
+          <div className='col-3'>
+            <button className='primaryButton' onClick={addTags} disabled={newSkill===''}> Add</button>
           </div>
         </div> 
-        <div class='row profileNewTagArea'>
-          <div class='offset-6 col-3'>
+        <div className='row profileNewTagArea'>
+          <div className='offset-6 col-3'>
             {tagCards}
           </div>
         </div>
-        <div class='row profileRow'>
-          <div class='offset-8 col-3'>
-            <button class='primaryButton' disabled={description==''} onClick={addProject}> Save idea</button>
+        <div className='row profileRow'>
+          <div className='offset-8 col-3'>
+            <button className='primaryButton' disabled={description==''} onClick={addProject}> Save idea</button>
           </div>
         </div>  
       </div>
-      <div class='projectCardContainer'>
+      <div className='projectCardContainer'>
         {projectCards}
       </div>
       {loader}
-      <div class='row marginBottom marginTop'>
-        <div class='offset-5 col-2'>
-          <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
+      <div className='row marginBottom marginTop'>
+        <div className='offset-5 col-2'>
+          <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
         </div>
       </div>
     </div>

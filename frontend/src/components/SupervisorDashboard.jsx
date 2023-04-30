@@ -47,37 +47,37 @@ export default function SupervisorDashboard() {
   return (
     <div>
     {authorized?
-    <div class="container">
-      <div class="row">
-        <div class="col-2">
-        <button class='logoButton' onClick={homePage}> <img src={logo} alt='logo'/>  </button>
+    <div className="container">
+      <div className="row">
+        <div className="col-2">
+        <button className='logoButton' onClick={homePage}> <img src={logo} alt='logo'/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-7">
+        <div className="d-flex justify-content-center title col-7">
           <h1> Supervisor Dashboard</h1>
         </div>
-        <div class="col-1 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>
+        <div className="col-1 profileIconArea">
+          <button className='profileButton' onClick={profilePage}>
             <img className='profileIcon' src={profile} />
           </button>
         </div>
         <div className='col-1 profileIconArea'>
-              <button class='logoutIcon' onClick={logout} ><img src={logoutIcon} /></button>
+              <button className='logoutIcon' onClick={logout} ><img src={logoutIcon} /></button>
         </div>
       </div>
-      <div class='row dashboardItemRow largeMarginTop'>
-        <div class='offset-3 col-3'>
-          <button class='dashboardItem orangeBackground' onClick={studentsPage}>Students</button>
+      <div className='row dashboardItemRow largeMarginTop'>
+        <div className='offset-3 col-3'>
+          <button className='dashboardItem orangeBackground' onClick={studentsPage}>Students</button>
         </div>
-        <div class='col-3'>
-        <button class='dashboardItem blueBackground'  onClick={scheduleMeetingsPage}>Schedule meetings</button>
+        <div className='col-3'>
+        <button className='dashboardItem blueBackground'  onClick={scheduleMeetingsPage}>Schedule meetings</button>
         </div>
       </div>
-      <div class='row dashboardItemRow'>
-        <div class='offset-3 col-3'>
-          <button class='dashboardItem pinkBackground' onClick={supervisionRequestsPage}>Requests for supervision</button>
+      <div className='row dashboardItemRow'>
+        <div className='offset-3 col-3'>
+          <button className='dashboardItem pinkBackground' onClick={supervisionRequestsPage}>Requests for supervision</button>
         </div>
-        <div class='col-3'>
-          <button class='dashboardItem greenBackground'>Messages</button>
+        <div className='col-3'>
+          <button className='dashboardItem greenBackground'>Messages</button>
         </div>
       </div>
       {loader}

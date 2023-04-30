@@ -42,29 +42,29 @@ export default function AdminDashboard() {
   return (
     <div>
     {authorized?
-    <div class="container">
-      <div class="row">
-        <div class="col-2">
-        <button class='logoButton' onClick={homePage}> <img src={logo} alt='logo'/>  </button>
+    <div className="container">
+      <div className="row">
+        <div className="col-2">
+        <button className='logoButton' onClick={homePage}> <img src={logo} alt='logo'/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
           <h1> Admin Dashboard</h1>
         </div>
-        <div class="col-1 profileIconArea">
-              <button class='profileButton' onClick={logout} ><img src={logoutIcon} /></button>
+        <div className="col-1 profileIconArea">
+              <button className='profileButton' onClick={logout} ><img src={logoutIcon} /></button>
         </div>
       </div>
-      <div class='row dashboardItemRow largeMarginTop'>
-        <div class='offset-3 col-3'>
-          <button class='dashboardItem orangeBackground' onClick={supervisorPage}> Supervisor List</button>
+      <div className='row dashboardItemRow largeMarginTop'>
+        <div className='offset-3 col-3'>
+          <button className='dashboardItem orangeBackground' onClick={supervisorPage}> Supervisor List</button>
         </div>
-        <div class='col-3'>
-          <button class='dashboardItem pinkBackground' onClick={studentsPage}> Student List</button>
+        <div className='col-3'>
+          <button className='dashboardItem pinkBackground' onClick={studentsPage}> Student List</button>
         </div>
       </div>
-      <div class='row dashboardItemRow'>
-        <div class='offset-3 col-3'>
-          <button class='dashboardItem blueBackground'  onClick={matchSupervisorsStudentsPage}>Match supervisors with students</button>
+      <div className='row dashboardItemRow'>
+        <div className='offset-3 col-3'>
+          <button className='dashboardItem blueBackground'  onClick={matchSupervisorsStudentsPage}>Match supervisors with students</button>
         </div>
       </div>
       {loader}

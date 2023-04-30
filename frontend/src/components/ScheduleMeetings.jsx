@@ -48,7 +48,7 @@ export default function ScheduleMeetings() {
   },[]);
   
   const meetingCard = meetings.map((meeting) =>
-    <button class='offset-1 col-5 studentCard text-center ' onClick={()=>meetingInformationPage(meeting.id)}>
+    <button className='offset-1 col-5 studentCard text-center ' onClick={()=>meetingInformationPage(meeting.id)}>
       <h6>{meeting.title}</h6>
     </button>
   );
@@ -56,33 +56,33 @@ export default function ScheduleMeetings() {
   return (
     <div>
     {authorized?
-    <div class="container">
-      <div class="row marginTop">
-        <div class="col-2">
-        <button class='logoButton' onClick={supervisorDashboard}> <img src={logo} alt='alt'/>  </button>
+    <div className="container">
+      <div className="row marginTop">
+        <div className="col-2">
+        <button className='logoButton' onClick={supervisorDashboard}> <img src={logo} alt='alt'/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
           <h1> Schedule meetings</h1>
         </div>
-        <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>
+        <div className="col-2 profileIconArea">
+          <button className='profileButton' onClick={profilePage}>
           <img className='profileIcon' src={profile} />
           </button>
         </div>
       </div>
-      <div class='row marginTop'>
+      <div className='row marginTop'>
         {meetingCard}
-        <div class='offset-1 col-5 text-center '>
-          <button class='newMeetingButton' onClick={createMeetingPage}>
-            <span class='largeFontSize'>+</span>
+        <div className='offset-1 col-5 text-center '>
+          <button className='newMeetingButton' onClick={createMeetingPage}>
+            <span className='largeFontSize'>+</span>
             <span>  New Meeting</span>
           </button>
         </div>
       </div>
       {loader}
-      <div class='row largeMarginTop'>
-        <div class='offset-5 col-2'>
-          <button class='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
+      <div className='row largeMarginTop'>
+        <div className='offset-5 col-2'>
+          <button className='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
         </div>
       </div>
     </div>

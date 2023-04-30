@@ -76,22 +76,22 @@ export default function StudentBookMeeting() {
   return (
     <div>
       {authorized ?
-        <div class="container">
-          <div class="row">
-            <div class="col-2">
-              <button class='logoButton' onClick={studentDashboard}> <img src={logo} />  </button>
+        <div className="container">
+          <div className="row">
+            <div className="col-2">
+              <button className='logoButton' onClick={studentDashboard}> <img src={logo} />  </button>
             </div>
-            <div class="d-flex justify-content-center title col-8">
+            <div className="d-flex justify-content-center title col-8">
               <h1> Book meeting timeslots</h1>
             </div>
-            <div class="col-2 profileIconArea">
-              <button class='profileButton' onClick={profilePage}>
+            <div className="col-2 profileIconArea">
+              <button className='profileButton' onClick={profilePage}>
                 <img className='profileIcon' src={profile} />
               </button>
             </div>
           </div>
-          <div class='bookMeeting largeMarginTop '>
-            <h4 class="sub-title"> {title}</h4>
+          <div className='bookMeeting largeMarginTop '>
+            <h4 className="sub-title"> {title}</h4>
             <ScheduleMeeting
               borderRadius={10}
               primaryColor="#3f5b85"
@@ -101,12 +101,12 @@ export default function StudentBookMeeting() {
               scheduleMeetingStyles={{ height: '420px' }}
             />
           </div>
-          <div class='row marginBottom'>
-            <div class='offset-5 col-1'>
-              <button class='primaryButton' disabled={selectedTime==''} onClick={bookMeeting}>Book</button>
+          <div className='row marginBottom'>
+            <div className='offset-5 col-1'>
+              <button className='primaryButton' disabled={selectedTime==''} onClick={bookMeeting}>Book</button>
             </div>
-            <div class='col-1'>
-              <button class='secondaryButton' onClick={studentDashboard}>Cancel</button>
+            <div className='col-1'>
+              <button className='secondaryButton' onClick={studentDashboard}>Cancel</button>
             </div>
           </div>
         </div>

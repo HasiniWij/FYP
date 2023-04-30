@@ -33,40 +33,40 @@ export default function SupervisionRequests() {
   ];
   
   const studentCards = students.map((student) =>
-    <div class='offset-1 col-5 text-center row marginBottom'>
-      <div class='col-5 studentCard'>
+    <div className='offset-1 col-5 text-center row marginBottom'>
+      <div className='col-5 studentCard'>
         <h6>{student.name}</h6>
       </div>
-      <div  class='col-3 respondButton'>
-        <button class='primaryButton'>Accept</button>
+      <div  className='col-3 respondButton'>
+        <button className='primaryButton'>Accept</button>
       </div>
-      <div  class='col-3 respondButton'>
-        <button class='declineButton'>Decline</button>
+      <div  className='col-3 respondButton'>
+        <button className='declineButton'>Decline</button>
       </div>
     </div>
   );
 
   return (
-    <div class="container">
-      <div class="row marginTop">
-        <div class="col-2">
-        <button class='logoButton' onClick={supervisorDashboard}> <img src={logo}/>  </button>
+    <div className="container">
+      <div className="row marginTop">
+        <div className="col-2">
+        <button className='logoButton' onClick={supervisorDashboard}> <img src={logo}/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
           <h1> Requests for supervisions </h1>
         </div>
-        <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>
+        <div className="col-2 profileIconArea">
+          <button className='profileButton' onClick={profilePage}>
             <img className='profileIcon' src={profile} />
           </button>
         </div>
       </div>
-      <div class='row marginTop'>
+      <div className='row marginTop'>
         {studentCards}
       </div>
-      <div class='row largeMarginTop'>
-        <div class='offset-5 col-2'>
-          <button class='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
+      <div className='row largeMarginTop'>
+        <div className='offset-5 col-2'>
+          <button className='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
         </div>
       </div>
     </div>

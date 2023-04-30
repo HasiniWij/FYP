@@ -50,14 +50,14 @@ export default function StudentBookMeeting() {
     const bookedMeeting = bookedMeetings.filter(e => e.seriesId === meeting.id);
     if (bookedMeeting.length) {
       return (
-        <div class='offset-1 col-5 studentCard text-center'>
+        <div className='offset-1 col-5 studentCard text-center'>
           <h6>{meeting.title}- {new Date(bookedMeeting[0].dateTime).toString()}</h6>
         </div>
       )
     }
     else {
       return (
-        <button class='offset-1 col-5 studentCard text-center'
+        <button className='offset-1 col-5 studentCard text-center'
           onClick={() => bookMeeting(meeting)}>
           <h6>{meeting.title}</h6>
         </button>
@@ -68,30 +68,30 @@ export default function StudentBookMeeting() {
   return (
     <div>
     {authorized?
-    <div class="container">
-      <div class="row marginTop">
-        <div class="col-2">
-          <button class='logoButton' onClick={studentDashboard}> <img src={logo} alt='alt' />  </button>
+    <div className="container">
+      <div className="row marginTop">
+        <div className="col-2">
+          <button className='logoButton' onClick={studentDashboard}> <img src={logo} alt='alt' />  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
           <h1> Supervisor meetings</h1>
         </div>
-        <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>
+        <div className="col-2 profileIconArea">
+          <button className='profileButton' onClick={profilePage}>
           <img className='profileIcon' src={profile} />
           </button>
         </div>
       </div>
-      <div class='row marginTop'>
+      <div className='row marginTop'>
         {meetingCard}
       </div>
       {loader}
       {
             !bookedMeetings.length && !meetings.length &&<h2 className='noSupervisor'>No meetings scheduled yet !</h2>
           }
-      <div class='row largeMarginTop'>
-        <div class='offset-5 col-2'>
-          <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
+      <div className='row largeMarginTop'>
+        <div className='offset-5 col-2'>
+          <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
         </div>
       </div>
     </div>

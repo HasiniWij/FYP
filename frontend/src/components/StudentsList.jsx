@@ -46,7 +46,7 @@ export default function StudentsList() {
   }
   
   const studentCards = students.map((student) =>
-    <button class='offset-1 col-2 studentCard text-center' onClick={() => logsPage(student.name)}>
+    <button className='offset-1 col-2 studentCard text-center' onClick={() => logsPage(student.name)}>
       <h6>{student.name}</h6>
     </button>
   );
@@ -54,30 +54,30 @@ export default function StudentsList() {
   return (
     <div>
     {authorized?
-    <div class="container">
-      <div class="row marginTop">
-        <div class="col-2">
-        <button class='logoButton' onClick={supervisorDashboard}> <img src={logo}/>  </button>
+    <div className="container">
+      <div className="row marginTop">
+        <div className="col-2">
+        <button className='logoButton' onClick={supervisorDashboard}> <img src={logo}/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
           <h1> Students</h1>
         </div>
-        <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>
+        <div className="col-2 profileIconArea">
+          <button className='profileButton' onClick={profilePage}>
             <img className='profileIcon' src={profile} />
           </button>
         </div>
       </div>
-      <div class='row marginTop'>
+      <div className='row marginTop'>
         {studentCards}
       </div>
       {loader}
       {
             !students.length && <h2 className='noProjects'>No students assigned yet</h2>
           }
-      <div class='row largeMarginTop'>
-        <div class='offset-5 col-2'>
-          <button class='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
+      <div className='row largeMarginTop'>
+        <div className='offset-5 col-2'>
+          <button className='secondaryButton' onClick={supervisorDashboard}>Back to dashboard</button>
         </div>
       </div>
     </div>: 

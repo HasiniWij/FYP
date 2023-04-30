@@ -44,48 +44,48 @@ export default function Logs() {
 
 
   const logCards = logs.map((log) =>
-  <div class="container grid-child largeMarginTop">
+  <div className="container grid-child largeMarginTop">
      <h5>{log.title}{log.date}</h5>
-     <textarea class="form-control" value={log.log} rows="3" id={logs.indexOf(log)} onChange={onDescriptionChange}/>
+     <textarea className="form-control" value={log.log} rows="3" id={logs.indexOf(log)} onChange={onDescriptionChange}/>
   </div>
 );
   
     const meetingCards = meetings.map((meeting) =>
-    <div class="container grid-child largeMarginTop">
+    <div className="container grid-child largeMarginTop">
         <h5>{meeting.title}{meeting.date}</h5>
-        <p class="disabledLogs">Don't forget to log progress during the meeting!</p>
+        <p className="disabledLogs">Don't forget to log progress during the meeting!</p>
     </div>
     );
 
   return (
-    <div class="container">
-      <div class="row">
-        <div class="col-2">
-        <button class='logoButton' onClick={studentDashboard}> <img src={logo}/>  </button>
+    <div className="container">
+      <div className="row">
+        <div className="col-2">
+        <button className='logoButton' onClick={studentDashboard}> <img src={logo}/>  </button>
         </div>
-        <div class="d-flex justify-content-center title col-8">
+        <div className="d-flex justify-content-center title col-8">
             {name ?
                 <h1> Meeting logs - {name}</h1>:
                 <h1> Meeting logs</h1>
             }
           
         </div>
-        <div class="col-2 profileIconArea">
-          <button class='profileButton' onClick={profilePage}>
+        <div className="col-2 profileIconArea">
+          <button className='profileButton' onClick={profilePage}>
           <img className='profileIcon' src={profile} />
           </button>
         </div>
       </div>      
-      <div class='projectCardContainer'>
+      <div className='projectCardContainer'>
         {logCards}
         {meetingCards}
       </div>
-      <div class='row marginTop'>
-        <div class='offset-5 col-1'>
-          <button class='primaryButton'>Save</button>
+      <div className='row marginTop'>
+        <div className='offset-5 col-1'>
+          <button className='primaryButton'>Save</button>
         </div>
-        <div class='col-1'>
-          <button class='secondaryButton' onClick={name?studentsPage:studentDashboard}>Back</button>
+        <div className='col-1'>
+          <button className='secondaryButton' onClick={name?studentsPage:studentDashboard}>Back</button>
         </div>
       </div>
     </div>

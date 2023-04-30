@@ -43,15 +43,15 @@ export default function ProposedProjects() {
   }
 
   const projectCards = projects.map((project) =>
-    <div class=" projectCards">
-      <p class='projectDescription'>
+    <div className=" projectCards">
+      <p className='projectDescription'>
         {project.description}
       </p>
       {project.areas.length ?<span>Areas: {project.areas}</span>:''}
-      <div class='skillTagProfileArea'>
+      <div className='skillTagProfileArea'>
         {
           project.skills.map((skill) =>
-            <span class="badge tag">{skill}</span>
+            <span className="badge tag">{skill}</span>
           )
         }
       </div>
@@ -61,28 +61,28 @@ export default function ProposedProjects() {
   return (
     <div >
       {authorized ?
-        <div class="container">
-          <div class='row'>
-            <div class="col-2">
-              <button class='logoButton' onClick={studentDashboard}> <img src={logo} />  </button>
+        <div className="container">
+          <div className='row'>
+            <div className="col-2">
+              <button className='logoButton' onClick={studentDashboard}> <img src={logo} />  </button>
             </div>
-            <div class="d-flex justify-content-center title col-8">
+            <div className="d-flex justify-content-center title col-8">
               <h1> Proposed project topics</h1>
             </div>
-            <div class="col-2 profileIconArea">
-              <button class='profileButton' onClick={profilePage}><img className='profileIcon' src={profile} /></button>
+            <div className="col-2 profileIconArea">
+              <button className='profileButton' onClick={profilePage}><img className='profileIcon' src={profile} /></button>
             </div>
           </div>
-          <div class='row projectCardContainer marginTop'>
+          <div className='row projectCardContainer marginTop'>
             {projectCards}
           </div>
           {loader}
           {
             !projects.length && <h2 className='noProjects'>No projects added yet</h2>
           }
-          <div class='row largeMarginTop marginBottom'>
-            <div class='offset-5 col-2'>
-              <button class='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
+          <div className='row largeMarginTop marginBottom'>
+            <div className='offset-5 col-2'>
+              <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
             </div>
           </div>
         </div> :
