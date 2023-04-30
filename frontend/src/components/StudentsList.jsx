@@ -45,8 +45,8 @@ export default function StudentsList() {
     history.push("/logs/"+name);
   }
   
-  const studentCards = students.map((student) =>
-    <button className='offset-1 col-2 studentCard text-center' onClick={() => logsPage(student.name)}>
+  const studentCards = students.map((student,index) =>
+    <button key={index} className='offset-1 col-2 studentCard text-center' onClick={() => logsPage(student.name)}>
       <h6>{student.name}</h6>
     </button>
   );

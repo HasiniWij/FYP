@@ -43,15 +43,15 @@ export default function Logs() {
   }
 
 
-  const logCards = logs.map((log) =>
-  <div className="container grid-child largeMarginTop">
+  const logCards = logs.map((log,index) =>
+  <div className="container grid-child largeMarginTop" key={index}>
      <h5>{log.title}{log.date}</h5>
      <textarea className="form-control" value={log.log} rows="3" id={logs.indexOf(log)} onChange={onDescriptionChange}/>
   </div>
 );
   
-    const meetingCards = meetings.map((meeting) =>
-    <div className="container grid-child largeMarginTop">
+    const meetingCards = meetings.map((meeting,index) =>
+    <div className="container grid-child largeMarginTop" key={index}>
         <h5>{meeting.title}{meeting.date}</h5>
         <p className="disabledLogs">Don't forget to log progress during the meeting!</p>
     </div>

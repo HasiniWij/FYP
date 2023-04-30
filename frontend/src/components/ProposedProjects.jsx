@@ -42,16 +42,16 @@ export default function ProposedProjects() {
     history.push("/profile")
   }
 
-  const projectCards = projects.map((project) =>
-    <div className=" projectCards">
+  const projectCards = projects.map((project,index) =>
+    <div className=" projectCards" key={index}>
       <p className='projectDescription'>
         {project.description}
       </p>
       {project.areas.length ?<span>Areas: {project.areas}</span>:''}
       <div className='skillTagProfileArea'>
         {
-          project.skills.map((skill) =>
-            <span className="badge tag">{skill}</span>
+          project.skills.map((skill,skillIndex) =>
+            <span className="badge tag" key={skillIndex}>{skill}</span>
           )
         }
       </div>

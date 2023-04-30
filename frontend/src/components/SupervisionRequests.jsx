@@ -32,8 +32,8 @@ export default function SupervisionRequests() {
     }
   ];
   
-  const studentCards = students.map((student) =>
-    <div className='offset-1 col-5 text-center row marginBottom'>
+  const studentCards = students.map((student,index) =>
+    <div className='offset-1 col-5 text-center row marginBottom' key={index}>
       <div className='col-5 studentCard'>
         <h6>{student.name}</h6>
       </div>

@@ -120,8 +120,8 @@ export default function Profile() {
     },{ headers: {"Authorization" : `Bearer ${token}`}})
   }
 
-  const tagCards = tags.map((tag) =>
-       <span className="badge tag">{tag}</span>
+  const tagCards = tags.map((tag,index) =>
+       <span className="badge tag" key={index}>{tag}</span>
   );
 
   const deleteProject = (id) =>{
@@ -138,21 +138,21 @@ export default function Profile() {
         hideLoader();
       })
   }
-  const projectCards = projects.map((project) =>
-  <div className="container grid-child projectCards">
+  const projectCards = projects.map((project,index) =>
+  <div className="container grid-child projectCards" key={index}>
       <p className='projectDescription'>
           {project.description}
       </p> 
       { project.areas.length?<span>Areas: </span>:''}
       {
          project.areas.map((skill,index) =>
-         <span>{skill.label}{index+1==project.areas.length?'':', '}</span>
+         <span key={index}>{skill.label}{index+1==project.areas.length?'':', '}</span>
          )
       }
       <div className='skillTagProfileArea'>
       {
-        project.skills.map((skill) =>
-        <span className="badge tag">{skill}</span>
+        project.skills.map((skill,index) =>
+        <span className="badge tag" key={index}>{skill}</span>
         )
       }
       </div>

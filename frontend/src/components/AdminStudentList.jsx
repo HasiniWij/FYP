@@ -40,8 +40,8 @@ export default function AdminStudentList() {
     });
   },[]);
   
-  const studentCards = students.map((student) =>
-    <div className='offset-1 col-3 supervisorCard'>
+  const studentCards = students.map((student,index) =>
+    <div className='offset-1 col-3 supervisorCard' key={index}>
       <h5>{student.name}</h5>
       <div className='row'>
         <div className="col-7">

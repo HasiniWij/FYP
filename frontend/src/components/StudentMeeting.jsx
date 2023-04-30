@@ -46,11 +46,11 @@ export default function StudentBookMeeting() {
     });
   }, []);
 
-  const meetingCard = meetings.map((meeting) => {
+  const meetingCard = meetings.map((meeting,index) => {
     const bookedMeeting = bookedMeetings.filter(e => e.seriesId === meeting.id);
     if (bookedMeeting.length) {
       return (
-        <div className='offset-1 col-5 studentCard text-center'>
+        <div key={index} className='offset-1 col-5 studentCard text-center'>
           <h6>{meeting.title}- {new Date(bookedMeeting[0].dateTime).toString()}</h6>
         </div>
       )
@@ -58,7 +58,7 @@ export default function StudentBookMeeting() {
     else {
       return (
         <button className='offset-1 col-5 studentCard text-center'
-          onClick={() => bookMeeting(meeting)}>
+          onClick={() => bookMeeting(meeting)} key={index}>
           <h6>{meeting.title}</h6>
         </button>
       )

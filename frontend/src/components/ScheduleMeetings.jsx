@@ -47,8 +47,8 @@ export default function ScheduleMeetings() {
       })
   },[]);
   
-  const meetingCard = meetings.map((meeting) =>
-    <button className='offset-1 col-5 studentCard text-center ' onClick={()=>meetingInformationPage(meeting.id)}>
+  const meetingCard = meetings.map((meeting,index) =>
+    <button key={index} className='offset-1 col-5 studentCard text-center ' onClick={()=>meetingInformationPage(meeting.id)}>
       <h6>{meeting.title}</h6>
     </button>
   );

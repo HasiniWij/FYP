@@ -40,9 +40,9 @@ export default function MeetingInformation() {
   },[]);
 
 
-  const dateCards = dates.map((date) =>{
+  const dateCards = dates.map((date,index) =>{
     return( 
-      <div className="badge dates">
+      <div className="badge dates" key={index}>
         <h6>{new Date(date.time).toString()}</h6>
         <h5>{date.studentName?date.studentName: ' - '}</h5>
       </div>

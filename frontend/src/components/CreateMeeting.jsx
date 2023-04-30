@@ -46,8 +46,8 @@ export default function CreateMeeting() {
     }
   }
  
-  const dateCards = dates.map((date) =>
-       <span className="badge dates">{date.toString()}</span>
+  const dateCards = dates.map((date,index) =>
+       <span className="badge dates" key={index}>{date.toString()}</span>
   );
   const createMeeting = ()=>{
     const token = localStorage.getItem('userToken');

@@ -18,8 +18,8 @@ export default function RequestSupervision() {
   }
 
   const supervisors = ['Jon Doe','Lavinia Handerson','Ben Ten'];
-  const options = supervisors.map((supervisor) =>
-    <option >{supervisor}</option>
+  const options = supervisors.map((supervisor,index) =>
+    <option key={index}>{supervisor}</option>
   );
 
   return (
@@ -43,7 +43,7 @@ export default function RequestSupervision() {
         </div>
         <div className='col-5'>
           <select className="form-select">
-            <option disabled selected>Select the name</option>
+            <option disabled defaultValue>Select the name</option>
             {options}
           </select>
         </div>

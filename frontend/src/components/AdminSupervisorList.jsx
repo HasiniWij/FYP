@@ -80,8 +80,8 @@ export default function AdminSupervisorList() {
     const filteredStudents = allSupervisors.filter(supervisor => supervisor.email.includes(searchWord));
     setSupervisors(filteredStudents);
   }
-  const supervisorCard = supervisors.map((supervisor) =>
-    <div className='offset-1 col-5 supervisorCard'>
+  const supervisorCard = supervisors.map((supervisor, index) =>
+    <div className='offset-1 col-5 supervisorCard' key={index}>
       <h5>{supervisor.name}</h5>
       <h5>{supervisor.email}</h5>
       <div className='row'>

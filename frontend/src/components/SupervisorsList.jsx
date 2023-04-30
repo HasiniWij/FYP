@@ -42,8 +42,8 @@ export default function SupervisorsList() {
       })
   }, []);
 
-  const supervisorCards = supervisors.map((supervisor) =>
-    <div key={supervisor.name} className='offset-1 col-5 supervisorCard'>
+  const supervisorCards = supervisors.map((supervisor,index) =>
+    <div key={index} className='offset-1 col-5 supervisorCard'>
       <h6>Name: {supervisor.name}</h6>
       <h6>Interested areas: {supervisor.interests} </h6>
       <button className='primaryButton projectIdeaButton' onClick={()=>projectIdeas(supervisor.id)}>Go to project ideas</button>
