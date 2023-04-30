@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import useLoader from "../hooks/useLoader";
 import './Style.css';
 import logo from '../resources/logo.png';
-import bin from '../resources/bin.png';
-import disable from '../resources/disable.png';
 import search from '../resources/search.png';
 import edit from '../resources/edit.png';
 import axios from 'axios';
@@ -15,7 +13,7 @@ export default function AdminSupervisorList() {
   const [newCapacity, setNewCapacity] = useState('');
   const [editSupervisorId, setEditSupervisorId] = useState('');
   const [authorized, setAuthorized] = useState(false);
-  const [searchWord,setSearchWord]=useState('');
+  const [searchWord, setSearchWord] = useState('');
   const [allSupervisors, setAllSupervisors] = useState([]);
   const history = useHistory();
   const [loader, showLoader, hideLoader] = useLoader();
@@ -26,7 +24,7 @@ export default function AdminSupervisorList() {
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const token = localStorage.getItem('userToken');
-    if(role=='admin' && isLoggedIn==='true') setAuthorized(true)
+    if (role == 'admin' && isLoggedIn === 'true') setAuthorized(true)
     showLoader();
     axios.get(`http://127.0.0.1:8000/api/supervisors`, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
@@ -73,10 +71,10 @@ export default function AdminSupervisorList() {
     (evt.key === 'e' || evt.key === '-' || evt.key === '.') && evt.preventDefault()
   }
 
-  const searchWordChange = event =>{
+  const searchWordChange = event => {
     setSearchWord(event.target.value.trim());
   }
-  const onSearch = () =>{
+  const onSearch = () => {
     const filteredStudents = allSupervisors.filter(supervisor => supervisor.email.includes(searchWord));
     setSupervisors(filteredStudents);
   }
@@ -96,7 +94,7 @@ export default function AdminSupervisorList() {
             </div>
             <div className='col-2'>
               <button className='primaryButton capacityInput'
-                onClick={() => saveCapacity(supervisor)} disabled={newCapacity===''}>Save</button>
+                onClick={() => saveCapacity(supervisor)} disabled={newCapacity === ''}>Save</button>
             </div>
             <div className='col-1 capacityInput'>
               <button className='secondaryButton' onClick={cancelEdit}>Cancel</button>

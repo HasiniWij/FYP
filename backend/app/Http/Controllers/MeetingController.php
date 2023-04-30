@@ -41,7 +41,7 @@ class MeetingController extends Controller
         $meetings = Meeting::where('meetingSeriesId', $meetingSeriesId)
             ->where('studentId', 0)->get();
         $series = MeetingSeries::where('id', $meetingSeriesId)->first();
-        
+
         return response()->json([
             'meetings' => $meetings,
             'title' => $series->title,
@@ -82,29 +82,31 @@ class MeetingController extends Controller
             "bookedMeeting" => $bookedMeeting
         ]);
     }
-    public function getMeetingInformation($seriesId){
+    public function getMeetingInformation($seriesId)
+    {
         $meetings = Meeting::where('meetingSeriesId', $seriesId)->get();
         $series = MeetingSeries::where('id', $seriesId)->first();
-        $timeslots=array();
-        foreach($meetings as $meeting){
-            if($meeting->studentId){
-                $student = User::where('id',$meeting->studentId)->first();
-                array_push($timeslots,array(
-                    'time'=>$meeting->dateTime,
-                    'studentName' =>$student->name
-                ));
+        $timeslots = array();
+        foreach ($meetings as $meeting) {
+            if ($meeting->studentId) {
+                $student = User::where('id', $meeting->studentId)->first();
+                array_push($timeslots, array(
+                    'time' => $meeting->dateTime,
+                    'studentName' => $student->name
+                )
+                );
 
-            }
-            else{
-                array_push($timeslots,array(
-                    'time'=>$meeting->dateTime
-                )); 
+            } else {
+                array_push($timeslots, array(
+                    'time' => $meeting->dateTime
+                )
+                );
             }
         }
         return response()->json([
             "timeslots" => $timeslots,
             "title" => $series->title,
-            'duration'=>$series->durationInMinutes
+            'duration' => $series->durationInMinutes
         ]);
     }
 }

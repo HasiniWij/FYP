@@ -18,14 +18,14 @@ export default function SupervisorsList() {
   const [supervisors, setSupervisors] = useState([]);
   const [authorized, setAuthorized] = useState(false);
 
-  const projectIdeas = (supervisorId) =>{
-    history.push("/proposedProjects/"+supervisorId)
+  const projectIdeas = (supervisorId) => {
+    history.push("/proposedProjects/" + supervisorId)
   }
 
   useEffect(() => {
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (role == 'student' &&  isLoggedIn==='true') setAuthorized(true);
+    if (role == 'student' && isLoggedIn === 'true') setAuthorized(true);
     showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/supervisors`, { headers: { "Authorization": `Bearer ${token}` } })
@@ -42,11 +42,11 @@ export default function SupervisorsList() {
       })
   }, []);
 
-  const supervisorCards = supervisors.map((supervisor,index) =>
+  const supervisorCards = supervisors.map((supervisor, index) =>
     <div key={index} className='offset-1 col-5 supervisorCard'>
       <h6>Name: {supervisor.name}</h6>
       <h6>Interested areas: {supervisor.interests} </h6>
-      <button className='primaryButton projectIdeaButton' onClick={()=>projectIdeas(supervisor.id)}>Go to project ideas</button>
+      <button className='primaryButton projectIdeaButton' onClick={() => projectIdeas(supervisor.id)}>Go to project ideas</button>
     </div>
   );
 
@@ -63,7 +63,7 @@ export default function SupervisorsList() {
             </div>
             <div className="col-2 profileIconArea">
               <button className='profileButton' onClick={profilePage}>
-              <img className='profileIcon' src={profile} />
+                <img className='profileIcon' src={profile} />
               </button>
             </div>
           </div>

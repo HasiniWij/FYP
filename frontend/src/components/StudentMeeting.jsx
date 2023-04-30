@@ -8,7 +8,7 @@ import axios from 'axios';
 
 export default function StudentBookMeeting() {
   const [authorized, setAuthorized] = useState(false);
-  const [loader, showLoader, hideLoader] = useLoader(); 
+  const [loader, showLoader, hideLoader] = useLoader();
   const [meetings, setMeetings] = useState([]);
   const [bookedMeetings, setBookedMeetings] = useState([]);
   const history = useHistory();
@@ -29,7 +29,7 @@ export default function StudentBookMeeting() {
     const userId = localStorage.getItem('userId');
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (role == 'student'  && isLoggedIn==='true') setAuthorized(true);
+    if (role == 'student' && isLoggedIn === 'true') setAuthorized(true);
     showLoader();
     axios.get(`http://127.0.0.1:8000/api/bookedMeetingSeries/` + userId, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
@@ -39,14 +39,14 @@ export default function StudentBookMeeting() {
       })
       .catch((error) => {
         hideLoader();
-        if(error.response.status == 401){
+        if (error.response.status == 401) {
           setAuthorized(false);
           localStorage.setItem('isLoggedIn', false);
         }
-    });
+      });
   }, []);
 
-  const meetingCard = meetings.map((meeting,index) => {
+  const meetingCard = meetings.map((meeting, index) => {
     const bookedMeeting = bookedMeetings.filter(e => e.seriesId === meeting.id);
     if (bookedMeeting.length) {
       return (
@@ -67,40 +67,40 @@ export default function StudentBookMeeting() {
 
   return (
     <div>
-    {authorized?
-    <div className="container">
-      <div className="row marginTop">
-        <div className="col-2">
-          <button className='logoButton' onClick={studentDashboard}> <img src={logo} alt='alt' />  </button>
-        </div>
-        <div className="d-flex justify-content-center title col-8">
-          <h1> Supervisor meetings</h1>
-        </div>
-        <div className="col-2 profileIconArea">
-          <button className='profileButton' onClick={profilePage}>
-          <img className='profileIcon' src={profile} />
-          </button>
-        </div>
-      </div>
-      <div className='row marginTop'>
-        {meetingCard}
-      </div>
-      {loader}
-      {
-            !bookedMeetings.length && !meetings.length &&<h2 className='noSupervisor'>No meetings scheduled yet !</h2>
+      {authorized ?
+        <div className="container">
+          <div className="row marginTop">
+            <div className="col-2">
+              <button className='logoButton' onClick={studentDashboard}> <img src={logo} alt='alt' />  </button>
+            </div>
+            <div className="d-flex justify-content-center title col-8">
+              <h1> Supervisor meetings</h1>
+            </div>
+            <div className="col-2 profileIconArea">
+              <button className='profileButton' onClick={profilePage}>
+                <img className='profileIcon' src={profile} />
+              </button>
+            </div>
+          </div>
+          <div className='row marginTop'>
+            {meetingCard}
+          </div>
+          {loader}
+          {
+            !bookedMeetings.length && !meetings.length && <h2 className='noSupervisor'>No meetings scheduled yet !</h2>
           }
-      <div className='row largeMarginTop'>
-        <div className='offset-5 col-2'>
-          <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
+          <div className='row largeMarginTop'>
+            <div className='offset-5 col-2'>
+              <button className='secondaryButton' onClick={studentDashboard}>Back to dashboard</button>
+            </div>
+          </div>
         </div>
-      </div>
+        :
+        <h1 className='unauthorized'>
+          401 authorization required
+        </h1>
+      }
     </div>
-    : 
-    <h1 className='unauthorized'>
-      401 authorization required
-    </h1>
-    }
-  </div>
-    
+
   );
 }

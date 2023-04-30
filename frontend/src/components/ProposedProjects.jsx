@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory,useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
 import './Style.css';
 import logo from '../resources/logo.png';
@@ -18,21 +18,21 @@ export default function ProposedProjects() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('role');
-    if(role=='student'  && isLoggedIn==='true') setAuthorized(true)
+    if (role == 'student' && isLoggedIn === 'true') setAuthorized(true)
     showLoader();
-    axios.get((`http://127.0.0.1:8000/api/projects/`+(id? id : '')),
+    axios.get((`http://127.0.0.1:8000/api/projects/` + (id ? id : '')),
       { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         hideLoader();
         setProjects(res.data.projects);
       })
       .catch((error) => {
-        if(error.response.status == 401){
+        if (error.response.status == 401) {
           hideLoader();
           setAuthorized(false);
           localStorage.setItem('isLoggedIn', false);
         }
-    });
+      });
   }, []);
 
   const studentDashboard = () => {
@@ -42,15 +42,15 @@ export default function ProposedProjects() {
     history.push("/profile")
   }
 
-  const projectCards = projects.map((project,index) =>
+  const projectCards = projects.map((project, index) =>
     <div className=" projectCards" key={index}>
       <p className='projectDescription'>
         {project.description}
       </p>
-      {project.areas.length ?<span>Areas: {project.areas}</span>:''}
+      {project.areas.length ? <span>Areas: {project.areas}</span> : ''}
       <div className='skillTagProfileArea'>
         {
-          project.skills.map((skill,skillIndex) =>
+          project.skills.map((skill, skillIndex) =>
             <span className="badge tag" key={skillIndex}>{skill}</span>
           )
         }

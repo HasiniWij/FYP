@@ -46,32 +46,29 @@ export default function SignUp() {
         setEmail('');
         setPassword('');
         setFullName('');
-        let message =''
-        if(error.response.data.errors['email']){
+        let message = ''
+        if (error.response.data.errors['email']) {
           let index = 0;
           const elements = error.response.data.errors['email'];
-          while (index <elements .length) 
-          {
-              message = message + ' ' +elements[index]
-              index++;
+          while (index < elements.length) {
+            message = message + ' ' + elements[index]
+            index++;
           }
         }
-        if(error.response.data.errors['name']){
+        if (error.response.data.errors['name']) {
           let index = 0;
           const elements = error.response.data.errors['name'];
-          while (index <elements .length) 
-          {
-              message = message + ' ' +elements[index]
-              index++;
+          while (index < elements.length) {
+            message = message + ' ' + elements[index]
+            index++;
           }
         }
-        if(error.response.data.errors['password']){
+        if (error.response.data.errors['password']) {
           let index = 0;
           const elements = error.response.data.errors['password'];
-          while (index <elements .length) 
-          {
-              message = message + ' ' +elements[index]
-              index++;
+          while (index < elements.length) {
+            message = message + ' ' + elements[index]
+            index++;
           }
         }
         setError(message);

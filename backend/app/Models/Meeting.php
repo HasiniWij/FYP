@@ -12,5 +12,5 @@ class Meeting extends Model
         'meetingSeriesId',
         'studentId',
         'dateTime'
-    ]; 
+    ];
 }

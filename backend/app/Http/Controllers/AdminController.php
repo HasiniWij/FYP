@@ -191,11 +191,12 @@ class AdminController extends Controller
             return $a['score'] < $b['score'];
         });
 
-        $this->assignStudentsWithInterests($scores,$supervisors);
+        $this->assignStudentsWithInterests($scores, $supervisors);
         $this->updateNumberOfStudents($supervisors);
 
     }
-    private function assignStudentsWithInterests($scores,$supervisors){
+    private function assignStudentsWithInterests($scores, $supervisors)
+    {
         $matchedStudents = array();
         $fullSupervisors = array();
         foreach ($scores as $score) {

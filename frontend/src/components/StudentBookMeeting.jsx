@@ -26,7 +26,7 @@ export default function StudentBookMeeting() {
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (role == 'student'  && isLoggedIn==='true') setAuthorized(true);
+    if (role == 'student' && isLoggedIn === 'true') setAuthorized(true);
     axios.get(`http://127.0.0.1:8000/api/meetings/` + meetingId, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         setTitle(res.data.title);
@@ -62,7 +62,7 @@ export default function StudentBookMeeting() {
     axios.post(`http://127.0.0.1:8000/api/bookMeeting`, {
       'meetingId': selectedMeeting[0].id,
       'userId': userId
-    },{ headers: { "Authorization": `Bearer ${token}` } })
+    }, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         studentDashboard();
       })
@@ -103,7 +103,7 @@ export default function StudentBookMeeting() {
           </div>
           <div className='row marginBottom'>
             <div className='offset-5 col-1'>
-              <button className='primaryButton' disabled={selectedTime==''} onClick={bookMeeting}>Book</button>
+              <button className='primaryButton' disabled={selectedTime == ''} onClick={bookMeeting}>Book</button>
             </div>
             <div className='col-1'>
               <button className='secondaryButton' onClick={studentDashboard}>Cancel</button>

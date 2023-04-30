@@ -13,127 +13,139 @@ class UserProjectController extends Controller
 {
    public function __construct()
    {
-       $this->middleware('auth.role:student,supervisor');
+      $this->middleware('auth.role:student,supervisor');
    }
-    public function getAreas() {
-        $result = Area::all();
-        $areas=array();
+   public function getAreas()
+   {
+      $result = Area::all();
+      $areas = array();
 
-        foreach ($result as $area) {
-           array_push($areas,
-              array(
-                 "label"=>$area->area,
-                 "value"=>$area->id
-              )
-           );
-       }
-       return response()->json([
+      foreach ($result as $area) {
+         array_push(
+            $areas,
+            array(
+               "label" => $area->area,
+               "value" => $area->id
+            )
+         );
+      }
+      return response()->json([
          'areas' => $areas
       ]);
-     }
-   public function saveProject(Request $request) {
+   }
+   public function saveProject(Request $request)
+   {
 
       $request->validate([
          'description' => 'required',
-     ]);
-        
-     $data = $request->all();
-     
-      $project =  Project::create([
+      ]);
+
+      $data = $request->all();
+
+      $project = Project::create([
          'description' => $data['description'],
          'userId' => $data['userId']
       ]);
 
-      if($data['skills']){
+      if ($data['skills']) {
          foreach ($data['skills'] as $skill) {
             Skill::create([
                'skill' => $skill,
                'projectId' => $project['id']
             ]);
-        }
+         }
       }
 
-      if($data['areas']){
+      if ($data['areas']) {
          foreach ($data['areas'] as $area) {
             ProjectArea::create([
                'areaId' => $area['value'],
                'projectId' => $project['id']
             ]);
-        }
+         }
       }
 
       return response()->json([
          'status' => 'success',
-         'projectId'=>$project['id']
-      ]); 
+         'projectId' => $project['id']
+      ]);
    }
-   public function getUserProjects(string $id) {
-      
+   public function getUserProjects(string $id)
+   {
+
       $result = Project::where('userId', $id)->get();
-      $projects=array();
- 
+      $projects = array();
+
       foreach ($result as $project) {
          $areaResult = ProjectArea::join('areas', 'areas.id', '=', 'project_areas.areaId')
-         ->where('projectId', $project['id'])->get();
+            ->where('projectId', $project['id'])->get();
          $skillResult = Skill::where('projectId', $project['id'])->get();
-         $areas=[];
-         $skills=[];
-         foreach ($areaResult as $area) {        
-            array_push($areas,
-            array(
-               'label'=>$area['area']
-            ));
+         $areas = [];
+         $skills = [];
+         foreach ($areaResult as $area) {
+            array_push(
+               $areas,
+               array(
+                  'label' => $area['area']
+               )
+            );
          }
          foreach ($skillResult as $skill) {
-            array_push($skills,
+            array_push(
+               $skills,
                $skill['skill']
             );
          }
-         array_push($projects,
+         array_push(
+            $projects,
             array(
-               'id'=>$project['id'],
-               'description'=>$project['description'],
-               'areas'=>$areas,
-               'skills'=>$skills
+               'id' => $project['id'],
+               'description' => $project['description'],
+               'areas' => $areas,
+               'skills' => $skills
             )
          );
-     }
-     return response()->json([
-      'projects' => $projects
-   ]);
+      }
+      return response()->json([
+         'projects' => $projects
+      ]);
    }
-   public function getUserAreas(string $id) {
-          
+   public function getUserAreas(string $id)
+   {
+
       $userAreaIds = UserArea::where('userId', $id)->get();
-      $userAreas=array();
+      $userAreas = array();
       foreach ($userAreaIds as $id) {
          $area = Area::where('id', $id['areaId'])->first();
-         array_push($userAreas,
+         array_push(
+            $userAreas,
             array(
-               "label"=>$area->area,
-               "value"=>$area->id
+               "label" => $area->area,
+               "value" => $area->id
             )
          );
-     }
-     return response()->json([
-      'userAreas' => $userAreas
-   ]);
-     }
-     public function deleteProject($projectId) {
+      }
+      return response()->json([
+         'userAreas' => $userAreas
+      ]);
+   }
+   public function deleteProject($projectId)
+   {
       ProjectArea::where('projectId', $projectId)->delete();
       Skill::where('projectId', $projectId)->delete();
       Project::destroy($projectId);
 
       return response()->json([
          'status' => 'success'
-      ]); 
+      ]);
    }
 
-     public function saveUserAreas(Request $request) {
-      
+   public function saveUserAreas(Request $request)
+   {
+
       $data = $request->all();
 
-      if($data['newInterests']){
+      if ($data['newInterests']) {
          foreach ($data['newInterests'] as $area) {
             UserArea::create([
                'userId' => $data['userId'],
@@ -142,9 +154,9 @@ class UserProjectController extends Controller
          }
       }
 
-      if($data['removedInterests']){ 
+      if ($data['removedInterests']) {
          foreach ($data['removedInterests'] as $area) {
-            $query =  UserArea::where('areaId', $area['value']);
+            $query = UserArea::where('areaId', $area['value']);
             $query = $query->where('userId', $data['userId']);
             $query->delete();
          }
@@ -154,43 +166,45 @@ class UserProjectController extends Controller
          'status' => 'success'
       ]);
    }
-   public function getProjects($supervisorId=null) {
-      if($supervisorId){
+   public function getProjects($supervisorId = null)
+   {
+      if ($supervisorId) {
          $result = Project::select('projects.*')
-         ->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')
-         ->where('supervisorId',$supervisorId)->get();
-      
+            ->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')
+            ->where('supervisorId', $supervisorId)->get();
+
+      } else {
+         $result = Project::select('projects.*')->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')->get();
       }
-      else{
-         $result = Project::select('projects.*')->join('supervisors', 'supervisors.supervisorId', '=', 'projects.userId')->get();   
-      }
-     $projects=array();
- 
+      $projects = array();
+
       foreach ($result as $project) {
          $areaResult = ProjectArea::where('projectId', $project['id'])->get();
          $skillResult = Skill::where('projectId', $project['id'])->get();
-         $areas='';
-         $skills=[];
+         $areas = '';
+         $skills = [];
          foreach ($areaResult as $interest) {
             $interests = Area::where('id', $interest->areaId)->first();
-            $areas = $areas.$interests->area.',';
-        }
-        $areas = rtrim($areas, ",");
+            $areas = $areas . $interests->area . ',';
+         }
+         $areas = rtrim($areas, ",");
          foreach ($skillResult as $skill) {
-            array_push($skills,
+            array_push(
+               $skills,
                $skill['skill']
             );
          }
-         array_push($projects,
+         array_push(
+            $projects,
             array(
-               'description'=>$project['description'],
-               'areas'=>$areas,
-               'skills'=>$skills
+               'description' => $project['description'],
+               'areas' => $areas,
+               'skills' => $skills
             )
          );
-     }
-     return response()->json([
-      'projects' => $projects
-   ]);
+      }
+      return response()->json([
+         'projects' => $projects
+      ]);
    }
 }

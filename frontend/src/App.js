@@ -34,20 +34,20 @@ const App = () => {
       <Route path="/signIn" component={SignIn} />
       <Route path="/signUp" component={SignUp} />
       <Route path="/supervisorsList" component={SupervisorsList} />
-      <Route path="/profile" component={Profile} /> 
-      <Route path="/proposedProjects/:id?" component={ProposedProjects} /> 
+      <Route path="/profile" component={Profile} />
+      <Route path="/proposedProjects/:id?" component={ProposedProjects} />
       <Route path="/supervisorDashboard" exact component={SupervisorDashboard} />
       <Route path="/studentsList" exact component={StudentsList} />
-      <Route path="/supervisionRequests" exact component={SupervisionRequests} />   
-      <Route path="/scheduleMeetings" exact component={ScheduleMeetings} />   
-      <Route path="/adminDashboard" exact component={AdminDashboard} /> 
-      <Route path="/adminStudentList" exact component={AdminStudentList} /> 
-      <Route path="/adminSupervisorList" exact component={AdminSupervisorList} /> 
-      <Route path="/matchSupervisorsStudents" exact component={MatchSupervisorsStudents} /> 
-      <Route path="/createMeeting" exact component={CreateMeeting} />       
-      <Route path="/logs/:name?" component={Logs} />      
-      <Route path="/studentMeeting" component={StudentMeeting} /> 
-      <Route path="/meetingInformation/:meetingId" component={MeetingInformation} />       
+      <Route path="/supervisionRequests" exact component={SupervisionRequests} />
+      <Route path="/scheduleMeetings" exact component={ScheduleMeetings} />
+      <Route path="/adminDashboard" exact component={AdminDashboard} />
+      <Route path="/adminStudentList" exact component={AdminStudentList} />
+      <Route path="/adminSupervisorList" exact component={AdminSupervisorList} />
+      <Route path="/matchSupervisorsStudents" exact component={MatchSupervisorsStudents} />
+      <Route path="/createMeeting" exact component={CreateMeeting} />
+      <Route path="/logs/:name?" component={Logs} />
+      <Route path="/studentMeeting" component={StudentMeeting} />
+      <Route path="/meetingInformation/:meetingId" component={MeetingInformation} />
     </Router>
   )
 }
