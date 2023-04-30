@@ -26,7 +26,7 @@ export default function StudentBookMeeting() {
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (role == 'student' && isLoggedIn) setAuthorized(true);
+    if (role == 'student'  && isLoggedIn==='true') setAuthorized(true);
     axios.get(`http://127.0.0.1:8000/api/meetings/` + meetingId, { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
         setTitle(res.data.title);

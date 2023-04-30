@@ -27,7 +27,7 @@ export default function MeetingInformation() {
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if(role=='supervisor' && isLoggedIn) setAuthorized(true)
+    if(role=='supervisor' && isLoggedIn==='true') setAuthorized(true)
     showLoader();
     console.log(meetingId)
     axios.get(`http://127.0.0.1:8000/api/meetingInformation/`+meetingId,{ headers: {"Authorization" : `Bearer ${token}`}})

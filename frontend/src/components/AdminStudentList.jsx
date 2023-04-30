@@ -24,7 +24,7 @@ export default function AdminStudentList() {
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const token = localStorage.getItem('userToken');
-    if(role=='admin' && isLoggedIn) setAuthorized(true)
+    if(role=='admin' && isLoggedIn==='true') setAuthorized(true)
     showLoader();    
     axios.get(`http://127.0.0.1:8000/api/students`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {

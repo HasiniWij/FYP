@@ -39,7 +39,7 @@ export default function Profile() {
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     showLoader();
-    if((role=='student'|| role=='supervisor' ) && isLoggedIn ) setAuthorized(true);
+    if((role=='student'|| role=='supervisor' )  && isLoggedIn==='true' ) setAuthorized(true);
 
     axios.get(`http://127.0.0.1:8000/api/areas`,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {

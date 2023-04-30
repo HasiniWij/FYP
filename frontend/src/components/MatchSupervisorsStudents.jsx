@@ -36,7 +36,7 @@ export default function MatchSupervisorsStudents() {
   useEffect(() => { 
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if(role=='admin' && isLoggedIn) setAuthorized(true)
+    if(role=='admin' && isLoggedIn==='true') setAuthorized(true)
     showLoader();
     const token = localStorage.getItem('userToken');
     axios.get(`http://127.0.0.1:8000/api/adminStatistics`,{ headers: {"Authorization" : `Bearer ${token}`}})

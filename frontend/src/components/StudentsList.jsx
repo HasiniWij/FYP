@@ -19,7 +19,7 @@ export default function StudentsList() {
     const role = localStorage.getItem('role');
     const userId = localStorage.getItem('userId');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (role == 'supervisor' && isLoggedIn) setAuthorized(true);
+    if (role == 'supervisor'  && isLoggedIn==='true') setAuthorized(true);
     showLoader();
     axios.get(`http://127.0.0.1:8000/api/supervisorStudents/`+userId,{ headers: {"Authorization" : `Bearer ${token}`}})
       .then(res => {

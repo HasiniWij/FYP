@@ -15,7 +15,7 @@ export default function SupervisorDashboard() {
   useEffect(() => { 
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const role = localStorage.getItem('role');
-    if (role == 'supervisor' && isLoggedIn) setAuthorized(true);
+    if (role == 'supervisor' && isLoggedIn==='true') setAuthorized(true);
   },[]);
 
   const profilePage = () => {

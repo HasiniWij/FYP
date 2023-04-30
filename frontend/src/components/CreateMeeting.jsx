@@ -25,7 +25,7 @@ export default function CreateMeeting() {
   useEffect(() => {
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if(role=='supervisor' && isLoggedIn) setAuthorized(true)
+    if(role=='supervisor' && isLoggedIn==='true') setAuthorized(true)
   },[]);
 
   const addDates = () => {

@@ -15,7 +15,7 @@ export default function StudentDashboard() {
   useEffect(() => {
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (role == 'student' && isLoggedIn) setAuthorized(true)
+    if (role == 'student'  && isLoggedIn==='true') setAuthorized(true)
   }, []);
 
   const bookMeetingPage = () => {

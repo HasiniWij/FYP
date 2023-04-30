@@ -18,7 +18,7 @@ export default function ProposedProjects() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('role');
-    if(role=='student' && isLoggedIn) setAuthorized(true)
+    if(role=='student'  && isLoggedIn==='true') setAuthorized(true)
     showLoader();
     axios.get((`http://127.0.0.1:8000/api/projects/`+(id? id : '')),
       { headers: { "Authorization": `Bearer ${token}` } })
