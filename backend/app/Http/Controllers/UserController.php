@@ -6,10 +6,7 @@ use App\Models\Area;
 use App\Models\Project;
 use App\Models\ProjectArea;
 use App\Models\Skill;
-use App\Models\Student;
 use App\Models\UserArea;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -76,14 +73,15 @@ class UserController extends Controller
       $projects=array();
  
       foreach ($result as $project) {
-         $areaResult = ProjectArea::where('projectId', $project['id'])->get();
+         $areaResult = ProjectArea::join('areas', 'areas.id', '=', 'project_areas.areaId')
+         ->where('projectId', $project['id'])->get();
          $skillResult = Skill::where('projectId', $project['id'])->get();
          $areas=[];
          $skills=[];
-         foreach ($areaResult as $area) {
+         foreach ($areaResult as $area) {        
             array_push($areas,
             array(
-               'value'=>$area['areaId']
+               'label'=>$area['area']
             ));
          }
          foreach ($skillResult as $skill) {

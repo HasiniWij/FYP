@@ -140,8 +140,8 @@ export default function Profile() {
       </p> 
       { project.areas.length?<span>Areas: </span>:''}
       {
-         project.areas.map((skill) =>
-         <span class="">{skill.label},</span>
+         project.areas.map((skill,index) =>
+         <span>{skill.label}{index+1==project.areas.length?'':', '}</span>
          )
       }
       <div class='skillTagProfileArea'>

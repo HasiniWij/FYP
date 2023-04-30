@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Student;
 use App\Models\Supervisor;
 use App\Models\UserArea;
 use Illuminate\Foundation\Auth\User;
