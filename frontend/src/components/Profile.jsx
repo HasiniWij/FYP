@@ -102,7 +102,12 @@ export default function Profile() {
       setProjectAreas([]);
     })
   };
-      
+  const projectPlaceholder = (selected, _options) => {
+    return !selected.length &&  "Add the technical areas the project is falling under";
+  };
+  const userInterestPlaceholder = (selected, _options) => {
+    return !selected.length &&  "Add areas wanted to work on"
+  }
   const saveInterest = ()=>{
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('userToken');
@@ -186,6 +191,7 @@ export default function Profile() {
           value={userInterests}
           onChange={setUserInterests}
           labelledBy="Select"
+          valueRenderer ={userInterestPlaceholder}
           />
         </div>  
         <div class='col-2'>
@@ -207,6 +213,7 @@ export default function Profile() {
             value={projectAreas}
             onChange={setProjectAreas}
             labelledBy="Select"
+            valueRenderer ={projectPlaceholder}
             />
         </div>  
         <div class='row profileRow'>

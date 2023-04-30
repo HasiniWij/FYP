@@ -6,10 +6,7 @@ import logo from '../resources/logo.png';
 import useLoader from "../hooks/useLoader";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import bin from '../resources/bin.png'; 
-import disable from '../resources/disable.png';  
-import search from '../resources/search.png'; 
-import edit from '../resources/edit.png'; 
+import LoadingOverlay from 'react-loading-overlay';
 
 export default function MatchSupervisorsStudents() {
 
@@ -18,7 +15,8 @@ export default function MatchSupervisorsStudents() {
   const [studentCount, setStudentCount] = useState([]);
   const [totalCapacity, setTotalCapacity] = useState([]);
   const [authorized,setAuthorized]=useState(false)
-  
+  const [isMatching,setIsMatching]=useState(false)
+
   const notify = () => toast.success('Successfully assigned supervisors to students', {
     position: "top-center",
     theme: "colored",
@@ -55,18 +53,23 @@ export default function MatchSupervisorsStudents() {
   },[]);
 
   const match = () =>{
-    showLoader();
     const token = localStorage.getItem('userToken');
+    setIsMatching(true);
     axios.get(`http://127.0.0.1:8000/api/match`,{ headers: {"Authorization" : `Bearer ${token}`}})
     .then(res => {
-      hideLoader();
+      setIsMatching(isMatching);
       notify();
     }) 
   }
   return (
     <div>
     {authorized?
-    <div class="container">
+            <LoadingOverlay
+            active={isMatching}
+            spinner
+            text='Trying to find the best matches so it might take some  time ...'
+            >
+    <div class="container matchContainer">
       <div class="row marginTop">
         <div class="col-2">
         <button class='logoButton' onClick={adminDashboard}> <img src={logo}/>  </button>
@@ -106,6 +109,7 @@ export default function MatchSupervisorsStudents() {
       draggable
       theme="colored" />
     </div>
+    </LoadingOverlay>
     : 
     <h1 className='unauthorized'>
       401 authorization required

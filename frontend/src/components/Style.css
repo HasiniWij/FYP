@@ -271,3 +271,10 @@
   right:0;
   margin: 20px;
 }
+.meetingMessage{
+  font-style: italic;
+  text-align: center;
+}
+.marginLeft{
+  margin-left:  10px;
+}
